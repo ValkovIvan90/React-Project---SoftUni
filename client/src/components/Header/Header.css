@@ -1,0 +1,28 @@
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav {
+    display: flex;
+  }
+  li {
+    list-style: none;
+    margin: 20px 10px;
+    font-weight: bold;
+  }
+  li a {
+    text-decoration: none;
+    color: teal;
+  }
+  .logo i {
+    font-size: 50px;
+    margin-left: 10px;
+    color: teal;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+  }

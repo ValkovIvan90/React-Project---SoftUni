@@ -1,40 +1,16 @@
 
 import './App.css';
+import HomePage from './components/home/HomePage';
+import Header from './components/Header/Header';
+
 
 function App() {
   return (
     <div>
-
-
+      <Header />
       <section className="container">
-        <header>
-          <article className="logo">
-            <i className="fas fa-handshake"></i>
-            <li><a href="#">Welcome User</a></li>
-            <li><a href="#">Create</a></li>
-            <li><a href="#">All Articles</a></li>
-          </article>
-          <nav>
-            <ul className="nav">
-              <li><a href="#">Catalog</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Register</a></li>
-              <li><a href="#">Logout</a></li>
-            </ul>
-          </nav>
-        </header>
         <main>
-          <section className="homePage">
-            <article className="homePage-img">
-              <img src="https://doinalangille.com/img/online-shopper/homepage.jpg" alt="" />
-            </article>
-            <article className="home-message">
-              <div className="home-text-box">
-                <h1 className="home-message-title">I want to have ... everything</h1>
-                <p className="home-message-untertitle">The best free trade page !</p>
-              </div>
-            </article>
-          </section>
+          <HomePage />
 
           <section className="catalog">
             <article className="cards">
@@ -498,75 +474,75 @@ function App() {
             <a href="#" className="button del">Delete</a>
             <a href="#" className="button like">Like</a>
           </article>
-      </section>
-      <section className="create-article">
-        <div className="create-article-box">
-          <div className="create-art-text">
-            <h1 className="art-title">Create Article</h1>
-            <p className="create-art-untertitle">Please fill in this form to create an article.</p>
-          </div>
-          <form>
-            <label htmlFor="category">Choose a category:</label>
-            <select name="category" id="category">
-              <option value=""></option>
-              <option value="cars">Cars</option>
-              <option value="animals">Animals</option>
-              <option value="clothing">Clothing</option>
-            </select>
+        </section>
+        <section className="create-article">
+          <div className="create-article-box">
+            <div className="create-art-text">
+              <h1 className="art-title">Create Article</h1>
+              <p className="create-art-untertitle">Please fill in this form to create an article.</p>
+            </div>
+            <form>
+              <label htmlFor="category">Choose a category:</label>
+              <select name="category" id="category">
+                <option value=""></option>
+                <option value="cars">Cars</option>
+                <option value="animals">Animals</option>
+                <option value="clothing">Clothing</option>
+              </select>
 
-            <label htmlFor="city">City</label>
-            <input type="text" name="city"/>
+              <label htmlFor="city">City</label>
+              <input type="text" name="city" />
 
               <label htmlFor="image">Image</label>
-              <input type="text" name="image"/>
+              <input type="text" name="image" />
 
-                <label htmlFor="price">Price</label>
-                <input type="number" name="price"/>
+              <label htmlFor="price">Price</label>
+              <input type="number" name="price" />
 
-                  <label htmlFor="description">Description</label>
-                  <textarea name="" id="" cols="30" rows="10" placeholder="Description..."></textarea>
+              <label htmlFor="description">Description</label>
+              <textarea name="" id="" cols="30" rows="10" placeholder="Description..."></textarea>
 
-                  <input type="submit" className="createArtBtn" value="Create Article"/>
+              <input type="submit" className="createArtBtn" value="Create Article" />
             </form>
-        </div>
-      </section>
-              <section className="edit-article">
-                <div className="edit-article-box">
-                  <div className="edit-art-text">
-                    <h1 className="art-title">Edit Article</h1>
-                  </div>
-                  <form>
-                    <label htmlFor="category">Choose a category:</label>
-                    <select name="category" id="category">
-                      <option value=""></option>
-                      <option value="cars">Cars</option>
-                      <option value="animals">Animals</option>
-                      <option value="clothing">Clothing</option>
-                    </select>
+          </div>
+        </section>
+        <section className="edit-article">
+          <div className="edit-article-box">
+            <div className="edit-art-text">
+              <h1 className="art-title">Edit Article</h1>
+            </div>
+            <form>
+              <label htmlFor="category">Choose a category:</label>
+              <select name="category" id="category">
+                <option value=""></option>
+                <option value="cars">Cars</option>
+                <option value="animals">Animals</option>
+                <option value="clothing">Clothing</option>
+              </select>
 
-                    <label htmlFor="city">City</label>
-                    <input type="text" name="city"/>
+              <label htmlFor="city">City</label>
+              <input type="text" name="city" />
 
-                      <label htmlFor="image">Image</label>
-                      <input type="text" name="image"/>
+              <label htmlFor="image">Image</label>
+              <input type="text" name="image" />
 
-                        <label htmlFor="price">Price</label>
-                        <input type="number" name="price"/>
+              <label htmlFor="price">Price</label>
+              <input type="number" name="price" />
 
-                          <label htmlFor="description">Description</label>
-                          <textarea name="" id="" cols="30" rows="10" placeholder="Description..."></textarea>
+              <label htmlFor="description">Description</label>
+              <textarea name="" id="" cols="30" rows="10" placeholder="Description..."></textarea>
 
-                          <input type="submit" className="createArtBtn" value="Edit Article"/>
+              <input type="submit" className="createArtBtn" value="Edit Article" />
             </form>
-        </div>
+          </div>
+        </section>
+        <section>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet quos illum nulla deserunt sequi, at nesciunt, saepe harum libero quisquam neque sint suscipit quam quae officia eaque maxime obcaecati eius!</p>
+        </section>
       </section>
-                      <section>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet quos illum nulla deserunt sequi, at nesciunt, saepe harum libero quisquam neque sint suscipit quam quae officia eaque maxime obcaecati eius!</p>
-                      </section>
-    </section>
     </div>
 
-                  );
+  );
 }
 
-                  export default App;
+export default App;
