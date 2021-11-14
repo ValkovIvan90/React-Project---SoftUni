@@ -22,9 +22,6 @@ function App() {
                 <Details />
                 <Create />
                 <Edit />
-                <section>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eveniet quos illum nulla deserunt sequi, at nesciunt, saepe harum libero quisquam neque sint suscipit quam quae officia eaque maxime obcaecati eius!</p>
-                </section>
             </section>
         </>
 
