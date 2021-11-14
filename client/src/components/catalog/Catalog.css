@@ -1,1 +1,44 @@
 
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card {
+    max-width: 150px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: #d3ecee;
+    padding: 10px 10px;
+    color: #f26c3f;
+  }
+  
+  .card img {
+    width: 100%;
+    padding: 10px;
+    border-radius: 100px;
+  }
+  
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-info {
+    width: 50%;
+    font-weight: bold;
+  }
+  .details-btn {
+    width: 100%;
+    text-decoration: none;
+    color: #00b6a1;
+    font-weight: bold;
+  }

@@ -3,76 +3,21 @@ import './App.css';
 import HomePage from './components/home/HomePage';
 import Header from './components/header/Header';
 import Catalog from './components/catalog/Catalog';
+import Login from './components/auth/login/Login';
+import Register from './components/auth/register/Register';
 
 function App() {
   return (
     <>
       <Header />
       <section className="container">
-          <HomePage />
-          <Catalog />
-          
-        <section className="login">
-          <div className="login-box">
-            <h1>Login</h1>
-            <p className="login-untertitle">Please enter your email and password.</p>
-            <form className="login-form" action="#" method="post">
-              <label htmlFor="email">Email</label>
-              <input placeholder="Enter Email" name="email" type="email" />
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-              />
-              <input type="submit" className="loginBtn" value="Login" />
-            </form>
-            <div className="signup">
-              <p>Dont have an account? <a href="/register">Sign up</a>.</p>
-            </div>
-          </div>
-        </section>
-        <section className="register">
-          <div className="register-box">
-            <h1>Register</h1>
-            <p className="register-untertitle">Please fill in this form to create an account.</p>
-            <form className="register-form">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                placeholder="Enter Username"
-                name="username"
-                required
-              />
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                placeholder="Enter Email"
-                name="email"
-                required
-              />
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                required
-              />
+        <HomePage />
+        <Catalog />
+        <Login />
+        <Register />
 
-              <label htmlFor="repeatPassword">Confirm your password</label>
-              <input
-                type="password"
-                placeholder="Repeat Password"
-                name="repeatPass"
-                required
-              />
-              <input type="submit" className="registerbtn" value="Register" />
-            </form>
-            <div className="signin">
-              <p>Already have an account? <a href="/login">Sign in</a>.</p>
-            </div>
-          </div>
-        </section>
+
+        
 
         <section className="details">
           <h1 className="details-title">Details</h1>
