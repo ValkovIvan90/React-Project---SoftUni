@@ -15,12 +15,12 @@ header {
   }
   li a {
     text-decoration: none;
-    color: teal;
+    color: #3f82ec;
   }
   .logo i {
     font-size: 50px;
     margin-left: 10px;
-    color: teal;
+    color: #3f82ec;
   }
   .logo {
     display: flex;

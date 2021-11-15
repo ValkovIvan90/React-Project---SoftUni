@@ -19,6 +19,8 @@ export default function Header(
                 <i className="fas fa-handshake"></i>
                 <li><a href="#">Welcome User</a></li>
                 <li><a href="/create">Create</a></li>
+                <li><a href="/edit">Edit</a></li>
+                <li><a href="/details">Details</a></li>
                 <li><a href="/allArticles">All Articles</a></li>
                 <li><a href="/home">Home</a></li>
             </article>

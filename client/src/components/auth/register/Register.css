@@ -1,7 +1,7 @@
 .register-box {
-  width: 50%;
+  max-width: 60%;
   margin: 30px auto;
-  background-color: #8fcdd1;
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
   border-radius: 20px;
   padding: 20px;
   font-weight: bold;
@@ -31,8 +31,7 @@
 }
 .register-form label {
   padding: 10px 10px;
-  color: black;
-  font-weight: bold;
+  color: teal;
 }
 .register-form input {
   width: 300px;

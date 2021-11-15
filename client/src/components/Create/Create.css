@@ -1,5 +1,6 @@
 .create-article {
-  margin: 100px;
+  max-width: 60%;
+  margin: 30px auto;
   background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
   border-radius: 20px;
   padding: 20px;
