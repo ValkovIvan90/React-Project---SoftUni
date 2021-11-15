@@ -1,6 +1,7 @@
 .login-box {
-  margin: 100px;
-  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  width: 50%;
+  margin: 50px auto;
+  background-color: #8fcdd1;
   border-radius: 20px;
   padding: 20px;
 }
@@ -27,7 +28,8 @@
 }
 .login-form label {
   padding: 10px 10px;
-  color: teal;
+  color: black;
+  font-weight: bold;
 }
 .login-form input {
   width: 300px;

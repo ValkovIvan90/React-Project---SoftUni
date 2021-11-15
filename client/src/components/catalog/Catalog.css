@@ -15,7 +15,7 @@
     text-align: center;
     border-radius: 10px;
     margin: 10px;
-    background-color: #d3ecee;
+    background-color: #8fcdd1;
     padding: 10px 10px;
     color: #f26c3f;
   }
@@ -39,6 +39,9 @@
   .details-btn {
     width: 100%;
     text-decoration: none;
-    color: #00b6a1;
+    color: rgb(78, 48, 99);
     font-weight: bold;
   }
+.details-btn:hover{
+  font-size: larger;
+}
