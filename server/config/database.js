@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const config = require('./config');
 
 
 module.exports = (app) => {
     return new Promise((resolve, reject) => {
-        mongoose.connect('mongodb://localhost:27017/Estate-Agency', {
+        mongoose.connect(config.DB_CONNECTION, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
