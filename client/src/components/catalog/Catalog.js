@@ -12,9 +12,11 @@ export default function Catalog() {
         return fetch('http://localhost:5000/products')
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 setArticle(result);
+            }).catch((err) => {
+                console.log(err.message);
             })
+
     }, [])
     return (
         <section className="catalog">

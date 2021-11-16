@@ -6,7 +6,7 @@ const serviceProduct = require('../services/product');
 const { isOwner, isAuth } = require('../middlewares/guards');
 const { preloadEst } = require('../middlewares/preload');
 const { parseMongooseError } = require('../util/parse');
-const { route } = require('./authController');
+// const { route } = require('./authController');
 
 
 
