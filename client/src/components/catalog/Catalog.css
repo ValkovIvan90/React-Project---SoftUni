@@ -44,3 +44,13 @@
 .details-btn:hover {
   font-size: larger;
 }
+.catalog-title {
+  flex-basis: 100%;
+  font-size: 2em;
+  font-weight: bolder;
+  text-align: center;
+  border-bottom: 2px solid #3f82ec;
+  color: #3f82ec;
+  padding-bottom: 20px;
+  margin: 10px auto;
+}

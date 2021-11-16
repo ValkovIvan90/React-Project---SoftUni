@@ -1,26 +1,31 @@
 const router = require('express').Router();
+
 const Estate = require('../models/Housting');
-const serviceProduct = require('../services/product')
+const serviceProduct = require('../services/product');
+
 const { isOwner, isAuth } = require('../middlewares/guards');
 const { preloadEst } = require('../middlewares/preload');
 const { parseMongooseError } = require('../util/parse');
+const { route } = require('./authController');
 
 
 
 // Home
 router.get('/', async (req, res) => {
-    const estate = await req.storage.getAll();
-    const ctx = {
-        title: 'Home',
-        estate,
-    };
-    res.render('home', ctx)
+    try {
+        const art = await req.storage.getAll();
+        return res.send(art)
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+router.get('/post', async (req, res) => {
+
+    return;
 });
 
 // Create
-router.get('/create', isAuth(), async (req, res) => {
-    res.render('create', { title: 'Create Estate' })
-});
+
 router.post('/create', isAuth(), async (req, res) => {
 
     let { name, type, year, city, imageUrl, description, availablePieces, rented } = req.body;
@@ -48,7 +53,6 @@ router.post('/create', isAuth(), async (req, res) => {
         } else {
             ctx.errors = [err.message]
         }
-        res.render('create', ctx)
     };
 });
 // Details ! 
