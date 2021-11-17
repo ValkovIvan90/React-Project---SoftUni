@@ -12,7 +12,18 @@ export default function Header(
                 <li><Link to="#">Welcome User</Link ></li>
                 <li><Link to="/create">Create</Link ></li>
                 <li><Link to="/edit">Edit</Link ></li>
-                <li><Link to="/allArticles">All Articles</Link ></li>
+
+                <div class="dropdown">
+                    <button class="dropbtn">Category
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <Link href="#">Animals</Link>
+                        <Link href="#">Cars</Link>
+                        <Link href="#">Clothing</Link>
+                    </div>
+                </div>
+
             </article>
             <nav>
                 <ul className="nav">
