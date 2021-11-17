@@ -1,6 +1,6 @@
 
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Header from './components/Header/Header';
 import HomePage from './components/Home/HomePage';
@@ -27,6 +27,10 @@ function App() {
                     <Route path="/register" component={Register} />
                     <Route path="/create" component={Create} />
                     <Route path="/details/:articleId" component={Details} />
+                    <Route path="/logout" render={(props) => {
+                        console.log('Log out!!');
+                        return <Redirect to="/" />
+                    }} />
                 </Switch>
             </section>
         </>

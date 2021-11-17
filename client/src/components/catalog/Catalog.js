@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+
 import './Catalog.css';
 import ArtCard from './ArtCard';
 
@@ -11,7 +12,7 @@ export default function Catalog() {
 
     useEffect(() => {
         getAll().then(result => {
-            setArticle(result)
+            setArticle(result);
         }).catch((err) => {
             console.log(err.message);
         })

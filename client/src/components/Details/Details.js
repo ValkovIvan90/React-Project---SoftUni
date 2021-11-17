@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import './Details.css'
+import './Details.css';
 
 import { getById } from '../../services/article';
 
 export default function Details({
-    match
+    match,
 }) {
     const [article, setArticle] = useState({});
-
     const id = match.params.articleId;
 
     useEffect(() => {
@@ -17,7 +16,8 @@ export default function Details({
             console.log(err.message);
         })
     }, []);
-    const { imageUrl, description, city, owner, year,availablePieces } = article;
+
+    const { imageUrl, description, city, owner, year, availablePieces } = article;
     return (
         <section className="details">
             <h1 className="details-title">Details</h1>
@@ -39,7 +39,7 @@ export default function Details({
                 </ul>
                 <article className="message-box">
                     <h4 className="box-title">Send message to <span>Ivan@gmai.com</span></h4>
-                    <form action="mailto:someone@example.com" method="post" enctype="text/plain">
+                    <form action="mailto:someone@example.com" method="post" encType="text/plain">
                         Name:<br />
                         <input type="text" name="name" placeholder="Your name" /><br />
                         E-mail:<br />

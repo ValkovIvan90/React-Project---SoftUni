@@ -1,5 +1,7 @@
 
-import './Login.css'
+import './Login.css';
+
+import { Link } from 'react-router-dom';
 
 import React from 'react'
 
@@ -21,7 +23,7 @@ export default function Login() {
                     <input type="submit" className="loginBtn" value="Login" />
                 </form>
                 <div className="signup">
-                    <p>Dont have an account? <a href="/register">Sign up</a>.</p>
+                    <p>Dont have an account? <Link to="/register">Sign up</Link>.</p>
                 </div>
             </div>
         </section>
