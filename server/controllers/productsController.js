@@ -13,15 +13,11 @@ const { parseMongooseError } = require('../util/parse');
 // Home
 router.get('/', async (req, res) => {
     try {
-        const art = await req.storage.getAll();
-        return res.send(art)
+        const articles = await req.storage.getAll();
+        return res.send(articles)
     } catch (err) {
         console.log(err.message);
     }
-});
-router.get('/post', async (req, res) => {
-
-    return;
 });
 
 // Create
@@ -57,23 +53,11 @@ router.post('/create', isAuth(), async (req, res) => {
 });
 // Details ! 
 router.get('/details/:id', async (req, res) => {
-    const estate = await serviceProduct.getById(req.params.id);
-    if (estate != undefined) {
-
-        const isPlace = estate.availablePieces > 0 ? true : false;
-        const isTenants = estate.rented ? estate.rented.join(' ,') : false;
-
-
-
-        estate.isTenants = isTenants;
-        estate.isOwner = req.user && (estate.ownerId == req.user._id);
-        estate.isPlace = isPlace;
-
-
-
-        res.render('details', estate);
-    } else {
-        throw new Error('Error!')
+    try {
+        const articles = await serviceProduct.getById(req.params.id);
+        res.send(articles);
+    } catch (err) {
+        console.log(err.message);
     }
 
 });

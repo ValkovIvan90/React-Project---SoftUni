@@ -9,6 +9,8 @@ import Catalog from './components/Catalog/Catalog';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Create from './components/Create/Create';
+import Details from './components/Details/Details';
+
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
                     <Route path="/create" component={Create} />
+                    <Route path="/details/:articleId" component={Details} />
                 </Switch>
             </section>
         </>

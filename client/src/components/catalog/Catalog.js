@@ -10,13 +10,11 @@ export default function Catalog() {
     const [articles, setArticle] = useState([])
 
     useEffect(() => {
-        setTimeout(() => {
-            getAll().then(result => {
-                setArticle(result);
-            }).catch((err) => {
-                console.log(err.message);
-            })
-        }, 1000);
+        getAll().then(result => {
+            setArticle(result)
+        }).catch((err) => {
+            console.log(err.message);
+        })
 
     }, [])
 

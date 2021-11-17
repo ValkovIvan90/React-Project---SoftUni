@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+import { Link } from 'react-router-dom';
 
 export default function ArtCard({
     article
@@ -25,7 +27,10 @@ export default function ArtCard({
                     <h4>Likes</h4>
                 </div>
                 <div className="data-buttons">
-                    <a href="/details" className="details-btn">Details</a>
+                    <Link to={`details/${article._id}`}
+                        className="details-btn">
+                        Details
+                    </Link>
                 </div>
             </article>
         </article>

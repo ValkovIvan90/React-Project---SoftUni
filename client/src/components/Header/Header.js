@@ -12,7 +12,6 @@ export default function Header(
                 <li><Link to="#">Welcome User</Link ></li>
                 <li><Link to="/create">Create</Link ></li>
                 <li><Link to="/edit">Edit</Link ></li>
-                <li><Link to="/details">Details</Link ></li>
                 <li><Link to="/allArticles">All Articles</Link ></li>
             </article>
             <nav>
