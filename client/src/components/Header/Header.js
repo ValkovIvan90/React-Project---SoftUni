@@ -1,35 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom'
 
 import './Header.css'
 
 export default function Header(
-    {navChangeHandler}
 ) {
-    const onHeaderClick = (e) => {
-        e.preventDefault();
-        if (e.target.tagName === 'A') {
-            let url = new URL(e.target.href);
-            navChangeHandler(url.pathname)
-        }
-    }
-
     return (
-        <header onClick={onHeaderClick}>
+        <header>
             <article className="logo">
-                <i className="fas fa-handshake"></i>
-                <li><a href="#">Welcome User</a></li>
-                <li><a href="/create">Create</a></li>
-                <li><a href="/edit">Edit</a></li>
-                <li><a href="/details">Details</a></li>
-                <li><a href="/allArticles">All Articles</a></li>
-                <li><a href="/home">Home</a></li>
+                <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
+                <li><Link to="#">Welcome User</Link ></li>
+                <li><Link to="/create">Create</Link ></li>
+                <li><Link to="/edit">Edit</Link ></li>
+                <li><Link to="/details">Details</Link ></li>
+                <li><Link to="/allArticles">All Articles</Link ></li>
             </article>
             <nav>
                 <ul className="nav">
-                    <li><a href="/catalog">Catalog</a></li>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><Link to="/catalog">Catalog</Link ></li>
+                    <li><Link to="/login">Login</Link ></li>
+                    <li><Link to="/register">Register</Link ></li>
+                    <li><Link to="/logout">Logout</Link ></li>
                 </ul>
             </nav>
         </header>

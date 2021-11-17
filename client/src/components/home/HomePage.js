@@ -1,11 +1,13 @@
 import React from 'react'
 import './HomePage.css'
 
+import homepage from '../../images/homepage.jpg';
+
 export default function HomePage() {
     return (
         <section className="homePage">
             <article className="homePage-img">
-                <img src="https://doinalangille.com/img/online-shopper/homepage.jpg" alt="" />
+                <img src={homepage} alt="" />
             </article>
             <article className="home-message">
                 <div className="home-text-box">

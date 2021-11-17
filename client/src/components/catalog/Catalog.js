@@ -4,20 +4,23 @@ import './Catalog.css';
 import ArtCard from './ArtCard';
 
 import React from 'react'
+import { getAll } from '../../services/article';
 
 export default function Catalog() {
     const [articles, setArticle] = useState([])
 
     useEffect(() => {
-        return fetch('http://localhost:5000/products')
-            .then(res => res.json())
-            .then(result => {
+        setTimeout(() => {
+            getAll().then(result => {
                 setArticle(result);
             }).catch((err) => {
                 console.log(err.message);
             })
+        }, 1000);
 
     }, [])
+
+
     return (
         <section className="catalog">
             <h1 className="catalog-title">All added Articles</h1>

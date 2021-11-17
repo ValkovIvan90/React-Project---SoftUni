@@ -25,7 +25,7 @@ export default function ArtCard({
                     <h4>Likes</h4>
                 </div>
                 <div className="data-buttons">
-                    <a href="#" className="details-btn">Details</a>
+                    <a href="/details" className="details-btn">Details</a>
                 </div>
             </article>
         </article>

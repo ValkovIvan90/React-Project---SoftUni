@@ -25,6 +25,9 @@ li a {
   display: flex;
   align-items: center;
 }
-.logo li:hover {
+.logo i:hover {
+  font-size: 55px;
+}
+header li:hover {
   font-size: larger;
 }
