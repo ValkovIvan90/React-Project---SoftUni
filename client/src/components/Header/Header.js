@@ -13,14 +13,14 @@ export default function Header(
                 <li><Link to="/create">Create</Link ></li>
                 <li><Link to="/edit">Edit</Link ></li>
 
-                <div class="dropdown">
-                    <button class="dropbtn">Category
-                        <i class="fas fa-angle-down"></i>
+                <div className="dropdown">
+                    <button className="dropbtn">Category
+                        <i className="fas fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-content">
-                        <Link href="#">Animals</Link>
-                        <Link href="#">Cars</Link>
-                        <Link href="#">Clothing</Link>
+                    <div className="dropdown-content">
+                        <Link to="#">Animals</Link>
+                        <Link to="#">Cars</Link>
+                        <Link to="#">Clothing</Link>
                     </div>
                 </div>
 

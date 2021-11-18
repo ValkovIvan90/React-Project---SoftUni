@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: center;
 }
-.register-box h1 {
+.register-box .register-box-title {
   margin: 0;
   padding-bottom: 10px;
   font-size: 2em;
@@ -38,9 +38,13 @@
   border-radius: 20px;
   border: none;
 }
+input {
+  padding-left: 20px;
+  max-width: calc(100% - 25px);
+}
 
 .register-form input:placeholder-shown {
-  padding-left: 10px;
+  padding-left: 16px;
   font-style: italic;
 }
 .registerbtn {

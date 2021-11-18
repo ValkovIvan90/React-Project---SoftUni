@@ -15,14 +15,18 @@ module.exports = () => (req, res, next) => {
         next();
     }
     //register
-    async function register({ name, username, password }) {
+    async function register({ username, email, password }) {
         const isNameTaken = await getUserByUsername(username);
         if (isNameTaken) {
             throw new Error('Name is taken!');
         };
+        const isEmailTaken = await getUserByUsername(email);
+        if (isEmailTaken) {
+            throw new Error('Email is taken!');
+        };
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await createUser(name, username, hashedPassword);
+        const user = await createUser(username, email, hashedPassword);
         req.user = createToken(user);
     };
 
@@ -51,7 +55,7 @@ module.exports = () => (req, res, next) => {
 
     //createToken!
     function createToken(user) {
-        const userViewModel = { _id: user._id, username: user.username };
+        const userViewModel = { _id: user._id, username: user.username, email: user.email };
         const token = jwt.sign(userViewModel, TOKEN_SECRET);
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
 

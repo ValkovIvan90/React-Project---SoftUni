@@ -3,10 +3,10 @@ const { body, validationResult } = require('express-validator');
 
 
 router.post('/register',
-    body('name', 'The name should be in the following format -> (firstname lastname) - "Alexandur Petrov').matches(/^([A-Z][a-z]{3,} )([A-Z][a-z]{3,} )?([A-Z][a-z]{3,})$/),
     body('username', 'The username should be at least 5 characters long').isLength({ min: 5 }),
+    body('email', 'The email valid').matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
     body('password', 'The password should be at least 4 characters long').trim().isLength({ min: 4 }).isAlphanumeric(),
-    body('repeatPassword').trim().custom((value, { req }) => {
+    body('passwordConfirm').trim().custom((value, { req }) => {
         if (value != req.body.password) {
             throw new Error('Password don\'t match!')
         }
@@ -19,7 +19,6 @@ router.post('/register',
                 throw new Error(errors.map(e => e.msg).join('\n'));
             };
             await req.auth.register(req.body);
-            res.redirect('/products')
         } catch (err) {
             console.log(err.message);
         };

@@ -62,7 +62,7 @@ header li:hover {
 .dropdown-content a {
   color: black;
   font-weight: bold;
-  padding: 12px 16px;
+  padding: 5px 8px;
   text-decoration: none;
   display: block;
   text-align: left;
