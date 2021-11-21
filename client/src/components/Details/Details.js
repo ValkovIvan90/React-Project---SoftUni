@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
 import './Details.css';
+import { useParams } from 'react-router-dom';
 
 import { getById } from '../../services/article';
 
-export default function Details({
-    match,
-}) {
+export default function Details() {
     const [article, setArticle] = useState({});
-    const id = match.params.articleId;
+    const { artId } = useParams();
+
 
     useEffect(() => {
-        getById(id).then(result => {
+        getById(artId).then(result => {
             setArticle(result)
         }).catch(err => {
             console.log(err.message);
         })
     }, []);
 
-    const { imageUrl, description, city, owner, year, availablePieces } = article;
+    const { imageUrl, name, description, city, owner, year, availablePieces } = article;
+
+
     return (
         <section className="details">
             <h1 className="details-title">Details</h1>
@@ -32,7 +34,7 @@ export default function Details({
             <article className="article-info">
                 <ul className="art-info-items">
                     <li>Seller : Ivan</li>
-                    <li>Email : {owner}</li>
+                    <li>Email : {name}</li>
                     <li>Place : {city}</li>
                     <li>Date of publication : {year}</li>
                     <li>Price : ${availablePieces}</li>

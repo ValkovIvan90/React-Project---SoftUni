@@ -9,7 +9,7 @@ import { getAll } from '../../services/article';
 
 export default function Catalog() {
     const [articles, setArticle] = useState([])
-
+       
     useEffect(() => {
         getAll().then(result => {
             setArticle(result);

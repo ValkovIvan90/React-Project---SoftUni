@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Notification from '../../Notification/Notification';
+import { notMatchPassword } from '../../../services/errorHandling';
 
 import './Register.css';
-import { register } from '../../../services/user'
+import { register } from '../../../services/user';
+import { errors } from '../../../services/errorHandling'
 
 export default function Register() {
 
@@ -14,31 +17,24 @@ export default function Register() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (passwordRef.current.value !== passwordConfirm.current.value) {
-            return setError('Password don`t match!C')
-        };
+        notMatchPassword(passwordRef.current.value, passwordConfirm.current.value);
         try {
-            setError('');
-            setLoading(true);
-
             await register(
                 userRef.current.value,
                 emailRef.current.value,
                 passwordRef.current.value,
                 passwordConfirm.current.value
-            );
+            )
 
-            history.push('/');
         } catch (err) {
-            setError('Failed to create an account!')
+            console.log(err.message);
         }
-
-        setLoading(false);
+        navigate.push('/');
     }
 
     return (
@@ -46,7 +42,7 @@ export default function Register() {
             <div className="register-box">
                 <h1 className="register-box-title">Register</h1>
                 <p className="register-untertitle">Please fill in this form to create an account.</p>
-                {<h1>{error}</h1>}
+                {error.length > 0 ? <Notification key={1} error={errors} /> : ''}
                 <form className="register-form" onSubmit={handleSubmit}>
                     <label htmlFor="username">Username</label>
                     <input

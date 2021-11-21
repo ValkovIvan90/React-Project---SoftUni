@@ -11,25 +11,24 @@ async function createEstate(estate) {
 };
 
 async function getById(id) {
-    const estate = await Estate.
+    const article = await Estate.
         findById(id)
         .populate('owner')
         .populate('rented')
         .lean();
 
-    if (estate) {
+    if (article) {
         const viewModel = {
-            _id: estate._id,
-            name: estate.name,
-            year: estate.year,
-            type: estate.type,
-            city: estate.city,
-            description: estate.description,
-            imageUrl: estate.imageUrl,
-            owner: estate.owner && estate.owner.username,
-            availablePieces: estate.availablePieces,
-            rented: estate.rented,
-            ownerId: estate.owner._id
+            _id: article._id,
+            name: article.name,
+            year: article.year,
+            type: article.type,
+            city: article.city,
+            description: article.description,
+            imageUrl: article.imageUrl,
+            owner: article.owner && article.owner.username,
+            availablePieces: article.availablePieces,
+            rented: article.rented,
         };
         return viewModel;
 

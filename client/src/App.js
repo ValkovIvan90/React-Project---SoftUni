@@ -1,10 +1,10 @@
 
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import Header from './components/Header/Header';
-import HomePage from './components/Home/HomePage';
-import Catalog from './components/Catalog/Catalog';
+import Header from './components/Header';
+import HomePage from './components/HomePage';
+import Catalog from './components/Catalog';
 
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
@@ -20,18 +20,18 @@ function App() {
         <>
             <Header />
             <section className="container">
-                <Switch>
-                    <Route path="/" exact component={HomePage} />
-                    <Route path="/catalog" component={Catalog} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/create" component={Create} />
-                    <Route path="/details/:articleId" component={Details} />
-                    <Route path="/logout" render={(props) => {
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/create" element={<Create />} />
+                    <Route path="details/:artId" element={<Details />} />
+                    {/* <Route path="/logout" render={(props) => {
                         console.log('Log out!!');
                         return <Redirect to="/" />
-                    }} />
-                </Switch>
+                    }} /> */}
+                </Routes>
             </section>
         </>
 

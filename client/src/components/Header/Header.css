@@ -2,13 +2,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #b9e3f7;
+  border-radius: 6px;
 }
 .nav {
   display: flex;
 }
 li {
   list-style: none;
-  margin: 20px 10px;
+  margin: 5px 10px;
   font-weight: bold;
 }
 

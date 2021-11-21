@@ -54,8 +54,8 @@ router.post('/create', isAuth(), async (req, res) => {
 // Details ! 
 router.get('/details/:id', async (req, res) => {
     try {
-        const articles = await serviceProduct.getById(req.params.id);
-        res.send(articles);
+        const article = await serviceProduct.getById(req.params.id);
+        res.send(article);
     } catch (err) {
         console.log(err.message);
     }
@@ -65,7 +65,7 @@ router.get('/details/:id', async (req, res) => {
 //Edit 
 router.get('/edit/:id', preloadEst(), isOwner(), async (req, res) => {
     const estate = await req.storage.getById(req.params.id);
-    console.log(estate);
+
     if (estate != undefined) {
 
         res.render('edit', estate);
@@ -103,26 +103,26 @@ router.get('/delete/:id', preloadEst(), isOwner(), async (req, res) => {
     };
 });
 // rented
-router.get('/rentHouse/:id', async (req, res) => {
-    const house = await Estate.findById(req.params.id);
-    if (!house) {
-        throw new ReferenceError('No such ID in database');
-    };
-    house.availablePieces -= 1;
-    house.rented.push({ username: req.user.username })
-    await house.save();
+// router.get('/rentHouse/:id', async (req, res) => {
+//     const house = await Estate.findById(req.params.id);
+//     if (!house) {
+//         throw new ReferenceError('No such ID in database');
+//     };
+//     house.availablePieces -= 1;
+//     house.rented.push({ username: req.user.username })
+//     await house.save();
 
-    res.redirect('/');
-});
+//     res.redirect('/');
+// });
 
-router.get('/rentApart', async (req, res) => {
-    const estate = await req.storage.getAll();
-    const ctx = {
-        title: 'Apartmant for Rent',
-        estate,
-    };
-    res.render('apart', ctx);
-});
+// router.get('/rentApart', async (req, res) => {
+//     const estate = await req.storage.getAll();
+//     const ctx = {
+//         title: 'Apartmant for Rent',
+//         estate,
+//     };
+//     res.render('apart', ctx);
+// });
 
 
 module.exports = router;
