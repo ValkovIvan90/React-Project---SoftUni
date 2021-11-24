@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { COOKIE_NAME, TOKEN_SECRET } = require('../config/config');
 
-const { getUserByUsername, createUser } = require('../services/userServices');
+const { getUserByUsername, getUserByEmail, createUser } = require('../services/userServices');
 
 module.exports = () => (req, res, next) => {
     req.auth = {
@@ -16,11 +16,14 @@ module.exports = () => (req, res, next) => {
     }
     //register
     async function register({ username, email, password }) {
+        
         const isNameTaken = await getUserByUsername(username);
         if (isNameTaken) {
             throw new Error('Name is taken!');
         };
-        const isEmailTaken = await getUserByUsername(email);
+
+        const isEmailTaken = await getUserByEmail(email);
+        
         if (isEmailTaken) {
             throw new Error('Email is taken!');
         };

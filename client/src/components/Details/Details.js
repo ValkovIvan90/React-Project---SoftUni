@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './Details.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { getById } from '../../services/article';
 
@@ -15,9 +15,9 @@ export default function Details() {
         }).catch(err => {
             console.log(err.message);
         })
-    }, []);
+    }, [artId]);
 
-    const { imageUrl, name, description, city, owner, year, availablePieces } = article;
+    const { imageUrl, name, description, city, year, availablePieces } = article;
 
 
     return (
@@ -56,9 +56,9 @@ export default function Details() {
                 </article>
             </article>
             <article className="buttons">
-                <a href="#" className="button edit">Edit</a>
-                <a href="#" className="button del">Delete</a>
-                <a href="#" className="button like">Like</a>
+                <Link to="#" className="button edit">Edit</Link>
+                <Link to="#" className="button del">Delete</Link>
+                <Link to="#" className="button like">Like</Link>
             </article>
         </section>
     )

@@ -14,8 +14,12 @@ async function createUser(username, email, hashedPassword) {
 async function getUserByUsername(username) {
     return await User.findOne({ username: { $regex: username, $options: 'i' } });
 };
+async function getUserByEmail(email) {
+    return await User.findOne({ email: { $regex: email, $options: 'i' } });
+};
 
 module.exports = {
     createUser,
-    getUserByUsername
+    getUserByUsername,
+    getUserByEmail
 }
