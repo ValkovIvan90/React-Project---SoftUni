@@ -51,6 +51,7 @@ input {
   margin-top: 30px;
   font-weight: bold;
   font-size: 1em;
+  background-color: beige;
 }
 .registerbtn:hover {
   background-color: teal;
@@ -58,4 +59,14 @@ input {
 }
 .signin {
   text-align: center;
+}
+
+p.serverErr {
+  color: #cc2424;
+  font-style: italic;
+  width: 200px;
+  margin: 0;
+  position: relative;
+  bottom: 260px;
+  left: 20px;
 }

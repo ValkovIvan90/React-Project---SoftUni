@@ -16,14 +16,14 @@ module.exports = () => (req, res, next) => {
     }
     //register
     async function register({ username, email, password }) {
-        
+
         const isNameTaken = await getUserByUsername(username);
         if (isNameTaken) {
             throw new Error('Name is taken!');
         };
 
         const isEmailTaken = await getUserByEmail(email);
-        
+
         if (isEmailTaken) {
             throw new Error('Email is taken!');
         };
@@ -61,7 +61,6 @@ module.exports = () => (req, res, next) => {
         const userViewModel = { _id: user._id, username: user.username, email: user.email };
         const token = jwt.sign(userViewModel, TOKEN_SECRET);
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
-
         return userViewModel;
     }
 

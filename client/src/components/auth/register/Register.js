@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import { userSchema } from '../../../Validations/UserValidation';
 import Notification from '../../Notification/Notification';
-
-import './Register.css';
 import { register } from '../../../services/user';
 
-
-let initialValues;
+import './Register.css';
 
 
 export default function Register() {
 
     const navigate = useNavigate();
+    const [serverErr, setServerError] = useState([]);
+
 
     async function handleSubmit(e) {
         const data = {
@@ -23,22 +22,21 @@ export default function Register() {
             password: e.password,
             rePass: e.rePass
         }
-        initialValues = data;
-        
+
         try {
             const result = await register(data);
 
-            if (result.status === 404) {
-                throw new Error('Server Error')
+            if (result.status === 404 || result.status === 400) {
+                setServerError({ error: result.statusText })
             } else {
                 navigate('/');
             }
         } catch (err) {
-            console.log(err.message)
+            console.log(err);
         }
 
-
     }
+
 
     return (
         <section className="register">
@@ -47,7 +45,12 @@ export default function Register() {
                 <p className="register-untertitle">Please fill in this form to create an account.</p>
 
                 <Formik
-                    initialValues={{ initialValues }}
+                    initialValues={{
+                        username: '',
+                        email: '',
+                        password: '',
+                        rePass: ''
+                    }}
                     validationSchema={userSchema}
                     onSubmit={handleSubmit}>
                     <Form className="register-form" >
@@ -76,7 +79,6 @@ export default function Register() {
                         />
                         <ErrorMessage name="password" component={Notification} />
 
-
                         <label htmlFor="rePass">Confirm-Password</label>
                         <Field
                             type="password"
@@ -88,6 +90,7 @@ export default function Register() {
                         <input type="submit" className="registerbtn" value="Register" />
                     </Form>
                 </Formik>
+                {serverErr.error !== undefined ? <p id="serverErr" className="serverErr">{serverErr.error}</p> : ""}
                 <div className="signin">
                     <p>Already have an account?<Link to="/login">Sign in</Link>.</p>
                 </div>

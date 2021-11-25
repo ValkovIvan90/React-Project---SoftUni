@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 
+const { getUserByUsername, getUserByEmail } = require('../services/userServices');
+
 router.post('/register',
     body('username', 'The username should be at least 5 characters long!').isLength({ min: 5 }),
     body('email', 'Invalid Email!').matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/),
@@ -12,20 +14,41 @@ router.post('/register',
         return true;
     })
     , async (req, res) => {
+
         try {
-            const errors = Object.values(validationResult(req).mapped());
-            if (errors.length > 0) {
-                res.sendStatus(404)
-                throw new Error(errors.map(x => x.msg).join('\n'));
+            const isNameTaken = await getUserByUsername(req.body.username);
+            const isEmailTaken = await getUserByEmail(req.body.email);
+
+            if (isNameTaken) {
+                throw new Error("Name is taken!")
             };
-            await req.auth.register(req.body);
-            res.sendStatus(200)
+            if (isEmailTaken) {
+                throw new Error("Email is taken!")
+            };
+
+            try {
+                const errors = Object.values(validationResult(req).mapped());
+                console.log(errors);
+                if (errors.length > 0) {
+                    res.sendStatus(404)
+                    throw new Error(errors.map(x => x.msg).join('\n'));
+                };
+                await req.auth.register(req.body);
+
+                res.sendStatus(200)
+
+            } catch (err) {
+                res.sendStatus(404)
+                return;
+            };
 
         } catch (err) {
-            res.sendStatus(404)
             console.log(err.message);
+            res.statusMessage = err.message;
+            res.status(400).end();
             return;
-        };
+        }
+
     });
 
 router.post('/login', async (req, res) => {
