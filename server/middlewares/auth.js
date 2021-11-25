@@ -35,15 +35,15 @@ module.exports = () => (req, res, next) => {
 
     //Login middleware!
 
-    async function login({ username, password }) {
+    async function login({ email, password }) {
 
-        const user = await getUserByUsername(username);
+        const user = await getUserByEmail(email);
         if (!user) {
-            throw new Error('Wrong username or Password!');
+            throw new Error('Wrong Email or Password!');
         } else {
             const isMatch = await bcrypt.compare(password, user.hashedPassword);
             if (!isMatch) {
-                throw new Error('Wrong username or Password!')
+                throw new Error('Wrong Email or Password!')
             } else {
                 req.user = createToken(user);
             };

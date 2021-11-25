@@ -52,11 +52,15 @@ router.post('/register',
     });
 
 router.post('/login', async (req, res) => {
+
     try {
         await req.auth.login(req.body);
-        res.redirect('/products')
+        res.status(200).end();
     } catch (err) {
         console.log(err.message);
+        res.statusMessage = err.message;
+        res.status(400).end();
+        return;
     };
 });
 
