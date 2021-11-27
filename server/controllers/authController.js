@@ -30,7 +30,8 @@ router.post('/register',
                 const errors = Object.values(validationResult(req).mapped());
                 console.log(errors);
                 if (errors.length > 0) {
-                    res.sendStatus(404)
+                    res.statusMessage = 'Server Error';
+                    res.status(404).end();
                     throw new Error(errors.map(x => x.msg).join('\n'));
                 };
                 await req.auth.register(req.body);

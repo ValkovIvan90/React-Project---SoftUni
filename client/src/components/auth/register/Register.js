@@ -4,15 +4,17 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { userSchema } from '../../../Validations/UserValidation';
 import Notification from '../../Notification/Notification';
+import ServerError from '../../Notification/ServerError';
+
 import { register } from '../../../services/user';
 
 import './Register.css';
-
 
 export default function Register() {
 
     const navigate = useNavigate();
     const [serverErr, setServerError] = useState([]);
+
 
 
     async function handleSubmit(e) {
@@ -90,7 +92,7 @@ export default function Register() {
                         <input type="submit" className="registerbtn" value="Register" />
                     </Form>
                 </Formik>
-                {serverErr.error !== undefined ? <p id="serverErr" className="serverErr">{serverErr.error}</p> : ""}
+                {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
                 <div className="signin">
                     <p>Already have an account?<Link to="/login">Sign in</Link>.</p>
                 </div>

@@ -61,12 +61,3 @@ input {
   text-align: center;
 }
 
-p.serverErr {
-  color: #cc2424;
-  font-style: italic;
-  width: 200px;
-  margin: 0;
-  position: relative;
-  bottom: 260px;
-  left: 20px;
-}

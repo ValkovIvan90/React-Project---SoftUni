@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Notification from '../../Notification/Notification';
+import ServerError from '../../Notification/ServerError';
+
 import { userLoginSchema } from '../../../Validations/UserValidation';
 
 import './Login.css';
@@ -21,7 +23,7 @@ export default function Login() {
 
         try {
             const result = await login(data);
-            console.log(result.status);
+
             if (result.status === 404 || result.status === 400) {
                 setServerError({ error: result.statusText })
             } else {
@@ -67,7 +69,7 @@ export default function Login() {
                         <input type="submit" className="loginBtn" value="Login" />
                     </Form>
                 </Formik>
-                {serverErr.error !== undefined ? <p id="serverErr" className="serverErr">{serverErr.error}</p> : ""}
+                {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
                 <div className="signup">
                     <p>Dont have an account? <Link to="/register">Sign up</Link>.</p>
                 </div>
