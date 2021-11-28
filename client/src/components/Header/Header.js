@@ -28,7 +28,7 @@ export default function Header() {
         <header>
             <article className="logo">
                 <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
-                <li><Link to="#"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
+                <li><Link to="/profile"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
                 <li><Link to="/create">Create</Link ></li>
                 <li><Link to="/edit">Edit</Link ></li>
 
@@ -49,7 +49,7 @@ export default function Header() {
                     <li><Link to="/catalog">Catalog</Link ></li>
                     <li><Link to="/login">Login</Link ></li>
                     <li><Link to="/register">Register</Link ></li>
-                    <li onClick={logoutUser}>Logout</li>
+                    <button className="logOutBtn" onClick={logoutUser}>Sign out</button>
                 </ul>
             </nav>
         </header>

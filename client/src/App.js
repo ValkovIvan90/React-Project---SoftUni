@@ -7,6 +7,7 @@ import UserContext from './context/UserDataContext';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import Catalog from './components/Catalog';
+import UserProfile from './components/UserProfile';
 
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -27,14 +28,11 @@ function App() {
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/catalog" element={<Catalog />} />
+                        <Route path="/profile" element={<UserProfile />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="details/:artId" element={<Details />} />
-                        {/* <Route path="/logout" render={(props) => {
-                        console.log('Log out!!');
-                        return <Redirect to="/" />
-                    }} /> */}
                     </Routes>
                 </section>
             </UserContext.Provider>

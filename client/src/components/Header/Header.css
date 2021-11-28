@@ -18,6 +18,17 @@ li a {
   text-decoration: none;
   color: #3f82ec;
 }
+.logOutBtn {
+  border: none;
+  background-color: #b9e3f7;
+  color: #3f82ec;
+  font-weight: bolder;
+  font-size: 1em;
+}
+.logOutBtn:hover {
+  color: tomato;
+}
+
 .logo i {
   font-size: 50px;
   margin-left: 10px;
@@ -30,8 +41,9 @@ li a {
 .logo i:hover {
   font-size: 55px;
 }
-header li:hover {
+header li a:hover {
   font-size: larger;
+  color: tomato;
 }
 
 /* Dropdown Menu */
