@@ -20,10 +20,10 @@ router.post('/register',
             const isEmailTaken = await getUserByEmail(req.body.email);
 
             if (isNameTaken) {
-                throw new Error("Name is taken!")
+                throw new Error("Failed! Name is already in use!")
             };
             if (isEmailTaken) {
-                throw new Error("Email is taken!")
+                throw new Error("Failed! Name is already in use!")
             };
 
             try {
@@ -36,7 +36,13 @@ router.post('/register',
                 };
                 await req.auth.register(req.body);
 
-                res.sendStatus(200)
+                const user = req.user;
+                if (!user) {
+                    throw new Error('Invalid Token!')
+                } else {
+                    res.json({ id: user._id, username: user.username, email: user.email, token: user.token })
+                }
+
 
             } catch (err) {
                 res.sendStatus(404)
@@ -56,7 +62,13 @@ router.post('/login', async (req, res) => {
 
     try {
         await req.auth.login(req.body);
-        res.status(200).end();
+        const user = req.user;
+        if (!user) {
+            throw new Error('Invalid Token!')
+        } else {
+            res.json({ id: user._id, username: user.username, email: user.email, token: user.token })
+            res.status(200).end();
+        }
     } catch (err) {
         console.log(err.message);
         res.statusMessage = err.message;
@@ -65,10 +77,10 @@ router.post('/login', async (req, res) => {
     };
 });
 
-// router.get('/logout', (req, res) => {
-//     req.auth.logout();
-//     res.redirect('/products')
-// })
+router.get('/logout', (req, res) => {
+    req.auth.logout();
+    
+})
 
 
 module.exports = router;

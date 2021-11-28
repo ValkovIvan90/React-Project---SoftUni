@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -7,6 +7,7 @@ import Notification from '../../Notification/Notification';
 import ServerError from '../../Notification/ServerError';
 
 import { register } from '../../../services/user';
+import UserContext from '../../../context/UserDataContext';
 
 import './Register.css';
 
@@ -14,8 +15,7 @@ export default function Register() {
 
     const navigate = useNavigate();
     const [serverErr, setServerError] = useState([]);
-
-
+    const { setUserData } = useContext(UserContext);
 
     async function handleSubmit(e) {
         const data = {
@@ -27,11 +27,13 @@ export default function Register() {
 
         try {
             const result = await register(data);
-
             if (result.status === 404 || result.status === 400) {
                 setServerError({ error: result.statusText })
             } else {
-                navigate('/');
+                const data = await result.json();
+                localStorage.setItem('Token', data.token);
+                setUserData(data);
+                navigate('/catalog');
             }
         } catch (err) {
             console.log(err);

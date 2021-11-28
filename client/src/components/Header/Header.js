@@ -1,15 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import UserContext from '../../context/UserDataContext';
 
-import './Header.css'
+import './Header.css';
 
-export default function Header(
-) {
+export default function Header() {
+
+    const { userData } = useContext(UserContext);
+    console.log(userData);
     return (
         <header>
             <article className="logo">
                 <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
-                <li><Link to="#">Welcome User</Link ></li>
+                <li><Link to="#"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
                 <li><Link to="/create">Create</Link ></li>
                 <li><Link to="/edit">Edit</Link ></li>
 

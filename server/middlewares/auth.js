@@ -31,6 +31,7 @@ module.exports = () => (req, res, next) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await createUser(username, email, hashedPassword);
         req.user = createToken(user);
+        return req.user
     };
 
     //Login middleware!
@@ -61,6 +62,7 @@ module.exports = () => (req, res, next) => {
         const userViewModel = { _id: user._id, username: user.username, email: user.email };
         const token = jwt.sign(userViewModel, TOKEN_SECRET);
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
+        userViewModel.token = token
         return userViewModel;
     }
 
