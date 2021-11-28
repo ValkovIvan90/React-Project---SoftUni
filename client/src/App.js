@@ -8,8 +8,9 @@ import Header from './components/Header';
 import HomePage from './components/HomePage';
 import Catalog from './components/Catalog';
 
-import Login from './components/auth/Login/Login';
-import Register from './components/auth/Register/Register';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+
 import Create from './components/Create/Create';
 import Details from './components/Details/Details';
 
@@ -20,7 +21,7 @@ function App() {
 
     return (
         <>
-            <UserContext.Provider value={{userData, setUserData}}>
+            <UserContext.Provider value={{ userData, setUserData }}>
                 <Header />
                 <section className="container">
                     <Routes>

@@ -78,8 +78,12 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-    req.auth.logout();
-    
+    try {
+        req.auth.logout();
+        return res.sendStatus(200);
+    } catch (err) {
+        console.log(err.message);
+    }
 })
 
 

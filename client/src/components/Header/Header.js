@@ -1,13 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserDataContext';
+import { useNavigate } from 'react-router-dom';
 
+import { logout } from '../../services/user'
 import './Header.css';
 
 export default function Header() {
 
-    const { userData } = useContext(UserContext);
-    console.log(userData);
+    const navigate = useNavigate();
+    const { userData, setUserData } = useContext(UserContext);
+
+    async function logoutUser() {
+        const result = await logout();
+
+        if (result.status !== 200) {
+            console.log('Logout Error');
+        } else {
+            localStorage.removeItem('Token');
+            setUserData("")
+            navigate('/')
+        }
+    }
+
+
     return (
         <header>
             <article className="logo">
@@ -33,7 +49,7 @@ export default function Header() {
                     <li><Link to="/catalog">Catalog</Link ></li>
                     <li><Link to="/login">Login</Link ></li>
                     <li><Link to="/register">Register</Link ></li>
-                    <li><Link to="/logout">Logout</Link ></li>
+                    <li onClick={logoutUser}>Logout</li>
                 </ul>
             </nav>
         </header>
