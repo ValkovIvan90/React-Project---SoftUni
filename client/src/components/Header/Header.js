@@ -29,9 +29,7 @@ export default function Header() {
             <article className="logo">
                 <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
                 <li><Link to="/profile"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
-                <li><Link to="/create">Create</Link ></li>
-                <li><Link to="/edit">Edit</Link ></li>
-
+                
                 <div className="dropdown">
                     <button className="dropbtn">Category
                         <i className="fas fa-caret-down"></i>
@@ -46,10 +44,19 @@ export default function Header() {
             </article>
             <nav>
                 <ul className="nav">
-                    <li><Link to="/catalog">Catalog</Link ></li>
-                    <li><Link to="/login">Login</Link ></li>
-                    <li><Link to="/register">Register</Link ></li>
-                    <button className="logOutBtn" onClick={logoutUser}>Sign out</button>
+                    {userData.username ?
+                        <>
+                            <li><Link to="/create">Create</Link ></li>
+                            <li><Link to="/catalog">Catalog</Link ></li>
+                            <button className="logOutBtn" onClick={logoutUser}>Sign out</button>
+                        </>
+                        :
+                        <>
+                            <li><Link to="/login">Login</Link ></li>
+                            <li><Link to="/register">Register</Link ></li>
+                        </>
+                    }
+
                 </ul>
             </nav>
         </header>

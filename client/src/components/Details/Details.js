@@ -56,7 +56,7 @@ export default function Details() {
                 </article>
             </article>
             <article className="buttons">
-                <Link to="#" className="button edit">Edit</Link>
+                <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
                 <Link to="#" className="button del">Delete</Link>
                 <Link to="#" className="button like">Like</Link>
             </article>

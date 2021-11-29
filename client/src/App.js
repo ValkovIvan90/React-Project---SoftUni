@@ -12,8 +12,9 @@ import UserProfile from './components/UserProfile';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 
-import Create from './components/Create/Create';
-import Details from './components/Details/Details';
+import Create from './components/Create';
+import Details from './components/Details';
+import Edit from './components/Edit';
 
 
 
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/create" element={<Create />} />
+                        <Route path="/edit/:artId" element={<Edit />} />
                         <Route path="details/:artId" element={<Details />} />
                     </Routes>
                 </section>
