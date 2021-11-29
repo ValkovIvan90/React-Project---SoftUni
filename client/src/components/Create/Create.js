@@ -1,7 +1,31 @@
+import { useState } from 'react';
 
 import './Create.css';
 
+import Animals from '../Create/CategoryModels/Animals';
+import Cars from '../Create/CategoryModels/Cars';
+import Clothes from '../Create/CategoryModels/Clothes';
+
 export default function Create() {
+
+    const [value, setValue] = useState('');
+    let model;
+
+    const modelComponents = {
+        cars: <Cars />,
+        animals: <Animals />,
+        clothings: <Clothes />,
+    }
+
+    const onChangeSelect = (e) => {
+        e.preventDefault()
+        setValue(e.target.value);
+    }
+
+    if (value !== "") {
+        model = modelComponents[value];
+    }
+
     return (
         <section className="create-article">
             <div className="create-article-box">
@@ -11,27 +35,14 @@ export default function Create() {
                 </div>
                 <form>
                     <label htmlFor="category">Choose a category:</label>
-                    <select name="category" id="category">
+                    <select name="category" id="category" onChange={onChangeSelect}>
                         <option value=""></option>
                         <option value="cars">Cars</option>
                         <option value="animals">Animals</option>
-                        <option value="clothing">Clothing</option>
+                        <option value="clothings">Clothing</option>
                     </select>
-
-                    <label htmlFor="city">City</label>
-                    <input type="text" name="city" />
-
-                    <label htmlFor="image">Image</label>
-                    <input type="text" name="image" />
-
-                    <label htmlFor="price">Price</label>
-                    <input type="number" name="price" />
-
-                    <label htmlFor="description">Description</label>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Description..."></textarea>
-
-                    <input type="submit" className="createArtBtn" value="Create Article" />
                 </form>
+                {model}
             </div>
         </section>
     )
