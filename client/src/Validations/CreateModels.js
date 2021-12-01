@@ -1,13 +1,11 @@
 import * as yup from 'yup';
 
-
-
 export const carsSchema = yup.object().shape({
     marke: yup.string().required('Marke is required!'),
     model: yup.string().required('Model is required!'),
     year: yup.date('Invalid Date!').min(1950).max(2021).required('Date is required!'),
     city: yup.string().required('City is required!'),
-    image: yup.string().required('Image is required!'),
+    image: yup.string().matches(/^https?:\/\//,['The Home Image should starts with http:// or https://.']).required('Image is required!'),
     price: yup.number('Price must be positive number!').min(1).required('Price is required!'),
     description: yup.string().required('Description is required!'),
 

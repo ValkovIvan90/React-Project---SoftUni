@@ -27,12 +27,10 @@ export default function Register() {
 
         try {
             const result = await register(data);
-            if (result.status === 404 || result.status === 400) {
-                setServerError({ error: result.statusText })
+            if (result.status === 404) {
+                setServerError({ error: result.message })
             } else {
-                const data = await result.json();
-                localStorage.setItem('Token', data.token);
-                setUserData(data);
+                setUserData(result);
                 navigate('/catalog');
             }
         } catch (err) {

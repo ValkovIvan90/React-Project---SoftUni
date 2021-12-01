@@ -10,6 +10,6 @@ module.exports = (app) => {
     app.use('/', homeController);
 
     app.use('*', (req, res) => {
-        res.render('404', { title: 'Not found page' });
+        res.json({ status: '404', message: 'Not found page' })
     });
 }

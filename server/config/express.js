@@ -7,10 +7,11 @@ const config = require('./config');
 
 module.exports = (app) => {
     app.use(express.urlencoded({
-        extended: false
+        extended: true
     }));
     app.use(express.json());
-    app.use(cors(config.CORS));
     app.use(cookieParser());
+    app.use(cors(config.CORS));
+
     app.use(auth());
 }

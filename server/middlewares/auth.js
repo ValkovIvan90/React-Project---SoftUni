@@ -16,53 +16,58 @@ module.exports = () => (req, res, next) => {
     }
     //register
     async function register({ username, email, password }) {
+        try {
+            const isNameTaken = await getUserByUsername(username);
+            if (isNameTaken) {
+                throw new Error('Name is taken!');
+            };
 
-        const isNameTaken = await getUserByUsername(username);
-        if (isNameTaken) {
-            throw new Error('Name is taken!');
-        };
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = await createUser(username, email, hashedPassword);
+            req.user = createToken(user);
+        } catch (err) {
+            return res.json({ status: 404, message: err.message })
+        }
 
-        const isEmailTaken = await getUserByEmail(email);
-
-        if (isEmailTaken) {
-            throw new Error('Email is taken!');
-        };
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await createUser(username, email, hashedPassword);
-        req.user = createToken(user);
-        return req.user
     };
 
     //Login middleware!
 
     async function login({ email, password }) {
 
-        const user = await getUserByEmail(email);
-        if (!user) {
-            throw new Error('Wrong Email or Password!');
-        } else {
-            const isMatch = await bcrypt.compare(password, user.hashedPassword);
-            if (!isMatch) {
-                throw new Error('Wrong Email or Password!')
+        try {
+            const user = await getUserByEmail(email);
+            if (!user) {
+                throw new Error('Wrong username or Password!');
             } else {
-                req.user = createToken(user);
+                const isMatch = await bcrypt.compare(password, user.hashedPassword);
+                if (!isMatch) {
+                    throw new Error('Wrong username or Password!')
+                } else {
+                    req.user = createToken(user);
+                };
             };
-        };
+
+        } catch (err) {
+            return res.json({ status: 404, message: err.message })
+        }
+
     };
 
     //logout
 
     async function logout() {
         res.clearCookie(COOKIE_NAME);
+        res.status(200).send({ message: 'Logged out' })
     }
 
     //createToken!
     function createToken(user) {
-        const userViewModel = { _id: user._id, username: user.username, email: user.email };
+        let userViewModel = { _id: user._id, username: user.username, email: user.email };
         const token = jwt.sign(userViewModel, TOKEN_SECRET);
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
-        userViewModel.token = token
+        userViewModel.token = token;
+        console.log(userViewModel);
         return userViewModel;
     }
 

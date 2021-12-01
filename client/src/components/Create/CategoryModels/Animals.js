@@ -6,8 +6,16 @@ import { animalsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
 
 export default function Animals() {
-    const handleSubmit = () => {
-        console.log('Carssss');
+    const handleSubmit = (e) => {
+        const data = {
+            name: e.name,
+            type: e.type,
+            birthday: e.birthday,
+            city: e.city,
+            image: e.image,
+            price: e.price,
+            description: e.description
+        }
     }
     return (
         <>
@@ -77,6 +85,8 @@ export default function Animals() {
                         as="textarea"
                         id="description"
                         name="description"
+                        rows="4"
+                        cols="50"
                     />
                     <ErrorMessage name="description" component={Notification} />
 

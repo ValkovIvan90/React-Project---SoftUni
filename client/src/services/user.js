@@ -6,8 +6,9 @@ export function register(data) {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(data)
-    })
+    }).then(res => res.json());
 }
 
 export function login(data) {
@@ -16,9 +17,13 @@ export function login(data) {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(data)
-    })
+    }).then(res => res.json());
 }
 export function logout() {
-    return fetch('http://localhost:5000/auth/logout');
+    return fetch('http://localhost:5000/auth/logout', {
+        method: 'GET',
+        credentials: 'include'
+    })
 }

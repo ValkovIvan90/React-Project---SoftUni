@@ -1,9 +1,10 @@
 function isAuth() {
     return (req, res, next) => {
+        console.log(req.user);
         if (req.user != undefined) {
             next();
         } else {
-            res.redirect('/auth/login')
+            res.status(401).send('Unauthorized')
         }
     };
 };

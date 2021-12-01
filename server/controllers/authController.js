@@ -28,10 +28,8 @@ router.post('/register',
 
             try {
                 const errors = Object.values(validationResult(req).mapped());
-                console.log(errors);
                 if (errors.length > 0) {
-                    res.statusMessage = 'Server Error';
-                    res.status(404).end();
+                    res.json({ status: 404, message: "Server Error" })
                     throw new Error(errors.map(x => x.msg).join('\n'));
                 };
                 await req.auth.register(req.body);
@@ -40,39 +38,36 @@ router.post('/register',
                 if (!user) {
                     throw new Error('Invalid Token!')
                 } else {
-                    res.json({ id: user._id, username: user.username, email: user.email, token: user.token })
+                    const { _id, username, email, token } = req.user;
+                    res.json({ _id, username, email, token, status: 200 })
                 }
-
-
             } catch (err) {
-                res.sendStatus(404)
+                res.json({ status: 404, message: err.message })
                 return;
             };
 
         } catch (err) {
             console.log(err.message);
-            res.statusMessage = err.message;
-            res.status(400).end();
+            res.json({ status: 404, message: err.message })
             return;
         }
 
     });
 
 router.post('/login', async (req, res) => {
-
     try {
         await req.auth.login(req.body);
         const user = req.user;
         if (!user) {
             throw new Error('Invalid Token!')
         } else {
-            res.json({ id: user._id, username: user.username, email: user.email, token: user.token })
-            res.status(200).end();
+            const { _id, username, email, token } = req.user;
+            res.json({ _id, username, email, token, status: 200 })
         }
+
     } catch (err) {
         console.log(err.message);
-        res.statusMessage = err.message;
-        res.status(400).end();
+        res.json({status: 404, message: err.message })
         return;
     };
 });
@@ -80,7 +75,6 @@ router.post('/login', async (req, res) => {
 router.get('/logout', (req, res) => {
     try {
         req.auth.logout();
-        return res.sendStatus(200);
     } catch (err) {
         console.log(err.message);
     }

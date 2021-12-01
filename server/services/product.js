@@ -1,4 +1,5 @@
 const Estate = require('../models/Housting');
+const Car = require('../models/Car');
 
 // get all Estates
 async function getAll() {
@@ -7,6 +8,11 @@ async function getAll() {
 };
 async function createEstate(estate) {
     const record = new Estate(estate);
+    return record.save();
+};
+async function createCar(car) {
+    console.log(car);
+    const record =  new Car(car);
     return record.save();
 };
 
@@ -56,6 +62,7 @@ async function deleteEstate(estId) {
 module.exports = {
     getAll,
     createEstate,
+    createCar,
     getById,
     edit,
     deleteEstate,

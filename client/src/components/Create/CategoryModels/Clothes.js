@@ -7,8 +7,17 @@ import Notification from '../../Notification/Notification';
 
 export default function Clothes() {
 
-    const handleSubmit = () => {
-        console.log('Clothes');
+    const handleSubmit = (e) => {
+        const data = {
+            marke: e.marke,
+            type: e.type,
+            size: e.size,
+            year: e.year,
+            city: e.city,
+            image: e.image,
+            price: e.price,
+            description: e.description
+        }
     }
 
     return (
@@ -89,6 +98,8 @@ export default function Clothes() {
                         as="textarea"
                         id="description"
                         name="description"
+                        rows="4"
+                        cols="50"
                     />
                     <ErrorMessage name="description" component={Notification} />
 

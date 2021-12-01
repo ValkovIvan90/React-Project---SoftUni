@@ -1,8 +1,8 @@
-import { useState } from 'react';
 
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import UserContext from './context/UserDataContext';
+import useLocalStorage from './hooks/useLocalStorage';
 
 import Header from './components/Header';
 import HomePage from './components/HomePage';
@@ -19,7 +19,14 @@ import Edit from './components/Edit';
 
 
 function App() {
-    const [userData, setUserData] = useState([]);
+    // const [userData, setUserData] = useState([]);
+
+    const [userData, setUserData] = useLocalStorage('user', {
+        _id: '',
+        username: '',
+        email: '',
+        token: ''
+    })
 
     return (
         <>
