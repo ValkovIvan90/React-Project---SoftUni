@@ -67,7 +67,6 @@ module.exports = () => (req, res, next) => {
         const token = jwt.sign(userViewModel, TOKEN_SECRET);
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
         userViewModel.token = token;
-        console.log(userViewModel);
         return userViewModel;
     }
 

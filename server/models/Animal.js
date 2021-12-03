@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    marke: { type: String, required: [true, 'Marke is required!'] },
-    model: { type: String, required: [true, 'Model is required!'] },
+    name: { type: String, required: [true, 'Name is required!'] },
+    type: { type: String, required: [true, 'Type is required!'] },
     year: {
         type: String, required: true,
-        min: [1950, 'The Year should be between 1950 and 2021'],
+        min: [1900, 'The Year should be between 1950 and 2021'],
         max: [2021, 'The Year should be between 1950 and 2021']
     },
     city: { type: String, required: true, minLength: [4, 'The City should be at least 4 characters long'] },
@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
         required: [true, 'Description is required!'],
         maxLength: [60, 'The Property Description should be a maximum of 60 characters long']
     },
-    createdAt: '',
+    createdAt: { type: Date, required: true },
     liked: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
     owner: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
@@ -36,4 +36,4 @@ const schema = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
-module.exports = mongoose.model('Car', schema);
+module.exports = mongoose.model('Animal', schema);

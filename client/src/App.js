@@ -19,13 +19,12 @@ import Edit from './components/Edit';
 
 
 function App() {
-    // const [userData, setUserData] = useState([]);
-
+    
     const [userData, setUserData] = useLocalStorage('user', {
         _id: '',
         username: '',
         email: '',
-        token: ''
+        token: '',
     })
 
     return (

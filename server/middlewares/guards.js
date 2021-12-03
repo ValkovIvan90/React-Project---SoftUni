@@ -1,6 +1,5 @@
 function isAuth() {
     return (req, res, next) => {
-        console.log(req.user);
         if (req.user != undefined) {
             next();
         } else {

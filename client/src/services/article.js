@@ -9,12 +9,11 @@ export function getById(id) {
         .then(res => res.json());
 }
 
-export function createCar(data) {
+export function createArticle(data) {
     return fetch('http://localhost:5000/products/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'X-Authorization': 'token'
         },
         credentials: 'include',
         body: JSON.stringify(data)

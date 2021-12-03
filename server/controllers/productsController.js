@@ -1,7 +1,8 @@
 const router = require('express').Router();
 
-const Estate = require('../models/Housting');
 const serviceProduct = require('../services/product');
+
+const { createArt } = require('../util/createArticle');
 
 const { isOwner, isAuth } = require('../middlewares/guards');
 const { preloadEst } = require('../middlewares/preload');
@@ -22,69 +23,30 @@ router.get('/', async (req, res) => {
 
 // Create
 router.post('/create', isAuth(), async (req, res) => {
+    const data = {
+        model: req.body
+    };
 
-    const category = req.body.category;
+    const result = createArt(data)
+    result.owner = req.user._id;
 
-    if (category == 'cars') {
-        let { marke, model, year, city, image, price, category, description } = req.body;
-        const carData = {
-            marke,
-            model,
-            year,
-            city,
-            image,
-            price,
-            category,
-            description,
-            createdAt: new Date(),
-            owner: req.user._id,
-            liked: [],
-            comments: []
-        };
-        console.log(carData);
-
+    if (result != undefined) {
         try {
-            await req.storage.createCar(carData);
+            await req.storage.createCar(result);
             res.status(200);
         } catch (err) {
             const ctx = {
-                title: 'Create Car',
-                carData
+                title: 'Create Article',
+                result
             };
             if (err.name == 'ValidationError') {
                 ctx.errors = parseMongooseError(err);
             } else {
                 ctx.errors = [err.message]
             }
-        };
+        }
     }
 
-    // let { name, type, year, city, imageUrl, description, availablePieces, rented } = req.body;
-    // const estateDate = {
-    //     name,
-    //     type,
-    //     year,
-    //     city,
-    //     imageUrl,
-    //     description,
-    //     availablePieces,
-    //     rented,
-    //     owner: req.user._id
-    // };
-    // try {
-    //     await req.storage.createEstate(estateDate);
-    //     res.redirect('/');
-    // } catch (err) {
-    //     const ctx = {
-    //         title: 'Create Estate',
-    //         estateDate
-    //     };
-    //     if (err.name == 'ValidationError') {
-    //         ctx.errors = parseMongooseError(err);
-    //     } else {
-    //         ctx.errors = [err.message]
-    //     }
-    // };
 });
 
 // Details ! 

@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { animalsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
+import ModelLayout from './Layout/ModelLayout';
 
 export default function Animals() {
     const handleSubmit = (e) => {
@@ -57,38 +58,7 @@ export default function Animals() {
                     />
                     <ErrorMessage name="birthday" component={Notification} />
 
-                    <label htmlFor="city">City</label>
-                    <Field
-                        type="text"
-                        id="city"
-                        name="city"
-                    />
-                    <ErrorMessage name="city" component={Notification} />
-
-                    <label htmlFor="image">Image</label>
-                    <Field
-                        type="text"
-                        id="image"
-                        name="image"
-                    />
-                    <ErrorMessage name="image" component={Notification} />
-
-                    <label htmlFor="price">Price</label>
-                    <Field
-                        type="number"
-                        id="price"
-                        name="price"
-                    />
-                    <ErrorMessage name="price" component={Notification} />
-                    <label htmlFor="description">Description</label>
-                    <Field
-                        as="textarea"
-                        id="description"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                    />
-                    <ErrorMessage name="description" component={Notification} />
+                    <ModelLayout />
 
                     <input type="submit" className="createArtBtn" value="Create Article" />
                 </Form>

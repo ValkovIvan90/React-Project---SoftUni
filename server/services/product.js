@@ -1,5 +1,7 @@
 const Estate = require('../models/Housting');
 const Car = require('../models/Car');
+const Animal = require('../models/Animal');
+const Dress = require('../models/Dress');
 
 // get all Estates
 async function getAll() {
@@ -10,10 +12,19 @@ async function createEstate(estate) {
     const record = new Estate(estate);
     return record.save();
 };
-async function createCar(car) {
-    console.log(car);
-    const record =  new Car(car);
-    return record.save();
+async function createCar(art) {
+
+    if (art.category == 'cars') {
+        const record = new Car(art);
+        return record.save();
+    } else if (art.category == 'animals') {
+        const record = new Animal(art);
+        return record.save();
+    } else if (art.category == 'clothes') {
+        const record = new Dress(art);
+        return record.save();
+    }
+
 };
 
 async function getById(id) {

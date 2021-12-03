@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { carsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
 
-import { createCar } from '../../../services/article';
+import { createArticle } from '../../../services/article';
 import ServerError from '../../Notification/ServerError';
+import ModelLayout from './Layout/ModelLayout';
 
 export default function Cars() {
     const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
-    
+
     const handleSubmit = async (e) => {
 
         const data = {
@@ -25,11 +26,11 @@ export default function Cars() {
             category: 'cars'
         }
         try {
-            const result = await createCar(data);
+            const result = await createArticle(data);
             if (result.status === 404 || result.status === 400) {
                 setServerError({ error: result.statusText })
             } else {
-                // navigate('/catalog');
+                navigate('/catalog');
             }
         } catch (err) {
             console.log(err);
@@ -76,38 +77,7 @@ export default function Cars() {
                     />
                     <ErrorMessage name="year" component={Notification} />
 
-                    <label htmlFor="city">City</label>
-                    <Field
-                        type="text"
-                        id="city"
-                        name="city"
-                    />
-                    <ErrorMessage name="city" component={Notification} />
-
-                    <label htmlFor="image">Image</label>
-                    <Field
-                        type="text"
-                        id="image"
-                        name="image"
-                    />
-                    <ErrorMessage name="image" component={Notification} />
-
-                    <label htmlFor="price">Price</label>
-                    <Field
-                        type="number"
-                        id="price"
-                        name="price"
-                    />
-                    <ErrorMessage name="price" component={Notification} />
-                    <label htmlFor="description">Description</label>
-                    <Field
-                        as="textarea"
-                        id="description"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                    />
-                    <ErrorMessage name="description" component={Notification} />
+                    <ModelLayout />
 
                     <input type="submit" className="createArtBtn" value="Create Article" />
                 </Form>

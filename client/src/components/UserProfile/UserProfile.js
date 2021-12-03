@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserDataContext';
 
 import './UserProfile.css';
+import avatar from '../../images/avatar.jpg';
 
 
 export default function UserProfile() {
@@ -12,7 +13,7 @@ export default function UserProfile() {
         <section className="profile">
             <div className="profile-img-liks-section">
                 <div className="profile-img-section">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG_yIbHjzrzghXkTcOahJZn0eZCjyyLZ_lOg&usqp=CAU" alt="avatar-img" />
+                    <img src={avatar} alt="avatar-img" />
                 </div>
                 <div className="uploadImg">
                     <form action="/action_page.php">

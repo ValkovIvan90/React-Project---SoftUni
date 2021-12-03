@@ -1,4 +1,6 @@
 import React from 'react'
+import ModelLayout from './Layout/ModelLayout';
+
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -69,40 +71,8 @@ export default function Clothes() {
                         name="year"
                     />
                     <ErrorMessage name="year" component={Notification} />
-                    <label htmlFor="city">City</label>
-                    <Field
-                        type="text"
-                        id="city"
-                        name="city"
-                    />
-                    <ErrorMessage name="city" component={Notification} />
-
-                    <label htmlFor="image">Image</label>
-                    <Field
-                        type="text"
-                        id="image"
-                        name="image"
-                    />
-                    <ErrorMessage name="image" component={Notification} />
-
-                    <label htmlFor="price">Price</label>
-                    <Field
-                        type="number"
-                        id="price"
-                        name="price"
-                    />
-                    <ErrorMessage name="price" component={Notification} />
-
-                    <label htmlFor="description">Description</label>
-                    <Field
-                        as="textarea"
-                        id="description"
-                        name="description"
-                        rows="4"
-                        cols="50"
-                    />
-                    <ErrorMessage name="description" component={Notification} />
-
+                    
+                    <ModelLayout />
                     <input type="submit" className="createArtBtn" value="Create Article" />
                 </Form>
             </Formik>
