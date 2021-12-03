@@ -32,8 +32,9 @@ router.post('/create', isAuth(), async (req, res) => {
 
     if (result != undefined) {
         try {
-            await req.storage.createCar(result);
-            res.status(200);
+            await req.storage.createArtModel(result);
+            res.json({ status: 200, message: 'Succses!' })
+            
         } catch (err) {
             const ctx = {
                 title: 'Create Article',

@@ -6,6 +6,7 @@ import { carsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
 
 import { createArticle } from '../../../services/article';
+
 import ServerError from '../../Notification/ServerError';
 import ModelLayout from './Layout/ModelLayout';
 
@@ -28,7 +29,7 @@ export default function Cars() {
         try {
             const result = await createArticle(data);
             if (result.status === 404 || result.status === 400) {
-                setServerError({ error: result.statusText })
+                setServerError({ error: result.message })
             } else {
                 navigate('/catalog');
             }

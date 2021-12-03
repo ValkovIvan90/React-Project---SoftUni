@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    name: { type: String, required: [true, 'Name is required!'] },
+    animalName: { type: String, required: [true, 'Name is required!'] },
     type: { type: String, required: [true, 'Type is required!'] },
-    year: {
+    birthday: {
         type: String, required: true,
         min: [1900, 'The Year should be between 1950 and 2021'],
         max: [2021, 'The Year should be between 1950 and 2021']

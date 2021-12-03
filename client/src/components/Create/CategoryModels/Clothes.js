@@ -1,15 +1,19 @@
-import React from 'react'
-import ModelLayout from './Layout/ModelLayout';
-
-
+import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import { useNavigate } from 'react-router-dom';
 import { clothesSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
 
-export default function Clothes() {
+import { createArticle } from '../../../services/article';
+import ModelLayout from './Layout/ModelLayout';
+import ServerError from '../../Notification/ServerError';
 
-    const handleSubmit = (e) => {
+export default function Clothes() {
+    const [serverErr, setServerError] = useState([]);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         const data = {
             marke: e.marke,
             type: e.type,
@@ -18,7 +22,18 @@ export default function Clothes() {
             city: e.city,
             image: e.image,
             price: e.price,
-            description: e.description
+            description: e.description,
+            category: 'clothes'
+        }
+        try {
+            const result = await createArticle(data);
+            if (result.status === 404 || result.status === 400) {
+                setServerError({ error: result.message })
+            } else {
+                navigate('/catalog');
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -71,11 +86,12 @@ export default function Clothes() {
                         name="year"
                     />
                     <ErrorMessage name="year" component={Notification} />
-                    
+
                     <ModelLayout />
                     <input type="submit" className="createArtBtn" value="Create Article" />
                 </Form>
             </Formik>
+            {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
         </>
     )
 }

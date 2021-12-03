@@ -1,23 +1,42 @@
-import React from 'react'
-
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import { useNavigate } from 'react-router-dom';
 import { animalsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/Notification';
+
+import { createArticle } from '../../../services/article';
+
+import ServerError from '../../Notification/ServerError';
 import ModelLayout from './Layout/ModelLayout';
 
 export default function Animals() {
-    const handleSubmit = (e) => {
+    const [serverErr, setServerError] = useState([]);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         const data = {
-            name: e.name,
+            animalName: e.name,
             type: e.type,
             birthday: e.birthday,
             city: e.city,
             image: e.image,
             price: e.price,
-            description: e.description
+            description: e.description,
+            category: 'animals'
+        }
+        try {
+            const result = await createArticle(data);
+            if (result.status === 404 || result.status === 400) {
+                setServerError({ error: result.message })
+            } else {
+                navigate('/catalog');
+            }
+        } catch (err) {
+            console.log(err);
         }
     }
+
     return (
         <>
             <Formik
@@ -63,7 +82,7 @@ export default function Animals() {
                     <input type="submit" className="createArtBtn" value="Create Article" />
                 </Form>
             </Formik>
-
+            {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
         </>
     )
 }

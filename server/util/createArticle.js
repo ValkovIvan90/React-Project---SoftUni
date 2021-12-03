@@ -2,11 +2,11 @@ const { createDate } = require('./currentDate');
 
 function createArt(data) {
 
-    let { marke, model, year, city, image, price, category, description } = data.model;
+    let { city, image, price, category, description } = data.model;
 
     let result;
     if (category == 'cars') {
-
+        let { marke, model, year } = data.model;
         const carData = {
             marke,
             model,
@@ -14,13 +14,17 @@ function createArt(data) {
         };
         result = carData;
     } else if (category == 'animals') {
+        let { animalName, type, birthday } = data.model;
+
         const animalsData = {
-            name,
+            animalName,
             type,
             birthday
         };
         result = animalsData;
     } else if (category == 'clothes') {
+        let { marke, type, size, year } = data.model;
+
         const clothesDate = {
             marke,
             type,
