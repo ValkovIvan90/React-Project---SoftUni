@@ -9,16 +9,16 @@ import { getAll } from '../../services/article';
 
 export default function Catalog() {
     const [articles, setArticle] = useState([])
-       
-    useEffect(() => {
-        getAll().then(result => {
-            setArticle(result);
-        }).catch((err) => {
+
+    useEffect(async () => {
+        try {
+            const result = await getAll();
+            setArticle(result.article);
+        } catch (err) {
             console.log(err.message);
-        })
+        }
 
     }, [])
-
 
     return (
         <section className="catalog">

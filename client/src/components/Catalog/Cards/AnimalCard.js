@@ -3,14 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function ArtCard({
+export default function AnimalCard({
     article
 }) {
     return (
         <article className="card">
             <div className="img">
                 <img
-                    src={article.image}
+                    src={article.imageUrl}
                     alt="art"
                 />
             </div>

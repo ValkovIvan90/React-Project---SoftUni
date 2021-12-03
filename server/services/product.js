@@ -5,8 +5,17 @@ const Dress = require('../models/Dress');
 
 // get all Estates
 async function getAll() {
-    const estate = Estate.find({}).lean();
-    return estate;
+    let result = [];
+
+    const Cars = await Car.find({}).lean();
+    const Animals = await Animal.find({}).lean();
+    const Clothes = await Dress.find({}).lean();
+
+    Cars.map(x => result.push(x));
+    Animals.map(x => result.push(x));
+    Clothes.map(x => result.push(x));
+
+    return result;
 };
 
 async function createArtModel(art) {

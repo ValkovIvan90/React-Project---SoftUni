@@ -7,15 +7,14 @@ const { createArt } = require('../util/createArticle');
 const { isOwner, isAuth } = require('../middlewares/guards');
 const { preloadEst } = require('../middlewares/preload');
 const { parseMongooseError } = require('../util/parse');
-// const { route } = require('./authController');
 
 
 
 // Home
 router.get('/', async (req, res) => {
     try {
-        const articles = await req.storage.getAll();
-        return res.send(articles)
+        const result = await req.storage.getAll();
+        res.json({ article: result, status: 200 })
     } catch (err) {
         console.log(err.message);
     }
@@ -34,7 +33,7 @@ router.post('/create', isAuth(), async (req, res) => {
         try {
             await req.storage.createArtModel(result);
             res.json({ status: 200, message: 'Succses!' })
-            
+            console.log('Succses created!');
         } catch (err) {
             const ctx = {
                 title: 'Create Article',
