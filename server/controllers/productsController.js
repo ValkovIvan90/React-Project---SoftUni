@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const serviceProduct = require('../services/product');
+const { getUserById } = require('../services/userServices');
 
 const { createArt } = require('../util/createArticle');
 
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
         const result = await req.storage.getAll();
         res.json({ article: result, status: 200 })
     } catch (err) {
-        console.log(err.message);
+        res.json({ message: 'No Records in the database!' })
     }
 });
 
@@ -52,10 +52,21 @@ router.post('/create', isAuth(), async (req, res) => {
 // Details ! 
 router.get('/details/:id', async (req, res) => {
     try {
-        const article = await serviceProduct.getById(req.params.id);
-        res.send(article);
+        const artResult = await req.storage.getAll();
+
+        const currentArt = artResult.reduce((acc, c) => {
+            if (c._id == req.params.id) {
+                acc.article = c
+            }
+            return acc;
+        }, {});
+
+        const artOwner = await getUserById(currentArt.article.owner);
+
+        res.json({ article: currentArt.article, status: 200, owner: artOwner })
+
     } catch (err) {
-        console.log(err.message);
+        res.json({ message: 'No record in the database!' })
     }
 
 });

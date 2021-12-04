@@ -17,9 +17,16 @@ async function getUserByUsername(username) {
 async function getUserByEmail(email) {
     return await User.findOne({ email: { $regex: email, $options: 'i' } });
 };
+async function getUserById(id) {
+
+    const { username, email } = await User.findOne(id);
+    const user = { username, email };
+    return user;
+};
 
 module.exports = {
     createUser,
     getUserByUsername,
-    getUserByEmail
+    getUserByEmail,
+    getUserById
 }
