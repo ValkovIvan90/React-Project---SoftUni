@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './ArtCard.css'
 import { Link } from 'react-router-dom';
 
 
@@ -19,13 +20,13 @@ export default function ArtCard({
                     <h4>{article.city}</h4>
                 </div>
                 <div className="card-info date">
-                    <p>{article.year}</p>
+                    <p>{article.createdAt}</p>
                 </div>
                 <div className="card-info price">
-                    <p>{article.type}</p>
+                    <p>{article.price} $</p>
                 </div>
                 <div className="card-info likes">
-                    <h4>Likes</h4>
+                    <i class="fas fa-heart"> {article.liked.length}</i>
                 </div>
                 <div className="data-buttons">
                     <Link to={`/details/${article._id}`}

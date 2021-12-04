@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-
 import './Catalog.css';
-import ArtCard from './ArtCard';
+import ArtCard from './Card';
 
 import React from 'react'
 import { getAll } from '../../services/article';

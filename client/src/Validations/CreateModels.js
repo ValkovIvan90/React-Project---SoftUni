@@ -7,8 +7,7 @@ export const carsSchema = yup.object().shape({
     city: yup.string().required('City is required!'),
     image: yup.string().matches(/^https?:\/\//,['The Home Image should starts with http:// or https://.']).required('Image is required!'),
     price: yup.number('Price must be positive number!').min(1).required('Price is required!'),
-    description: yup.string().required('Description is required!'),
-
+    description: yup.string().required('Description is required!').max(500, 'Description should be a maximum of 500 characters long')
 })
 
 export const animalsSchema = yup.object().shape({
@@ -18,16 +17,16 @@ export const animalsSchema = yup.object().shape({
     city: yup.string().required('City is required!'),
     image: yup.string().required('Image is required!'),
     price: yup.number('Price must be positive number!').min(1).required('Price is required!'),
-    description: yup.string().required('Description is required!')
+    description: yup.string().required('Description is required!').max(500, 'Description should be a maximum of 500 characters long')
 })
 
 export const clothesSchema = yup.object().shape({
-    marke: yup.string().min(4).max(15).required('Marke is required!'),
+    marke: yup.string().max(15).required('Marke is required!'),
     type: yup.string().required('Type is required!'),
     size: yup.string().required('Size is required!'),
     year: yup.date().min(1960).max(2021).required('Date is required!'),
     city: yup.string().required('City is required!'),
     image: yup.string().required('Image is required!'),
     price: yup.number('Price must be positive number!').min(1).required('Price is required!'),
-    description: yup.string().required('Description is required!')
+    description: yup.string().required('Description is required!').max(500, 'Description should be a maximum of 500 characters long')
 })

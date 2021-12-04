@@ -9,41 +9,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.card {
-  max-width: 150px;
-  text-align: center;
-  border-radius: 10px;
-  margin: 10px;
-  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-  padding: 10px 10px;
-  color: #f26c3f;
-}
 
-.card img {
-  width: 100%;
-  padding: 10px;
-  border-radius: 100px;
-}
-
-.info {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
-.card-info {
-  width: 50%;
-  font-weight: bold;
-}
-.details-btn {
-  width: 100%;
-  text-decoration: none;
-  color: teal;
-  font-weight: bold;
-}
-.details-btn:hover {
-  font-size: larger;
-}
 .catalog-title {
   flex-basis: 100%;
   font-size: 2em;
