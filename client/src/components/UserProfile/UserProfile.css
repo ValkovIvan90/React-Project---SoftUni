@@ -90,5 +90,8 @@
 }
 .user-info p .data-span {
   padding-right: 100px;
-  color: #3F82EC;
+  color: #3f82ec;
+}
+.user-info-name strong {
+  text-transform: capitalize;
 }

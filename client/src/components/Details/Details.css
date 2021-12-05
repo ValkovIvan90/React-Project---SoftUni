@@ -41,58 +41,11 @@
   border-radius: 10px;
   padding: 7px 0;
   margin: 10px 0;
-}
-
-.article-info {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-evenly;
 }
 .art-info-items {
   font-style: italic;
-}
-.message-box {
-  max-width: 178px;
-}
-.message-box form input,
-textarea {
-  border-radius: 4px;
-}
-.message-box form input:placeholder-shown {
-  padding: 5px;
-}
-.form-btn {
-  display: flex;
-  justify-content: space-between;
-}
-.box-title {
-  text-align: center;
-}
-.box-title span {
-  text-decoration: underline;
-}
-
-.form-btn .submit-btn {
-  border-radius: 5px;
-  background-color: chocolate;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 3px 7px;
-}
-.form-btn .submit-btn:hover {
-  font-size: 1em;
-}
-.form-btn .reset-btn {
-  border-radius: 5px;
-  background-color: chocolate;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 3px 7px;
-}
-.form-btn .reset-btn:hover {
-  font-size: 1em;
 }
 
 .buttons {
@@ -126,4 +79,7 @@ strong {
 }
 .dt-likes {
   color: green;
+}
+.seler-info li:nth-child(1) {
+  text-transform: capitalize;
 }

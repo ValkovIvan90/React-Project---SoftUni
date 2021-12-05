@@ -35,37 +35,38 @@ export default function Details() {
                 <ul className="art-info-items">
                     {art.category === 'animals' ?
                         <>
-                            <li><strong>Name</strong> - {art.animalName}</li>
-                            <li><strong>Type</strong> - {art.type}</li>
-                            <li><strong>Birthday</strong> - {art.birthday}</li>
+                            <li><strong>Name</strong>  {art.animalName}</li>
+                            <li><strong>Type</strong>  {art.type}</li>
+                            <li><strong>Birthday</strong>  {art.birthday}</li>
                         </>
                         : ''}
                     {art.category === 'cars' ?
                         <>
-                            <li><strong>Marke</strong> - {art.marke}</li>
-                            <li><strong>Model</strong> - {art.model}</li>
-                            <li><strong>Year</strong> - {art.year}</li>
+                            <li><strong>Marke</strong>  {art.marke}</li>
+                            <li><strong>Model</strong>  {art.model}</li>
+                            <li><strong>Year</strong>  {art.year}</li>
                         </>
                         : ''}
                     {art.category === 'clothes' ?
                         <>
-                            <li><strong>Marke</strong> - {art.marke}</li>
-                            <li><strong>Type</strong> - {art.type}</li>
-                            <li><strong>Year</strong> - {art.year}</li>
+                            <li><strong>Marke</strong>  {art.marke}</li>
+                            <li><strong>Type</strong>  {art.type}</li>
+                            <li><strong>Year</strong>  {art.year}</li>
                         </>
                         : ''}
-                    <li><strong>Category</strong> - {art.category}</li>
-                    <li><strong>City</strong> - {art.city}</li>
-                    <li><strong>Date of publication</strong> - {art.createdAt}</li>
-                    <li><strong>Price</strong> - ${art.price}</li>
+                    <li><strong>Category</strong>  {art.category}</li>
+                    <li><strong>City</strong>  {art.city}</li>
+                    <li><strong>Date of publication</strong>  {art.createdAt}</li>
+                    <li><strong>Price</strong>  ${art.price}</li>
+                    {userData ?
+                        <div className="seler-info">
+                            <li><strong>Seller</strong>  {artOwner.username}</li>
+                            <li><strong>Email</strong>  {artOwner.email}</li>
+                        </div>
+                        : ''}
                 </ul>
-                {userData ? <ul className="art-info-owner">
-                    <li><strong>Seller</strong> - {artOwner.username}</li>
-                    <li><strong>Email</strong> - {artOwner.email}</li>
-                </ul> : ''}
-
+                <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id} />
             </article>
-            <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id} />
 
             <article className="buttons">
                 <Link to={`/edit/${artId}`} className="button edit">Edit</Link>

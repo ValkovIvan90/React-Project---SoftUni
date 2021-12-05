@@ -60,7 +60,7 @@ export default function SendMessage({ ownerId, ownerName, userId }) {
                     E-mail:<br />
                     <input type="text" name="mail" placeholder="Your Email" /><br />
                     Message:<br />
-                    <textarea name="message" id="" cols="18" rows="4" placeholder="Send message..."></textarea>
+                    <textarea name="message" id="" cols="21" rows="4" placeholder="Send message..."></textarea>
                     <div className="form-btn">
                         <input className="submit-btn" type="submit" value="Send" />
                         <input className="reset-btn" type="reset" value="Reset" />

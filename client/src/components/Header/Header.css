@@ -90,3 +90,7 @@ header li a:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.userName {
+  text-transform: capitalize;
+}

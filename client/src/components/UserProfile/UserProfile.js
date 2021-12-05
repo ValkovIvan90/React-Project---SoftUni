@@ -39,7 +39,6 @@ export default function UserProfile() {
                             User-Info</h1>
                         <p className="user-info-name"><span>Name</span>  <strong className="data-span">{userData.username}</strong></p>
                         <p className="user-info-email"><span>Email</span> <strong className="data-span">{userData.email}</strong></p>
-                        <p className="user-info-city"><span>City</span> <strong className="data-span">{userData.username}</strong></p>
                     </div>
                 </div>
                 <div className="profile-info-article">
