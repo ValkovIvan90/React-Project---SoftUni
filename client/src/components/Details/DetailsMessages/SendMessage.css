@@ -8,8 +8,7 @@
 }
 
 .message-box {
-  max-width: 300px;
-  margin-right: 50px;
+  max-width: 200px;
 }
 .box-title {
   text-align: center;
@@ -58,4 +57,11 @@ textarea {
 }
 .form-btn .reset-btn:hover {
   font-size: 1em;
+}
+
+.form {
+  max-width: 200px;
+}
+.form .input {
+  width: 200px;
 }

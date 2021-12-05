@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Notification from '../../Notification/Notification';
+import Notification from '../../Notification/InputNotification/Notification'
 import ServerError from '../../Notification/ServerError';
 
 import { userLoginSchema } from '../../../Validations/UserValidation';

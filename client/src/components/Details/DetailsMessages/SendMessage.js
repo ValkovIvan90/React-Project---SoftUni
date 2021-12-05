@@ -1,44 +1,32 @@
 
 import React, { useState } from 'react'
-import './SendMessage.css'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { sendMessage } from '../../../services/user';
+import MessageNot from '../../Notification/MessageNot';
+import { sendMessageSchema } from '../../../Validations/UserValidation';
+import Notification from '../../Notification/InputNotification/Notification'
 
-export default function SendMessage({ ownerId, ownerName, userId }) {
-    const emailRegex = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
+import './SendMessage.css'
+
+export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
 
     const [error, setError] = useState('');
     const [send, setSend] = useState('');
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
+    async function submitHandler(e) {
 
-        const formData = Object.fromEntries(new FormData(e.currentTarget));
-        const { name, mail, message } = formData;
-
-        if (name === "" || name.length < 4 || name.length > 15) {
-            setError('Name should be between 4 and 15 character long!');
-            return;
-        }
-        if (message === "" || message.length < 4 || message.length > 100) {
-            setError('Message should be between 4 and 100 character long!');
-            return;
-        }
-
-        if (!mail.match(emailRegex)) {
-            setError('Invalid Email!');
-            return;
-        }
         const data = {
-            name,
-            mail,
-            message,
+            username: e.username,
+            mail: e.email,
+            message: e.message,
             ownerId,
-            userId
+            userId,
+            articleId
         }
-
         try {
             const result = await sendMessage(data);
+
             if (result.status === 200) {
                 setSend(result.message);
             }
@@ -51,22 +39,54 @@ export default function SendMessage({ ownerId, ownerName, userId }) {
     }
     return (
         <>
-            {error ? <p className="msg-error">{error}</p> : <p className="msg-send">{send}</p>}
             <article className="message-box">
                 <h4 className="box-title">Send message to <span>{ownerName}</span></h4>
-                <form onSubmit={submitHandler}>
-                    Name:<br />
-                    <input type="text" name="name" placeholder="Your name" /><br />
-                    E-mail:<br />
-                    <input type="text" name="mail" placeholder="Your Email" /><br />
-                    Message:<br />
-                    <textarea name="message" id="" cols="21" rows="4" placeholder="Send message..."></textarea>
-                    <div className="form-btn">
-                        <input className="submit-btn" type="submit" value="Send" />
-                        <input className="reset-btn" type="reset" value="Reset" />
-                    </div>
-                </form>
+                <Formik
+                    initialValues={{
+                        username: '',
+                        email: '',
+                        message: ''
+                    }}
+                    validationSchema={sendMessageSchema}
+                    onSubmit={submitHandler}>
+                    <Form className="form">
+                        <label htmlFor="username">Name</label>
+                        <Field
+                            className="input"
+                            type="text"
+                            id="text"
+                            name="username"
+                        />
+                        <ErrorMessage name="username" component={Notification} />
+
+                        <label htmlFor="email">Email</label>
+                        <Field
+                            className="input"
+                            type="email"
+                            id="email"
+                            name="email"
+                        />
+                        <ErrorMessage name="email" component={Notification} />
+                        <label htmlFor="message">Message</label>
+                        <Field
+                            as="textarea"
+                            id="message"
+                            name="message"
+                            rows="4"
+                            cols="50"
+                        />
+                        <ErrorMessage name="message" component={Notification} />
+
+                        <div className="form-btn">
+                            <input className="submit-btn" type="submit" value="Send" />
+                            <input className="reset-btn" type="reset" value="Reset" />
+                        </div>
+                    </Form>
+                </Formik>
             </article>
+            <div id="notification-box">
+                {/* {error ? <MessageNot message={error} /> : <MessageNot message={send} />} */}
+            </div>
         </>
     )
 }

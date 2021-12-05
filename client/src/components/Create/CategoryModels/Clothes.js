@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
 import { clothesSchema } from '../../../Validations/CreateModels';
-import Notification from '../../Notification/Notification';
+import Notification from '../../Notification/InputNotification/Notification'
 
 import { createArticle } from '../../../services/article';
 import ModelLayout from './Layout/ModelLayout';

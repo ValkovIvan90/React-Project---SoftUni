@@ -30,9 +30,11 @@ async function createMessageSend(data) {
         const userId = data.userId;
 
         const newMessage = {
-            name: data.name,
+            username: data.username,
             email: data.mail,
-            message: data.message
+            senderId: data.userId,
+            message: data.message,
+            articleId: data.articleId
         }
         recieverUser.recievedMessages.push({ [userId]: newMessage });
 

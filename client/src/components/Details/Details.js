@@ -65,7 +65,8 @@ export default function Details() {
                         </div>
                         : ''}
                 </ul>
-                <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id} />
+                <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
+                    articleId={artId} />
             </article>
 
             <article className="buttons">

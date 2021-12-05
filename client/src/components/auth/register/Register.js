@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { userSchema } from '../../../Validations/UserValidation';
-import Notification from '../../Notification/Notification';
+import Notification from '../../Notification/InputNotification/Notification'
 import ServerError from '../../Notification/ServerError';
 
 import { register } from '../../../services/user';
