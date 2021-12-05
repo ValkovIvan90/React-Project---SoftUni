@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Details.css';
 import { Link, useParams } from 'react-router-dom';
+import UserContext from '../../context/UserDataContext';
+import SendMessage from './DetailsMessages/SendMessage';
 
 import { getById } from '../../services/article';
 
 export default function Details() {
+    const { userData } = useContext(UserContext);
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
 
     const { artId } = useParams();
-
     useEffect(() => {
         getById(artId)
             .then(res =>
                 setArt(res.article,
-                    setArtOwner(res.owner)
+                    setArtOwner(res.owner),
                 ));
     }, [artId]);
 
@@ -31,28 +33,40 @@ export default function Details() {
             </article>
             <article className="article-info">
                 <ul className="art-info-items">
-                    <li>Seller : {artOwner.username}</li>
-                    <li>Email : {artOwner.email}</li>
-                    <li>Place : {art.city}</li>
-                    <li>Date of publication : {art.year}</li>
-                    <li>Price : ${art.price}</li>
+                    {art.category === 'animals' ?
+                        <>
+                            <li><strong>Name</strong> - {art.animalName}</li>
+                            <li><strong>Type</strong> - {art.type}</li>
+                            <li><strong>Birthday</strong> - {art.birthday}</li>
+                        </>
+                        : ''}
+                    {art.category === 'cars' ?
+                        <>
+                            <li><strong>Marke</strong> - {art.marke}</li>
+                            <li><strong>Model</strong> - {art.model}</li>
+                            <li><strong>Year</strong> - {art.year}</li>
+                        </>
+                        : ''}
+                    {art.category === 'clothes' ?
+                        <>
+                            <li><strong>Marke</strong> - {art.marke}</li>
+                            <li><strong>Type</strong> - {art.type}</li>
+                            <li><strong>Year</strong> - {art.year}</li>
+                        </>
+                        : ''}
+                    <li><strong>Category</strong> - {art.category}</li>
+                    <li><strong>City</strong> - {art.city}</li>
+                    <li><strong>Date of publication</strong> - {art.createdAt}</li>
+                    <li><strong>Price</strong> - ${art.price}</li>
                 </ul>
-                <article className="message-box">
-                    <h4 className="box-title">Send message to <span>{artOwner.email}</span></h4>
-                    <form action="mailto:someone@example.com" method="post" encType="text/plain">
-                        Name:<br />
-                        <input type="text" name="name" placeholder="Your name" /><br />
-                        E-mail:<br />
-                        <input type="text" name="mail" placeholder="Your Email" /><br />
-                        Message:<br />
-                        <textarea name="message" id="" cols="21" rows="4" placeholder="Send message..."></textarea>
-                        <div className="form-btn">
-                            <input className="submit-btn" type="submit" value="Send" />
-                            <input className="reset-btn" type="reset" value="Reset" />
-                        </div>
-                    </form>
-                </article>
+                {userData ? <ul className="art-info-owner">
+                    <li><strong>Seller</strong> - {artOwner.username}</li>
+                    <li><strong>Email</strong> - {artOwner.email}</li>
+                </ul> : ''}
+
             </article>
+            <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id} />
+
             <article className="buttons">
                 <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
                 <Link to="#" className="button del">Delete</Link>

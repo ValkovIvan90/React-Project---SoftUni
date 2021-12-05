@@ -19,14 +19,34 @@ async function getUserByEmail(email) {
 };
 async function getUserById(id) {
 
-    const { username, email } = await User.findOne(id);
-    const user = { username, email };
+    const { username, email, _id } = await User.findOne(id);
+    const user = { username, email, _id };
     return user;
+};
+async function createMessageSend(data) {
+
+    try {
+        const recieverUser = await User.findOne({ _id: data.ownerId });
+        const userId = data.userId;
+
+        const newMessage = {
+            name: data.name,
+            email: data.mail,
+            message: data.message
+        }
+        recieverUser.recievedMessages.push({ [userId]: newMessage });
+
+        await recieverUser.save();
+    } catch (err) {
+        return err.message
+    }
+
 };
 
 module.exports = {
     createUser,
     getUserByUsername,
     getUserByEmail,
-    getUserById
+    getUserById,
+    createMessageSend
 }

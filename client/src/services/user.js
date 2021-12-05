@@ -27,3 +27,24 @@ export function logout() {
         credentials: 'include'
     })
 }
+
+export function sendMessage(data) {
+    return fetch('http://localhost:5000/auth/sendMessage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+}
+// export function recieveMessage(data) {
+//     return fetch('http://localhost:5000/auth/sendMessage', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         credentials: 'include',
+//         body: JSON.stringify(data)
+//     }).then(res => res.json());
+// }

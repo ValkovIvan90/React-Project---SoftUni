@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 
-const { getUserByUsername, getUserByEmail } = require('../services/userServices');
+const { getUserByUsername, getUserByEmail, createMessageSend } = require('../services/userServices');
 
 router.post('/register',
     body('username', 'The username should be at least 5 characters long!').isLength({ min: 5 }),
@@ -67,7 +67,17 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         console.log(err.message);
-        res.json({status: 404, message: err.message })
+        res.json({ status: 404, message: err.message })
+        return;
+    };
+});
+router.post('/sendMessage', async (req, res) => {
+
+    try {
+        await createMessageSend(req.body);
+        res.json({ message: 'The message has been send successfully ', status: 200 })
+    } catch (err) {
+        res.json({ status: 404, message: err.message })
         return;
     };
 });

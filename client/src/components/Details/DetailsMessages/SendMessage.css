@@ -1,0 +1,8 @@
+.msg-error {
+  color: rgb(214, 12, 12);
+  font-weight: bold;
+}
+.msg-send {
+  color: #23ba51;
+  font-weight: bold;
+}
