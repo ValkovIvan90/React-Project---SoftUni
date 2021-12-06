@@ -26,6 +26,9 @@ async function getUserById(id) {
 async function createMessageSend(data) {
 
     try {
+        if (!data.username || !data.mail || !data.userId || !data.message || !data.articleId) {
+            throw new Error('Invalid data!')
+        }
         const recieverUser = await User.findOne({ _id: data.ownerId });
         const userId = data.userId;
 

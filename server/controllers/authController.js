@@ -72,8 +72,11 @@ router.post('/login', async (req, res) => {
     };
 });
 router.post('/sendMessage', async (req, res) => {
-
+    const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     try {
+        if (!req.body.mail.match(emailReg)) {
+            throw new Error('Invalid Data!')
+        }
         await createMessageSend(req.body);
         res.json({ message: 'The message has been send successfully ', status: 200 })
     } catch (err) {

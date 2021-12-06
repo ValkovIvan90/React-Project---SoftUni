@@ -116,6 +116,9 @@ router.post('/createComment', isAuth(), async (req, res) => {
 
     const data = { articleId, username, comment, category } = req.body;
     try {
+        if (!articleId || !username || !comment || !category) {
+            throw new Error('Invalid data!')
+        }
         await req.storage.createComment(data);
         res.json({ message: 'Successfully created comment', status: 200 })
     } catch (err) {
