@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function MessageNot({ message }) {
-
+   
     const [visible, setIsvisible] = useState(false);
 
     useEffect(() => {

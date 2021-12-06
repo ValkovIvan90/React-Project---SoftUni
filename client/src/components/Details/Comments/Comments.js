@@ -1,4 +1,9 @@
 import React from 'react'
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { commentSchema } from '../../../Validations/UserValidation';
+import Notification from '../../Notification/InputNotification/Notification';
+
 import './Comments.css'
 export default function Comments() {
 
@@ -8,14 +13,36 @@ export default function Comments() {
     }
     return (
         <div className="comments-box">
-            <h2 className="comments-title">Comments :</h2>
-            <form onSubmit={submitComment}>
-                <input type="text" name="username" placeholder="Your name" />
-                <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Comment"></textarea>
-                <input type="submit" value="Post Comment" />
-            </form>
+            <h2 className="comments-title">Comments</h2>
+            <Formik
+                initialValues={{
+                    username: '',
+                    comment: ''
+                }}
+                validationSchema={commentSchema}
+                onSubmit={submitComment}>
+                <Form className="comment-form">
+                    <Field
+                        type="text"
+                        id="inp-name"
+                        name="username"
+                        placeholder="Name ..."
+                    />
+                    <ErrorMessage name="username" component={Notification} />
+
+                    <Field
+                        as="textarea"
+                        id="comment-area"
+                        name="comment"
+                        placeholder="Comment ..."
+                        rows="4"
+                        cols="100"
+                    />
+                    <ErrorMessage name="comment" component={Notification} />
+                    <input type="submit" id="cm-submit" value="Post Comment" />
+                </Form>
+            </Formik>
             <div className="comments-count">
-                <p className="count">Comments</p>
                 <button className="show-hide-comments">Show Comments</button>
             </div>
         </div>

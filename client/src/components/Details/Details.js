@@ -3,6 +3,7 @@ import './Details.css';
 import { Link, useParams } from 'react-router-dom';
 import UserContext from '../../context/UserDataContext';
 import SendMessage from './DetailsMessages/SendMessage';
+import Comments from './Comments';
 
 import { getById } from '../../services/article';
 
@@ -74,6 +75,8 @@ export default function Details() {
                 <Link to="#" className="button del">Delete</Link>
                 <Link to="#" className="button like">Like</Link>
             </article>
+
+            <Comments />
         </section>
     )
 }
