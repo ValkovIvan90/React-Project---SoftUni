@@ -42,10 +42,11 @@
   padding: 7px 0;
   margin: 10px 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .art-info-items {
   font-style: italic;
+  width: 50%;
 }
 
 .buttons {
@@ -82,4 +83,7 @@ strong {
 }
 .seler-info li:nth-child(1) {
   text-transform: capitalize;
+}
+.message-box {
+  max-width: 50%;
 }

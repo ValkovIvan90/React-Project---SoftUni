@@ -45,3 +45,11 @@ select {
   background-color: teal;
   color: white;
 }
+#description {
+  max-width: 338px;
+  border-radius: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+#category {
+  max-width: 339px;
+}

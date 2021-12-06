@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
 import { sendMessage } from '../../../services/user';
 import MessageNot from '../../Notification/MessageNot';
 import { sendMessageSchema } from '../../../Validations/UserValidation';
@@ -11,15 +10,14 @@ import './SendMessage.css'
 
 export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
 
-    const [error, setError] = useState('');
-    const [send, setSend] = useState('');
+    const [send, setSend] = useState([]);
 
-    async function submitHandler(e) {
+    async function submitHandler(value, { resetForm }) {
 
         const data = {
-            username: e.username,
-            mail: e.email,
-            message: e.message,
+            username: value.username,
+            mail: value.email,
+            message: value.message,
             ownerId,
             userId,
             articleId
@@ -28,15 +26,16 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
             const result = await sendMessage(data);
 
             if (result.status === 200) {
-                setSend(result.message);
+                setSend({ message: result.message });
             }
 
         } catch (err) {
-            setError(err.message)
+            setSend(err.message)
         }
-
-
+        resetForm({ value: "" });
     }
+
+
     return (
         <>
             <article className="message-box">
@@ -52,25 +51,23 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
                     <Form className="form">
                         <label htmlFor="username">Name</label>
                         <Field
-                            className="input"
                             type="text"
-                            id="text"
+                            id="text-msg"
                             name="username"
                         />
                         <ErrorMessage name="username" component={Notification} />
 
                         <label htmlFor="email">Email</label>
                         <Field
-                            className="input"
                             type="email"
-                            id="email"
+                            id="email-msg"
                             name="email"
                         />
                         <ErrorMessage name="email" component={Notification} />
                         <label htmlFor="message">Message</label>
                         <Field
                             as="textarea"
-                            id="message"
+                            id="message-area"
                             name="message"
                             rows="4"
                             cols="50"
@@ -83,10 +80,8 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
                         </div>
                     </Form>
                 </Formik>
+                {send.message !== undefined ? <MessageNot message={send.message} /> : ""}
             </article>
-            <div id="notification-box">
-                {/* {error ? <MessageNot message={error} /> : <MessageNot message={send} />} */}
-            </div>
         </>
     )
 }
