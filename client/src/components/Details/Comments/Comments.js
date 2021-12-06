@@ -5,6 +5,7 @@ import { commentSchema } from '../../../Validations/UserValidation';
 import Notification from '../../Notification/InputNotification/Notification';
 
 import { createComment } from '../../../services/article';
+import CommentCard from './CommentCard'
 
 import './Comments.css'
 export default function Comments({ articleId, category }) {
@@ -53,8 +54,9 @@ export default function Comments({ articleId, category }) {
                     <input type="submit" id="cm-submit" value="Post Comment" />
                 </Form>
             </Formik>
-            <div className="comments-count">
+            <div className="cmt-container">
                 <button className="show-hide-comments">Show Comments</button>
+                <CommentCard />
             </div>
         </div>
     )
