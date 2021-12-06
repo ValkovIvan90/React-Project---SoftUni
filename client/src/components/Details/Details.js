@@ -76,7 +76,7 @@ export default function Details() {
                 <Link to="#" className="button like">Like</Link>
             </article>
 
-            <Comments />
+            <Comments articleId={artId} category={art.category} />
         </section>
     )
 }

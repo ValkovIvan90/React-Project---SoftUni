@@ -19,5 +19,14 @@ export function createArticle(data) {
         body: JSON.stringify(data)
     })
 }
-
+export function createComment(data) {
+    return fetch('http://localhost:5000/products/createComment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+    }).then(res => res.json());
+}
 

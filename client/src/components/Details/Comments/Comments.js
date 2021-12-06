@@ -4,11 +4,22 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { commentSchema } from '../../../Validations/UserValidation';
 import Notification from '../../Notification/InputNotification/Notification';
 
-import './Comments.css'
-export default function Comments() {
+import { createComment } from '../../../services/article';
 
-    const submitComment = (e) => {
-        e.preventDefault();
+import './Comments.css'
+export default function Comments({ articleId, category }) {
+
+    const submitComment = async (value, { resetForm }) => {
+
+        const data = {
+            articleId,
+            username: value.username,
+            comment: value.comment,
+            category
+        }
+
+        const result = await createComment(data)
+        console.log(result);
 
     }
     return (

@@ -111,18 +111,17 @@ router.get('/delete/:id', preloadEst(), isOwner(), async (req, res) => {
         return console.log(err.message);
     };
 });
-// rented
-// router.get('/rentHouse/:id', async (req, res) => {
-//     const house = await Estate.findById(req.params.id);
-//     if (!house) {
-//         throw new ReferenceError('No such ID in database');
-//     };
-//     house.availablePieces -= 1;
-//     house.rented.push({ username: req.user.username })
-//     await house.save();
 
-//     res.redirect('/');
-// });
+router.post('/createComment', isAuth(), async (req, res) => {
+
+    const data = { articleId, username, comment, category } = req.body;
+    try {
+        await req.storage.createComment(data);
+        res.json({ message: 'Successfully created comment', status: 200 })
+    } catch (err) {
+        res.json({ message: err.message, status: 404 })
+    }
+});
 
 // router.get('/rentApart', async (req, res) => {
 //     const estate = await req.storage.getAll();

@@ -34,7 +34,7 @@ const schema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    comments: []
 });
 
 module.exports = mongoose.model('Dress', schema);

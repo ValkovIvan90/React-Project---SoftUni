@@ -31,6 +31,26 @@ async function createArtModel(art) {
         throw new Error(err.message)
     }
 };
+async function createComment(data) {
+
+    let time = new Date()
+    const currentTime = time.toString().substring(0, 24);
+
+    const model = {
+        cars: Car,
+        animals: Animal,
+        clothes: Dress
+    }
+    const { articleId, username, comment, category } = data;
+
+    try {
+        const article = await model[category].findOne({ _id: articleId });
+        article.comments.push({ username, comment, time: currentTime });
+        await article.save();
+    } catch (err) {
+        return err.message
+    }
+};
 
 async function edit(id, estate) {
     const existingEst = await Estate.findById(id);
@@ -52,6 +72,7 @@ async function deleteEstate(estId) {
 module.exports = {
     getAll,
     createArtModel,
+    createComment,
     edit,
     deleteEstate,
 }
