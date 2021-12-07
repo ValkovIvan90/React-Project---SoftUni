@@ -11,6 +11,7 @@ export default function Details() {
     const { userData } = useContext(UserContext);
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
+    const [comments, setCommnets] = useState([]);
 
     const { artId } = useParams();
     useEffect(() => {
@@ -18,6 +19,7 @@ export default function Details() {
             .then(res =>
                 setArt(res.article,
                     setArtOwner(res.owner),
+                    setCommnets(res.article.comments)
                 ));
     }, [artId]);
 
@@ -76,7 +78,7 @@ export default function Details() {
                 <Link to="#" className="button like">Like</Link>
             </article>
 
-            <Comments articleId={artId} category={art.category} />
+            <Comments articleId={artId} category={art.category} comments={comments} />
         </section>
     )
 }

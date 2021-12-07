@@ -29,4 +29,3 @@ export function createComment(data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
-

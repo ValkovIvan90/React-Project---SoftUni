@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { commentSchema } from '../../../Validations/UserValidation';
@@ -8,9 +8,22 @@ import { createComment } from '../../../services/article';
 import CommentCard from './CommentCard'
 
 import './Comments.css'
-export default function Comments({ articleId, category }) {
+export default function Comments({ articleId, category, comments }) {
 
-    const submitComment = async (value, { resetForm }) => {
+    const [data, setData] = useState([]);
+    const [isHiden, setIsHiden] = useState(false);
+
+    const hideHandler = (e) => {
+        e.preventDefault();
+        if (isHiden) {
+            setIsHiden(false)
+        } else {
+            setIsHiden(true)
+        }
+
+    }
+
+    const submitComment = async (value) => {
 
         const data = {
             articleId,
@@ -18,11 +31,17 @@ export default function Comments({ articleId, category }) {
             comment: value.comment,
             category
         }
-
-        const result = await createComment(data)
-        console.log(result);
-
+        try {
+            const result = await createComment(data);
+            if (result.status !== 200) {
+                throw new Error(result.message)
+            }
+            setData(result)
+        } catch (err) {
+            console.log(err.message);
+        }
     }
+
     return (
         <div className="comments-box">
             <h2 className="comments-title">Comments</h2>
@@ -55,8 +74,8 @@ export default function Comments({ articleId, category }) {
                 </Form>
             </Formik>
             <div className="cmt-container">
-                <button className="show-hide-comments">Show Comments</button>
-                <CommentCard />
+                <button className="show-hide-comments" onClick={hideHandler}>{isHiden ? 'Hide Comments' : 'Show Comments'}</button>
+                {isHiden ? comments.map(x => <CommentCard key={x._id} comment={x} />) : ""}
             </div>
         </div>
     )

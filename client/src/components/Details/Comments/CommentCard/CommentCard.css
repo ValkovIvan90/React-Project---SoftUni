@@ -5,20 +5,32 @@
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+  margin-bottom: 10px;
 }
 
 .comment {
   margin: 4px;
-  border-bottom: 1px solid black;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 .comment.title,
 .comment.time {
   text-align: center;
-  font-weight: bold;
 }
 .comment.time {
   font-size: 0.8em;
   margin: 0;
-  color: blue;
+  color: rgb(18, 18, 165);
+  font-size: 0.7em;
+  text-align: right;
+  padding-right: 5px;
+}
+.comment.title,
+.text {
+  border-bottom: 1px solid lightgray;
+  text-transform: capitalize;
+}
+.comment.title {
+  color: cadetblue;
+  text-align: left;
+  font-size: 1em;
 }

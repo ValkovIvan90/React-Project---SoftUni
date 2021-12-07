@@ -39,4 +39,16 @@
 }
 .cmt-container {
   max-width: 100%;
+  margin: 40px 0;
+}
+.show-hide-comments {
+  background-color: #2357ba;
+  color: #fdfefa;
+  border-radius: 5px;
+  border: none;
+  padding: 4px 6px;
+  margin-bottom: 5px;
+}
+.show-hide-comments:hover {
+  background-color: #f1b023;
 }

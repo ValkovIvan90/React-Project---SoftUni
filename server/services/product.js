@@ -1,3 +1,4 @@
+const uniqId = require('uniqid');
 
 const Car = require('../models/Car');
 const Animal = require('../models/Animal');
@@ -45,7 +46,7 @@ async function createComment(data) {
 
     try {
         const article = await model[category].findOne({ _id: articleId });
-        article.comments.push({ username, comment, time: currentTime });
+        article.comments.push({ _id: uniqId(), username, comment, time: currentTime });
         await article.save();
     } catch (err) {
         return err.message
