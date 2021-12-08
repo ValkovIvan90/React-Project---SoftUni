@@ -27,7 +27,7 @@ const schema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Description is required!'],
-        maxLength: [500, 'The Property Description should be a maximum of 500 characters long']
+        maxLength: [1000, 'The Property Description should be a maximum of 1000 characters long']
     },
     createdAt: { type: String, required: true },
     liked: [{ type: mongoose.Types.ObjectId, ref: 'User' }],

@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { commentSchema } from '../../../Validations/UserValidation';
 import Notification from '../../Notification/InputNotification/Notification';
 
-import { createComment } from '../../../services/article';
+import { useParams } from 'react-router';
+import { createComment, getArtComments } from '../../../services/article';
 import CommentCard from './CommentCard'
 
 import './Comments.css'
-export default function Comments({ articleId, category, comments }) {
+export default function Comments({ category }) {
+
+    const { artId } = useParams();
 
     const [data, setData] = useState([]);
     const [isHiden, setIsHiden] = useState(false);
+    const [commentId, setCommentId] = useState('');
 
+    console.log(data);
     const hideHandler = (e) => {
         e.preventDefault();
         if (isHiden) {
@@ -22,11 +27,19 @@ export default function Comments({ articleId, category, comments }) {
         }
 
     }
+    useEffect(() => {
+        getArtComments(artId)
+            .then(res =>
+                setData(res.comments)
+            ).catch(err => {
+                console.log(err.message);
+            });
+    }, [artId, commentId]);
 
-    const submitComment = async (value) => {
+    const submitComment = async (value, { resetForm }) => {
 
         const data = {
-            articleId,
+            artId,
             username: value.username,
             comment: value.comment,
             category
@@ -36,11 +49,14 @@ export default function Comments({ articleId, category, comments }) {
             if (result.status !== 200) {
                 throw new Error(result.message)
             }
-            setData(result)
+            setCommentId(result._id);
         } catch (err) {
             console.log(err.message);
         }
+        resetForm({ value: "" })
     }
+
+
 
     return (
         <div className="comments-box">
@@ -51,7 +67,8 @@ export default function Comments({ articleId, category, comments }) {
                     comment: ''
                 }}
                 validationSchema={commentSchema}
-                onSubmit={submitComment}>
+                onSubmit={submitComment}
+            >
                 <Form className="comment-form">
                     <Field
                         type="text"
@@ -74,8 +91,11 @@ export default function Comments({ articleId, category, comments }) {
                 </Form>
             </Formik>
             <div className="cmt-container">
-                <button className="show-hide-comments" onClick={hideHandler}>{isHiden ? 'Hide Comments' : 'Show Comments'}</button>
-                {isHiden ? comments.map(x => <CommentCard key={x._id} comment={x} />) : ""}
+                {data.length > 0 ?
+                    <button className="show-hide-comments" onClick={hideHandler}>{isHiden ? 'Hide Comments' : 'Show Comments'}</button>
+                    : ""}
+
+                {isHiden ? data.map(x => <CommentCard key={x._id} comment={x} />) : ""}
             </div>
         </div>
     )

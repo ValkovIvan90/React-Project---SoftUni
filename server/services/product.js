@@ -42,12 +42,16 @@ async function createComment(data) {
         animals: Animal,
         clothes: Dress
     }
-    const { articleId, username, comment, category } = data;
+    const { artId, username, comment, category } = data;
 
     try {
-        const article = await model[category].findOne({ _id: articleId });
-        article.comments.push({ _id: uniqId(), username, comment, time: currentTime });
+        const commID = uniqId();
+
+        const article = await model[category].findOne({ _id: artId });
+        article.comments.push({ _id: commID, username, comment, time: currentTime });
+
         await article.save();
+        return commID;
     } catch (err) {
         return err.message
     }

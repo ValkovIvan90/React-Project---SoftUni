@@ -29,3 +29,8 @@ export function createComment(data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
+
+export function getArtComments(id) {
+    return fetch('http://localhost:5000/products/details/comments/' + id)
+        .then(res => res.json());
+}

@@ -29,11 +29,13 @@
   box-shadow: -1px 1px 4px 2px #fdfefa;
 }
 .details-text {
-  width: 500px;
+  width: 450px;
   margin: 0;
   background-color: beige;
   padding: 15px 10px 0 15px;
   border-radius: 10px;
+  overflow-wrap: break-word;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .article-info {
   background-color: bisque;
@@ -58,7 +60,7 @@
 }
 .buttons .button {
   text-decoration: none;
-  background-color: #fdfefa;
+  background-color: #ffe4c4;
   color: black;
   border: none;
   padding: 2px 10px;

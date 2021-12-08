@@ -11,7 +11,7 @@ import './SendMessage.css'
 export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
 
     const [send, setSend] = useState([]);
-
+     
     async function submitHandler(value, { resetForm }) {
 
         const data = {

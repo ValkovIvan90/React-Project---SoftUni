@@ -114,26 +114,39 @@ router.get('/delete/:id', preloadEst(), isOwner(), async (req, res) => {
 
 router.post('/createComment', isAuth(), async (req, res) => {
 
-    const data = { articleId, username, comment, category } = req.body;
+    const data = { artId, username, comment, category } = req.body;
     try {
-        if (!articleId || !username || !comment || !category) {
+        if (!artId || !username || !comment || !category) {
             throw new Error('Invalid data!')
         }
-        await req.storage.createComment(data);
-        res.json({ message: 'Successfully created comment', status: 200 })
+        const commId = await req.storage.createComment(data);
+      
+        res.json({ message: 'Successfully created comment', status: 200, _id: commId })
     } catch (err) {
         res.json({ message: err.message, status: 404 })
     }
 });
 
-// router.get('/rentApart', async (req, res) => {
-//     const estate = await req.storage.getAll();
-//     const ctx = {
-//         title: 'Apartmant for Rent',
-//         estate,
-//     };
-//     res.render('apart', ctx);
-// });
+// get comments
+router.get('/details/comments/:id', async (req, res) => {
+    try {
+        const artResult = await req.storage.getAll();
+
+        const currentArt = artResult.reduce((acc, c) => {
+            if (c._id == req.params.id) {
+                acc.article = c
+            }
+            return acc;
+        }, {});
+
+
+        res.json({ comments: currentArt.article.comments, status: 200 })
+
+    } catch (err) {
+        res.json({ message: 'No comments in the database!' })
+    }
+
+});
 
 
 module.exports = router;
