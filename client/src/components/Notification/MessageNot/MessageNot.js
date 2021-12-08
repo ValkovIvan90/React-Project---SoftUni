@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-export default function MessageNot({ message }) {
-   
+export default function MessageNot({ message, commentId }) {
+
     const [visible, setIsvisible] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export default function MessageNot({ message }) {
             setIsvisible(false)
         }, 4000)
         return () => clearTimeout(timer);
-    }, [message])
+    }, [commentId, message])
 
     return (
         <>

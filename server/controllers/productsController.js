@@ -112,6 +112,7 @@ router.get('/delete/:id', preloadEst(), isOwner(), async (req, res) => {
     };
 });
 
+// create comment
 router.post('/createComment', isAuth(), async (req, res) => {
 
     const data = { artId, username, comment, category } = req.body;
@@ -121,7 +122,7 @@ router.post('/createComment', isAuth(), async (req, res) => {
         }
         const commId = await req.storage.createComment(data);
       
-        res.json({ message: 'Successfully created comment', status: 200, _id: commId })
+        res.json({ message: 'Comment added successfully', status: 200, _id: commId })
     } catch (err) {
         res.json({ message: err.message, status: 404 })
     }

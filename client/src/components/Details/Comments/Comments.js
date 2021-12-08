@@ -6,7 +6,9 @@ import Notification from '../../Notification/InputNotification/Notification';
 
 import { useParams } from 'react-router';
 import { createComment, getArtComments } from '../../../services/article';
+
 import CommentCard from './CommentCard'
+import MessageNot from '../../Notification/MessageNot/MessageNot';
 
 import './Comments.css'
 export default function Comments({ category }) {
@@ -16,8 +18,8 @@ export default function Comments({ category }) {
     const [data, setData] = useState([]);
     const [isHiden, setIsHiden] = useState(false);
     const [commentId, setCommentId] = useState('');
+    const [serResp, setSerResp] = useState('');
 
-    console.log(data);
     const hideHandler = (e) => {
         e.preventDefault();
         if (isHiden) {
@@ -49,15 +51,13 @@ export default function Comments({ category }) {
             if (result.status !== 200) {
                 throw new Error(result.message)
             }
+            setSerResp(result.message);
             setCommentId(result._id);
         } catch (err) {
             console.log(err.message);
         }
         resetForm({ value: "" })
     }
-
-
-
     return (
         <div className="comments-box">
             <h2 className="comments-title">Comments</h2>
@@ -90,6 +90,7 @@ export default function Comments({ category }) {
                     <input type="submit" id="cm-submit" value="Post Comment" />
                 </Form>
             </Formik>
+            <MessageNot message={serResp} commentId={commentId} />
             <div className="cmt-container">
                 {data.length > 0 ?
                     <button className="show-hide-comments" onClick={hideHandler}>{isHiden ? 'Hide Comments' : 'Show Comments'}</button>
