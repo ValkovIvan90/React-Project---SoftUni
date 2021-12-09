@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { commentSchema } from '../../../yupSchemaValidation/userValidation';
@@ -10,9 +10,13 @@ import { createComment, getArtComments } from '../../../services/article';
 import CommentCard from './CommentCard'
 import MessageNot from '../../Notification/MessageNot/MessageNot';
 
+
+import UserContext from '../../../context/UserDataContext';
+
 import './Comments.css'
 export default function Comments({ category }) {
 
+    const { userData } = useContext(UserContext);
     const { artId } = useParams();
 
     const [data, setData] = useState([]);
@@ -61,7 +65,7 @@ export default function Comments({ category }) {
     return (
         <div className="comments-box">
             <h2 className="comments-title">Comments</h2>
-            <Formik
+            {userData ? <Formik
                 initialValues={{
                     username: '',
                     comment: ''
@@ -89,7 +93,8 @@ export default function Comments({ category }) {
                     <ErrorMessage name="comment" component={Notification} />
                     <input type="submit" id="cm-submit" value="Post Comment" />
                 </Form>
-            </Formik>
+            </Formik> : ""}
+
             <MessageNot message={serResp} commentId={commentId} />
             <div className="cmt-container">
                 {data.length > 0 ?

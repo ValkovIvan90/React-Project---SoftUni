@@ -3,8 +3,8 @@ import { useState } from 'react';
 import './Create.css';
 
 import Animals from '../CategoryModels/Animals'
-import Cars from '../CategoryModels/Animals'
-import Clothes from '../CategoryModels/Animals'
+import Cars from '../CategoryModels/Cars'
+import Clothes from '../CategoryModels/Clothes'
 
 export default function Create() {
 

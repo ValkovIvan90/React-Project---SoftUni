@@ -21,6 +21,8 @@ export default function Details() {
                 ));
     }, [artId]);
 
+    console.log(artOwner);
+
     return (
         <section className="details">
             <h1 className="details-title">Details</h1>
@@ -66,16 +68,19 @@ export default function Details() {
                         </div>
                         : ''}
                 </ul>
-                <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
-                    articleId={artId} />
+                {userData ? <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
+                    articleId={artId} /> : ""}
+
             </article>
 
-            <article className="buttons">
-                <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
-                <Link to="#" className="button del">Delete</Link>
-                <Link to="#" className="button like">Like</Link>
-            </article>
-
+            {userData ? <article className="buttons">
+                {userData._id === art.owner ?
+                    <>
+                        <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
+                        <Link to="#" className="button del">Delete</Link>
+                    </>
+                    : <Link to="#" className="button like">Like</Link>}
+            </article> : ""}
             <Comments category={art.category} />
         </section>
     )

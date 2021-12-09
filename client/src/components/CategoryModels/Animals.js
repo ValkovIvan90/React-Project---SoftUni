@@ -8,7 +8,7 @@ import Notification from '../Notification/InputNotification/Notification'
 import { createArticle, updateArticle } from '../../services/article';
 import { animalEditModel } from '../Edit/editModel/editModel';
 
-import ServerError from '../Notification/InputNotification';
+import ServerError from '../Notification/ServerError/ServerError';
 import ModelLayout from '../CategoryModels/Layout/ModelLayout';
 
 export default function Animals(props) {
