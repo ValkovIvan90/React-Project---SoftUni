@@ -2,10 +2,10 @@ const router = require('express').Router();
 
 const { getUserById } = require('../services/userServices');
 
-const { createArt } = require('../util/createArticle');
+const { createAndEditArt } = require('../util/createArticle');
 
 const { isOwner, isAuth } = require('../middlewares/guards');
-const { preloadEst } = require('../middlewares/preload');
+const { preloadArt } = require('../middlewares/preload');
 const { parseMongooseError } = require('../util/parse');
 
 
@@ -26,14 +26,14 @@ router.post('/create', isAuth(), async (req, res) => {
         model: req.body
     };
 
-    const result = createArt(data)
+    const result = createAndEditArt(data)
     result.owner = req.user._id;
 
     if (result != undefined) {
         try {
             await req.storage.createArtModel(result);
-            res.json({ status: 200, message: 'Succses!' })
-            console.log('Succses created!');
+            res.json({ status: 200, message: 'Succsessfully created!' })
+            console.log('Create Article!');
         } catch (err) {
             const ctx = {
                 title: 'Create Article',
@@ -52,58 +52,38 @@ router.post('/create', isAuth(), async (req, res) => {
 // Details ! 
 router.get('/details/:id', async (req, res) => {
     try {
-        const artResult = await req.storage.getAll();
+        const currentArt = await req.storage.getById(req.params.id);
 
-        const currentArt = artResult.reduce((acc, c) => {
-            if (c._id == req.params.id) {
-                acc.article = c
-            }
-            return acc;
-        }, {});
+        const artOwner = await getUserById(currentArt.owner);
 
-        const artOwner = await getUserById(currentArt.article.owner);
+        if (!currentArt || !artOwner) {
+            throw new Error('No record in the database!')
+        }
 
-        res.json({ article: currentArt.article, status: 200, owner: artOwner })
+        res.json({ article: currentArt, status: 200, owner: artOwner })
 
     } catch (err) {
-        res.json({ message: 'No record in the database!' })
+        res.json({ message: err.message })
     }
-
 });
 
 //Edit 
-router.get('/edit/:id', preloadEst(), isOwner(), async (req, res) => {
-    const estate = await req.storage.getById(req.params.id);
+router.post('/edit/:id', preloadArt(), isOwner(), async (req, res) => {
 
-    if (estate != undefined) {
-
-        res.render('edit', estate);
-    } else {
-        throw new Error('Error!')
-    }
-});
-router.post('/edit/:id', preloadEst(), isOwner(), async (req, res) => {
-
-    let { name, type, year, city, imageUrl, description, availablePieces, rented } = req.body;
-    const estateDate = {
-        name,
-        type,
-        year,
-        city,
-        imageUrl,
-        description,
-        availablePieces,
-        rented,
-        owner: req.user._id
+    const data = {
+        model: req.body,
+        edit: true
     };
+    const result = createAndEditArt(data);
+
     try {
-        await req.storage.edit(req.params.id, estateDate);
-        res.redirect('/');
+        await req.storage.edit(req.params.id, result);
+        res.json({ status: 200, message: 'Succsessfully edited!' })
     } catch (err) {
-        return console.log(err);
+        res.json({ status: 404, message: 'Failed to edit!' })
     };
 });
-router.get('/delete/:id', preloadEst(), isOwner(), async (req, res) => {
+router.get('/delete/:id', preloadArt(), isOwner(), async (req, res) => {
     try {
         await req.storage.deleteEstate(req.params.id);
         res.redirect('/');
@@ -121,7 +101,7 @@ router.post('/createComment', isAuth(), async (req, res) => {
             throw new Error('Invalid data!')
         }
         const commId = await req.storage.createComment(data);
-      
+
         res.json({ message: 'Comment added successfully', status: 200, _id: commId })
     } catch (err) {
         res.json({ message: err.message, status: 404 })
@@ -141,7 +121,7 @@ router.get('/details/comments/:id', async (req, res) => {
         }, {});
 
 
-        res.json({ comments: currentArt.article.comments, status: 200 })
+        res.json({ comments: currentArt.article.comments.reverse(), status: 200 })
 
     } catch (err) {
         res.json({ message: 'No comments in the database!' })

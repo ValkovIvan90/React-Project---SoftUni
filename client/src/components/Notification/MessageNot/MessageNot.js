@@ -12,7 +12,7 @@ export default function MessageNot({ message, commentId }) {
         setIsvisible(true);
         const timer = setTimeout(() => {
             setIsvisible(false)
-        }, 4000)
+        }, 2000)
         return () => clearTimeout(timer);
     }, [commentId, message])
 

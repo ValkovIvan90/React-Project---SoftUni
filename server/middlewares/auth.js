@@ -38,11 +38,11 @@ module.exports = () => (req, res, next) => {
         try {
             const user = await getUserByEmail(email);
             if (!user) {
-                throw new Error('Wrong username or Password!');
+                throw new Error('Wrong username or password!');
             } else {
                 const isMatch = await bcrypt.compare(password, user.hashedPassword);
                 if (!isMatch) {
-                    throw new Error('Wrong username or Password!')
+                    throw new Error('Wrong username or password!')
                 } else {
                     req.user = createToken(user);
                 };

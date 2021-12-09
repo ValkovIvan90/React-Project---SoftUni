@@ -19,10 +19,10 @@ function isGuest() {
 }
 function isOwner() {
     return (req, res, next) => {
-        if (req.data.estate && req.user && (req.data.estate.ownerId == req.user._id)) {
+        if (req.data.article && req.user && (req.data.article.owner == req.user._id)) {
             next();
         } else {
-            res.redirect('/auth/login');
+            throw new Error('isNotOwner')
         }
     };
 }

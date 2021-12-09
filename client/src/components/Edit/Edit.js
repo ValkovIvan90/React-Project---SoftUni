@@ -10,11 +10,7 @@ import Clothes from '../Create/CategoryModels/Clothes';
 
 export default function Edit() {
 
-    const modelComponents = {
-        cars: <Cars />,
-        animals: <Animals />,
-        clothes: <Clothes />,
-    };
+
 
     const [artData, setArtData] = useState([]);
     const { artId } = useParams();
@@ -26,6 +22,12 @@ export default function Edit() {
             console.log(err.message);
         })
     }, [artId]);
+
+    const modelComponents = {
+        cars: <Cars artData={artData} artId={artId} />,
+        animals: <Animals artData={artData} />,
+        clothes: <Clothes artData={artData} />,
+    };
 
     return (
         <section className="edit-article">

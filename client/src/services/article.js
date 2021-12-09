@@ -34,3 +34,16 @@ export function getArtComments(id) {
     return fetch('http://localhost:5000/products/details/comments/' + id)
         .then(res => res.json());
 }
+
+
+
+export function updateArticle(id, data) {
+    return fetch('http://localhost:5000/products/edit/' + id, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+    })
+}

@@ -1,8 +1,9 @@
 
 function createDate() {
     let date = new Date();
+
     let year = date.getFullYear();
-    let month = date.getMonth();
+    let month = date.getMonth() + 1;
     let day = date.getDate();
 
     if (day < 10) {

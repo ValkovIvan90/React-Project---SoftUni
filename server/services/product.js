@@ -4,7 +4,7 @@ const Car = require('../models/Car');
 const Animal = require('../models/Animal');
 const Dress = require('../models/Dress');
 
-// get all Estates
+// get all Articles
 async function getAll() {
 
     const Cars = await Car.find({}).lean();
@@ -15,6 +15,27 @@ async function getAll() {
 
     return result;
 };
+
+async function getById(id) {
+
+    try {
+        const artResult = await getAll();
+
+        const currentArt = artResult.reduce((acc, c) => {
+            if (c._id == id) {
+                acc.article = c
+            }
+            return acc;
+        }, {});
+        if (!currentArt) {
+            throw new Error('No record in the database!')
+        }
+
+        return currentArt.article;
+    } catch (err) {
+        console.log(err.message);
+    }
+}
 
 async function createArtModel(art) {
     try {
@@ -57,15 +78,25 @@ async function createComment(data) {
     }
 };
 
-async function edit(id, estate) {
-    const existingEst = await Estate.findById(id);
+async function edit(id, article) {
 
-    if (!existingEst) {
-        throw new ReferenceError('No such ID in database');
-    };
+    const model = {
+        cars: Car,
+        animals: Animal,
+        clothes: Dress
+    }
+    try {
+        const record = await model[article.category].findOne({ _id: id });
+        if (!record) {
+             throw new Error('No such article!')
+        }
+        Object.assign(record, article);
+           
+        await record.save();
 
-    Object.assign(existingEst, estate);
-    return existingEst.save();
+    } catch (err) {
+        throw new Error(err.message)
+    }
 };
 
 async function deleteEstate(estId) {
@@ -76,6 +107,7 @@ async function deleteEstate(estId) {
 
 module.exports = {
     getAll,
+    getById,
     createArtModel,
     createComment,
     edit,

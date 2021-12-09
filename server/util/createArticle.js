@@ -1,6 +1,6 @@
 const { createDate } = require('./currentDate');
 
-function createArt(data) {
+function createAndEditArt(data) {
 
     let { city, image, price, category, description } = data.model;
 
@@ -39,11 +39,13 @@ function createArt(data) {
     result.category = category;
     result.description = description;
     result.createdAt = createDate();
-    result.liked = [];
-    result.comments = [];
+    if (!data.edit) {
+        result.liked = [];
+        result.comments = [];
+    }
 
     return result;
 }
 module.exports = {
-    createArt
+    createAndEditArt
 }
