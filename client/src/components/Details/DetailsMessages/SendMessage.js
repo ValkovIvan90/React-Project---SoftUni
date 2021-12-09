@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { sendMessage } from '../../../services/user';
 import MessageNot from '../../Notification/MessageNot';
-import { sendMessageSchema } from '../../../Validations/UserValidation';
+import { sendMessageSchema } from '../../../yupSchemaValidation/userValidation';
 import Notification from '../../Notification/InputNotification/Notification'
 
 import './SendMessage.css'

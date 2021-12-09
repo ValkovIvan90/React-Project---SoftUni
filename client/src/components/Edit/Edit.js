@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getById } from '../../services/article';
 
-import Animals from '../Create/CategoryModels/Animals';
-import Cars from '../Create/CategoryModels/Cars';
-import Clothes from '../Create/CategoryModels/Clothes';
+import Animals from '../CategoryModels/Animals'
+import Cars from '../CategoryModels/Cars'
+import Clothes from '../CategoryModels/Clothes'
 
 
 export default function Edit() {

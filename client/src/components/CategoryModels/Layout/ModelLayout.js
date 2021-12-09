@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field, ErrorMessage } from 'formik';
-import Notification from '../../../Notification/InputNotification/Notification'
+import Notification from '../../Notification/InputNotification/Notification'
 
 
 export default function ModelLayout({ data }) {

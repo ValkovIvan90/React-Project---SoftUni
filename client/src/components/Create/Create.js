@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import './Create.css';
 
-import Animals from '../Create/CategoryModels/Animals';
-import Cars from '../Create/CategoryModels/Cars';
-import Clothes from '../Create/CategoryModels/Clothes';
+import Animals from '../CategoryModels/Animals'
+import Cars from '../CategoryModels/Animals'
+import Clothes from '../CategoryModels/Animals'
 
 export default function Create() {
 

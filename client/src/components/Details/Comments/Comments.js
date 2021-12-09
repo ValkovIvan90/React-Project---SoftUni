@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { commentSchema } from '../../../Validations/UserValidation';
+import { commentSchema } from '../../../yupSchemaValidation/userValidation';
 import Notification from '../../Notification/InputNotification/Notification';
 
 import { useParams } from 'react-router';

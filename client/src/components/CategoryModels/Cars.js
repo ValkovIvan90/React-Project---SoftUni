@@ -2,38 +2,37 @@ import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
-import { animalsSchema } from '../../../Validations/CreateModels';
-import Notification from '../../Notification/InputNotification/Notification'
+import { carsSchema } from '../../yupSchemaValidation/modelsValidation';
+import Notification from '../Notification/InputNotification/Notification'
 
-import { createArticle, updateArticle } from '../../../services/article';
-import { animalEditModel } from '../../Edit/EditModel/editModel';
+import { createArticle, updateArticle } from '../../services/article';
+import { carEditModel } from '../Edit/editModel/editModel';
 
-import ServerError from '../../Notification/ServerError';
-import ModelLayout from './Layout/ModelLayout';
+import ServerError from '../Notification/InputNotification';
+import ModelLayout from '../CategoryModels/Layout/ModelLayout';
 
-export default function Animals(props) {
+export default function Cars(props) {
 
-    const animalData = animalEditModel(props);
+    const carData = carEditModel(props);
 
     const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
 
-
-    const createAnimalArticle = async (e) => {
+    const createArt = async (e) => {
 
         const data = {
-            animalName: e.name,
-            type: e.type,
-            birthday: e.birthday,
+            marke: e.marke,
+            model: e.model,
+            year: e.year,
             city: e.city,
             image: e.image,
             price: e.price,
             description: e.description,
-            category: 'animals'
+            category: 'cars'
         }
-      
         try {
             const result = await createArticle(data);
+
             if (result.status === 404) {
                 setServerError({ error: result.message })
             } else {
@@ -43,17 +42,16 @@ export default function Animals(props) {
             console.log(err);
         }
     }
-
-    const editAnimalArticle = async (e) => {
+    const editArt = async (e) => {
         const data = {
-            animalName: e.name,
-            type: e.type,
-            birthday: e.birthday,
+            marke: e.marke,
+            model: e.model,
+            year: e.year,
             city: e.city,
             image: e.image,
             price: e.price,
             description: e.description,
-            category: 'animals'
+            category: 'cars'
         }
         try {
             const result = await updateArticle(props.artId, data);
@@ -70,36 +68,37 @@ export default function Animals(props) {
     return (
         <>
             <Formik
-                initialValues={animalData}
-                validationSchema={animalsSchema}
-                onSubmit={animalData.price ? editAnimalArticle : createAnimalArticle}
+                initialValues={carData}
+                validationSchema={carsSchema}
+                onSubmit={carData.price ? editArt : createArt}
             >
                 <Form>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="marke">Marke</label>
                     <Field
                         type="text"
-                        id="name"
-                        name="name"
-                    />
-                    <ErrorMessage name="name" component={Notification} />
+                        id="marke"
+                        name="marke"
 
-                    <label htmlFor="type">Type</label>
+                    />
+                    <ErrorMessage name="marke" component={Notification} />
+
+                    <label htmlFor="model">Model</label>
                     <Field
                         type="text"
-                        id="type"
-                        name="type"
+                        id="model"
+                        name="model"
                     />
-                    <ErrorMessage name="type" component={Notification} />
+                    <ErrorMessage name="model" component={Notification} />
 
-                    <label htmlFor="birthday">Birthday</label>
+                    <label htmlFor="year">Year</label>
                     <Field
                         type="date"
-                        id="birthday"
-                        name="birthday"
+                        id="year"
+                        name="year"
                     />
-                    <ErrorMessage name="birthday" component={Notification} />
+                    <ErrorMessage name="year" component={Notification} />
 
-                    <ModelLayout data={animalData} />
+                    <ModelLayout data={carData} />
                 </Form>
             </Formik>
             {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}

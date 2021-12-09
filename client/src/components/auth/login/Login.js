@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Notification from '../../Notification/InputNotification/Notification'
 import ServerError from '../../Notification/ServerError';
 
-import { userLoginSchema } from '../../../Validations/UserValidation';
+import { userLoginSchema } from '../../../yupSchemaValidation/userValidation';
 import UserContext from '../../../context/UserDataContext';
 
 import './Login.css';
