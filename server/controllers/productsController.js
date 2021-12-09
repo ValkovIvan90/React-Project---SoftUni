@@ -35,15 +35,7 @@ router.post('/create', isAuth(), async (req, res) => {
             res.json({ status: 200, message: 'Succsessfully created!' })
             console.log('Create Article!');
         } catch (err) {
-            const ctx = {
-                title: 'Create Article',
-                result
-            };
-            if (err.name == 'ValidationError') {
-                ctx.errors = parseMongooseError(err);
-            } else {
-                ctx.errors = [err.message]
-            }
+            res.json({ status: 404, message: err.message })
         }
     }
 
@@ -74,13 +66,15 @@ router.post('/edit/:id', preloadArt(), isOwner(), async (req, res) => {
         model: req.body,
         edit: true
     };
-    const result = createAndEditArt(data);
-
     try {
+        const result = createAndEditArt(data);
+        if (!result) {
+            throw new Error(result)
+        }
         await req.storage.edit(req.params.id, result);
         res.json({ status: 200, message: 'Succsessfully edited!' })
     } catch (err) {
-        res.json({ status: 404, message: 'Failed to edit!' })
+        res.json({ status: 404, message: err.message })
     };
 });
 router.get('/delete/:id', preloadArt(), isOwner(), async (req, res) => {

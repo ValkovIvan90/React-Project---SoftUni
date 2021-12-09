@@ -6,14 +6,14 @@ import { carsSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/InputNotification/Notification'
 
 import { createArticle, updateArticle } from '../../../services/article';
-import { editModel } from '../../Edit/EditModel/editModelLayout';
+import { carEditModel } from '../../Edit/EditModel/editModel';
 
 import ServerError from '../../Notification/ServerError';
 import ModelLayout from './Layout/ModelLayout';
 
 export default function Cars(props) {
 
-    const carData = editModel(props)
+    const carData = carEditModel(props);
 
     const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
@@ -32,7 +32,8 @@ export default function Cars(props) {
         }
         try {
             const result = await createArticle(data);
-            if (result.status === 404 || result.status === 400) {
+
+            if (result.status === 404) {
                 setServerError({ error: result.message })
             } else {
                 navigate('/catalog');
@@ -54,8 +55,7 @@ export default function Cars(props) {
         }
         try {
             const result = await updateArticle(props.artId, data);
-            console.log(result);
-            if (result.status === 404 || result.status === 400) {
+            if (result.status === 404) {
                 setServerError({ error: result.message })
             } else {
                 navigate('/catalog');
@@ -70,7 +70,7 @@ export default function Cars(props) {
             <Formik
                 initialValues={carData}
                 validationSchema={carsSchema}
-                onSubmit={carData.marke ? editArt : createArt}
+                onSubmit={carData.price ? editArt : createArt}
             >
                 <Form>
                     <label htmlFor="marke">Marke</label>
@@ -98,9 +98,7 @@ export default function Cars(props) {
                     />
                     <ErrorMessage name="year" component={Notification} />
 
-                    <ModelLayout />
-
-                    <input type="submit" className="createArtBtn" value="Create Article" />
+                    <ModelLayout data={carData} />
                 </Form>
             </Formik>
             {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}

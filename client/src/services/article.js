@@ -17,7 +17,7 @@ export function createArticle(data) {
         },
         credentials: 'include',
         body: JSON.stringify(data)
-    })
+    }).then(res => res.json());
 }
 export function createComment(data) {
     return fetch('http://localhost:5000/products/createComment', {
@@ -45,5 +45,5 @@ export function updateArticle(id, data) {
         },
         credentials: 'include',
         body: JSON.stringify(data)
-    })
+    }).then(res => res.json());
 }

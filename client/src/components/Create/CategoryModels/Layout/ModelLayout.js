@@ -3,7 +3,7 @@ import { Field, ErrorMessage } from 'formik';
 import Notification from '../../../Notification/InputNotification/Notification'
 
 
-export default function ModelLayout() {
+export default function ModelLayout({ data }) {
     return (
         <>
             <label htmlFor="city">City</label>
@@ -38,6 +38,8 @@ export default function ModelLayout() {
                 cols="50"
             />
             <ErrorMessage name="description" component={Notification} />
+            {data.price ? <input type="submit" className="createArtBtn" value="Edit Article" /> :
+                <input type="submit" className="createArtBtn" value="Create Article" />}
         </>
     )
 }

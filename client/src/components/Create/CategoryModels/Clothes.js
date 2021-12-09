@@ -5,15 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { clothesSchema } from '../../../Validations/CreateModels';
 import Notification from '../../Notification/InputNotification/Notification'
 
-import { createArticle } from '../../../services/article';
-import ModelLayout from './Layout/ModelLayout';
-import ServerError from '../../Notification/ServerError';
+import { createArticle, updateArticle } from '../../../services/article';
+import { clothesEditModel } from '../../Edit/EditModel/editModel';
 
-export default function Clothes() {
+import ServerError from '../../Notification/ServerError';
+import ModelLayout from './Layout/ModelLayout';
+
+export default function Clothes(props) {
+
+    const dressData = clothesEditModel(props);
+
     const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const createDress = async (e) => {
         const data = {
             marke: e.marke,
             type: e.type,
@@ -27,7 +32,30 @@ export default function Clothes() {
         }
         try {
             const result = await createArticle(data);
-            if (result.status === 404 || result.status === 400) {
+            if (result.status === 404) {
+                setServerError({ error: result.message })
+            } else {
+                navigate('/catalog');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const editDress = async (e) => {
+        const data = {
+            marke: e.marke,
+            type: e.type,
+            size: e.size,
+            year: e.year,
+            city: e.city,
+            image: e.image,
+            price: e.price,
+            description: e.description,
+            category: 'clothes'
+        }
+        try {
+            const result = await updateArticle(props.artId, data);
+            if (result.status === 404) {
                 setServerError({ error: result.message })
             } else {
                 navigate('/catalog');
@@ -40,18 +68,9 @@ export default function Clothes() {
     return (
         <>
             <Formik
-                initialValues={{
-                    marke: '',
-                    type: '',
-                    size: '',
-                    year: '',
-                    city: '',
-                    image: '',
-                    price: '',
-                    description: '',
-                }}
+                initialValues={dressData}
                 validationSchema={clothesSchema}
-                onSubmit={handleSubmit}
+                onSubmit={dressData.price ? editDress : createDress}
             >
 
                 <Form>
@@ -87,8 +106,7 @@ export default function Clothes() {
                     />
                     <ErrorMessage name="year" component={Notification} />
 
-                    <ModelLayout />
-                    <input type="submit" className="createArtBtn" value="Create Article" />
+                    <ModelLayout data={dressData} />
                 </Form>
             </Formik>
             {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}

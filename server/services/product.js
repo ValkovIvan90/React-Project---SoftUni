@@ -88,14 +88,14 @@ async function edit(id, article) {
     try {
         const record = await model[article.category].findOne({ _id: id });
         if (!record) {
-             throw new Error('No such article!')
+            throw new Error('No such article!')
         }
         Object.assign(record, article);
-           
+
         await record.save();
 
     } catch (err) {
-        throw new Error(err.message)
+        return err.message
     }
 };
 
