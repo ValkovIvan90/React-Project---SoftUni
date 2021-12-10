@@ -47,3 +47,13 @@ export function updateArticle(id, data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
+
+export function deleteArticle(id) {
+    return fetch('http://localhost:5000/products/deleteArt/' + id, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    }).then(res => res.json());
+}

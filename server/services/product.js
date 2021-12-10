@@ -99,8 +99,28 @@ async function edit(id, article) {
     }
 };
 
-async function deleteEstate(estId) {
-    return await Estate.deleteOne({ _id: estId });
+async function deleteArtcle(id) {
+
+
+    const model = {
+        cars: Car,
+        animals: Animal,
+        clothes: Dress
+    }
+    try {
+        const allArticle = await getAll();
+        const currentArticle = allArticle.find(x => x._id == id);
+
+        if (!currentArticle) {
+            throw new Error('No record in database!');
+        }
+        await model[currentArticle.category].deleteOne({ _id: currentArticle._id })
+    } catch (err) {
+        return err.message
+    }
+
+
+
 }
 
 
@@ -111,5 +131,5 @@ module.exports = {
     createArtModel,
     createComment,
     edit,
-    deleteEstate,
+    deleteArtcle,
 }

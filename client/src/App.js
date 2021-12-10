@@ -17,9 +17,8 @@ import Details from './components/Details';
 import Edit from './components/Edit';
 
 
-
 function App() {
-    
+
     const [userData, setUserData] = useLocalStorage('user', {
         _id: '',
         username: '',

@@ -6,8 +6,6 @@ const { createAndEditArt } = require('../util/createArticle');
 
 const { isOwner, isAuth } = require('../middlewares/guards');
 const { preloadArt } = require('../middlewares/preload');
-const { parseMongooseError } = require('../util/parse');
-
 
 
 // Home
@@ -66,7 +64,6 @@ router.post('/edit/:id', preloadArt(), isOwner(), async (req, res) => {
         model: req.body,
         edit: true
     };
-    console.log(data);
     try {
         const result = createAndEditArt(data);
         if (!result) {
@@ -78,12 +75,13 @@ router.post('/edit/:id', preloadArt(), isOwner(), async (req, res) => {
         res.json({ status: 404, message: err.message })
     };
 });
-router.get('/delete/:id', preloadArt(), isOwner(), async (req, res) => {
+router.post('/deleteArt/:id', preloadArt(), isOwner(), async (req, res) => {
     try {
-        await req.storage.deleteEstate(req.params.id);
-        res.redirect('/');
+        await req.storage.deleteArtcle(req.params.id);
+        res.json({ status: 200, message: 'Succssefully delete item' })
+        console.log('Succssefully delete item');
     } catch (err) {
-        return console.log(err.message);
+        console.log(err.message);
     };
 });
 

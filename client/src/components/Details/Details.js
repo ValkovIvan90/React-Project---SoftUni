@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 import './Details.css';
 import { Link, useParams } from 'react-router-dom';
 import UserContext from '../../context/UserDataContext';
 import SendMessage from './DetailsMessages/SendMessage';
 import Comments from './Comments';
 
-import { getById } from '../../services/article';
+import { deleteArticle, getById } from '../../services/article';
 
 export default function Details() {
     const { userData } = useContext(UserContext);
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
+    const navigate = useNavigate();
 
     const { artId } = useParams();
     useEffect(() => {
@@ -21,6 +27,28 @@ export default function Details() {
                 ));
     }, [artId]);
 
+    const deleteArt = (artId) => {
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: async () =>
+                        await deleteArticle(artId).then(res => {
+                            if (res.status !== 200) {
+                                throw new Error('Failed to delete!')
+                            }
+                            navigate('/catalog')
+                        })
+                },
+                {
+                    label: 'No',
+                }
+            ]
+        });
+
+    }
 
     return (
         <section className="details">
@@ -76,7 +104,7 @@ export default function Details() {
                 {userData._id === art.owner ?
                     <>
                         <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
-                        <Link to="#" className="button del">Delete</Link>
+                        <Link to="#" onClick={() => deleteArt(artId)} className="button del">Delete</Link>
                     </>
                     : <Link to="#" className="button like">Like</Link>}
             </article> : ""}
