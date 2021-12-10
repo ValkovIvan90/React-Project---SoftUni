@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,14 +8,12 @@ import Notification from '../Notification/InputNotification/Notification'
 import { createArticle, updateArticle } from '../../services/article';
 import { clothesEditModel } from '../Edit/editModel/editModel';
 
-import ServerError from '../Notification/ServerError/ServerError';
 import ModelLayout from '../CategoryModels/Layout/ModelLayout';
 
 export default function Clothes(props) {
 
     const dressData = clothesEditModel(props);
 
-    const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
 
     const createDress = async (e) => {
@@ -33,12 +31,12 @@ export default function Clothes(props) {
         try {
             const result = await createArticle(data);
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
     const editDress = async (e) => {
@@ -56,12 +54,12 @@ export default function Clothes(props) {
         try {
             const result = await updateArticle(props.artId, data);
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
 
@@ -109,7 +107,6 @@ export default function Clothes(props) {
                     <ModelLayout data={dressData} />
                 </Form>
             </Formik>
-            {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
         </>
     )
 }

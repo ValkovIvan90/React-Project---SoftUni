@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,21 +8,18 @@ import Notification from '../Notification/InputNotification/Notification'
 import { createArticle, updateArticle } from '../../services/article';
 import { animalEditModel } from '../Edit/editModel/editModel';
 
-import ServerError from '../Notification/ServerError/ServerError';
 import ModelLayout from '../CategoryModels/Layout/ModelLayout';
 
 export default function Animals(props) {
 
     const animalData = animalEditModel(props);
-
-    const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
 
 
     const createAnimalArticle = async (e) => {
 
         const data = {
-            animalName: e.name,
+            animalName: e.animalName,
             type: e.type,
             birthday: e.birthday,
             city: e.city,
@@ -35,18 +32,18 @@ export default function Animals(props) {
         try {
             const result = await createArticle(data);
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
 
     const editAnimalArticle = async (e) => {
         const data = {
-            animalName: e.name,
+            animalName: e.animalName,
             type: e.type,
             birthday: e.birthday,
             city: e.city,
@@ -58,12 +55,12 @@ export default function Animals(props) {
         try {
             const result = await updateArticle(props.artId, data);
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
 
@@ -75,13 +72,13 @@ export default function Animals(props) {
                 onSubmit={animalData.price ? editAnimalArticle : createAnimalArticle}
             >
                 <Form>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="animalName">Name</label>
                     <Field
                         type="text"
-                        id="name"
-                        name="name"
+                        id="animalName"
+                        name="animalName"
                     />
-                    <ErrorMessage name="name" component={Notification} />
+                    <ErrorMessage name="animalName" component={Notification} />
 
                     <label htmlFor="type">Type</label>
                     <Field
@@ -102,7 +99,6 @@ export default function Animals(props) {
                     <ModelLayout data={animalData} />
                 </Form>
             </Formik>
-            {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
         </>
     )
 }

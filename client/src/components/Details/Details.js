@@ -21,7 +21,6 @@ export default function Details() {
                 ));
     }, [artId]);
 
-    console.log(artOwner);
 
     return (
         <section className="details">

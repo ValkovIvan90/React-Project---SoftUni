@@ -11,7 +11,7 @@ export const carsSchema = yup.object().shape({
 })
 
 export const animalsSchema = yup.object().shape({
-    name: yup.string().min(4).max(15).required('Name is required!'),
+    animalName: yup.string().min(4).max(15).required('Name is required!'),
     type: yup.string().required('Type is required!'),
     birthday: yup.date().min(1960).max(2021).required('Date is required!'),
     city: yup.string().required('City is required!'),

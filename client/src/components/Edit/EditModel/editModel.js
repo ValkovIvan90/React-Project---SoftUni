@@ -39,7 +39,7 @@ export function animalEditModel(props) {
         }
     } else {
         animalData = {
-            name: props.artData.animalName,
+            animalName: props.artData.animalName,
             type: props.artData.type,
             birthday: props.artData.birthday,
             city: props.artData.city,

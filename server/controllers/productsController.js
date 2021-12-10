@@ -66,6 +66,7 @@ router.post('/edit/:id', preloadArt(), isOwner(), async (req, res) => {
         model: req.body,
         edit: true
     };
+    console.log(data);
     try {
         const result = createAndEditArt(data);
         if (!result) {

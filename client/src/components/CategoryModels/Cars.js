@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,14 +8,12 @@ import Notification from '../Notification/InputNotification/Notification'
 import { createArticle, updateArticle } from '../../services/article';
 import { carEditModel } from '../Edit/editModel/editModel';
 
-import ServerError from '../Notification/ServerError/ServerError';
 import ModelLayout from '../CategoryModels/Layout/ModelLayout';
 
 export default function Cars(props) {
 
     const carData = carEditModel(props);
 
-    const [serverErr, setServerError] = useState([]);
     const navigate = useNavigate();
 
     const createArt = async (e) => {
@@ -34,12 +32,13 @@ export default function Cars(props) {
             const result = await createArticle(data);
 
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
+
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
     const editArt = async (e) => {
@@ -56,12 +55,12 @@ export default function Cars(props) {
         try {
             const result = await updateArticle(props.artId, data);
             if (result.status === 404) {
-                setServerError({ error: result.message })
+                throw new Error(result.message)
             } else {
                 navigate('/catalog');
             }
         } catch (err) {
-            console.log(err);
+            console.log(err.message);
         }
     }
 
@@ -101,7 +100,6 @@ export default function Cars(props) {
                     <ModelLayout data={carData} />
                 </Form>
             </Formik>
-            {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
         </>
     )
 }
