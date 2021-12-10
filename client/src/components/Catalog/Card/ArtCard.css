@@ -39,7 +39,7 @@
   font-weight: bold;
 }
 .details-btn:hover {
-  font-size: larger;
+  color: rgb(236, 182, 3);
 }
 .likes i {
   color: rgb(207, 16, 16);

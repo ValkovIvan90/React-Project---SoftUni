@@ -33,9 +33,10 @@ export default function Header() {
                         <i className="fas fa-caret-down"></i>
                     </button>
                     <div className="dropdown-content">
-                        <Link to="#">Animals</Link>
-                        <Link to="#">Cars</Link>
-                        <Link to="#">Clothing</Link>
+                        <Link to="/catalog">All</Link>
+                        <Link to="/catalog?name=animals">Animals</Link>
+                        <Link to="/catalog/?name=cars">Cars</Link>
+                        <Link to="/catalog/?name=clothes">Clothing</Link>
                     </div>
                 </div>
 

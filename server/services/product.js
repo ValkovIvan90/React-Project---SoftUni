@@ -5,13 +5,19 @@ const Animal = require('../models/Animal');
 const Dress = require('../models/Dress');
 
 // get all Articles
-async function getAll() {
+async function getAll(params) {
 
     const Cars = await Car.find({}).lean();
     const Animals = await Animal.find({}).lean();
     const Clothes = await Dress.find({}).lean();
 
-    const result = [...Cars, ...Animals, ...Clothes];
+    let result;
+
+    if (!params) {
+        result = [...Cars, ...Animals, ...Clothes];
+    } else {
+        result = [...Cars, ...Animals, ...Clothes].filter(x => x.category == params)
+    }
 
     return result;
 };

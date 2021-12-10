@@ -17,6 +17,17 @@ router.get('/', async (req, res) => {
         res.json({ message: 'No Records in the database!' })
     }
 });
+router.get('/:category', async (req, res) => {
+    try {
+        const result = await req.storage.getAll(req.params.category);
+        if (result.length == 0) {
+            return res.json({ article: result, message: 'No article in the database yet' })
+        }
+        res.json({ article: result, status: 200 })
+    } catch (err) {
+        res.json({ status: 404, message: err.message })
+    }
+});
 
 // Create
 router.post('/create', isAuth(), async (req, res) => {

@@ -4,6 +4,11 @@ export function getAll() {
         .then(res => res.json());
 }
 
+export function getByCategory(category) {
+    return fetch(`http://localhost:5000/products/${category}`)
+        .then(res => res.json());
+}
+
 export function getById(id) {
     return fetch('http://localhost:5000/products/details/' + id)
         .then(res => res.json());
