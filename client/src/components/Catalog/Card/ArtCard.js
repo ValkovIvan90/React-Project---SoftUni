@@ -26,7 +26,7 @@ export default function ArtCard({
                     <p>{article.price} $</p>
                 </div>
                 <div className="card-info likes">
-                    <i className="fas fa-heart"> {article.liked.length}</i>
+                    <i className="fas fa-heart"> {article.liked.length} </i>
                 </div>
                 <div className="data-buttons">
                     <Link to={`/details/${article._id}`}

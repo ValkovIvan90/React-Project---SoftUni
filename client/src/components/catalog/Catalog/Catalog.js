@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import queryString from 'query-string'
-import { getAll, getByCategory } from '../../services/article';
+import { getAll, getByCategory } from '../../../services/article';
 
-import ArtCard from './Card';
+import ArtCard from '../Card';
 import './Catalog.css';
 
 export default function Catalog() {

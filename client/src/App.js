@@ -6,7 +6,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 
 import Header from './components/Header';
 import HomePage from './components/HomePage';
-import Catalog from './components/Catalog';
+import Catalog from './components/catalog/Catalog';
 import UserProfile from './components/UserProfile';
 
 import Login from './components/auth/Login';
