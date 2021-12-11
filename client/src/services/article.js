@@ -13,7 +13,7 @@ export function getById(id) {
     return fetch('http://localhost:5000/products/details/' + id)
         .then(res => res.json());
 }
-
+// Create  Article
 export function createArticle(data) {
     return fetch('http://localhost:5000/products/create', {
         method: 'POST',
@@ -24,6 +24,7 @@ export function createArticle(data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
+// Create  Comments
 export function createComment(data) {
     return fetch('http://localhost:5000/products/createComment', {
         method: 'POST',
@@ -34,13 +35,13 @@ export function createComment(data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
-
+// Get All Comments
 export function getArtComments(id) {
     return fetch('http://localhost:5000/products/details/comments/' + id)
         .then(res => res.json());
 }
 
-
+// Update Art
 
 export function updateArticle(id, data) {
     return fetch('http://localhost:5000/products/edit/' + id, {
@@ -53,6 +54,8 @@ export function updateArticle(id, data) {
     }).then(res => res.json());
 }
 
+// Delete Art
+
 export function deleteArticle(id) {
     return fetch('http://localhost:5000/products/deleteArt/' + id, {
         method: 'POST',
@@ -60,5 +63,17 @@ export function deleteArticle(id) {
             'Content-Type': 'application/json',
         },
         credentials: 'include',
+    }).then(res => res.json());
+}
+
+// Add Like
+export function addLike(data) {
+    return fetch('http://localhost:5000/products/likeArt', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
     }).then(res => res.json());
 }

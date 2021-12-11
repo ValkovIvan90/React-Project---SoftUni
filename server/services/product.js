@@ -39,7 +39,7 @@ async function getById(id) {
 
         return currentArt.article;
     } catch (err) {
-        console.log(err.message);
+        throw new Error(err.message)
     }
 }
 
@@ -80,7 +80,7 @@ async function createComment(data) {
         await article.save();
         return commID;
     } catch (err) {
-        return err.message
+        throw new Error(err.message)
     }
 };
 
@@ -101,7 +101,7 @@ async function edit(id, article) {
         await record.save();
 
     } catch (err) {
-        return err.message
+        throw new Error(err.message)
     }
 };
 
@@ -122,13 +122,36 @@ async function deleteArtcle(id) {
         }
         await model[currentArticle.category].deleteOne({ _id: currentArticle._id })
     } catch (err) {
-        return err.message
+        throw new Error(err.message)
     }
 
 
 
 }
 
+async function addLike({ artId, userId, category }) {
+
+    const model = {
+        cars: Car,
+        animals: Animal,
+        clothes: Dress
+    }
+    try {
+        const record = await model[category].findOne({ _id: artId });
+
+        if (!record) {
+            throw new Error('No such article!')
+        } else {
+            record.liked.push(userId)
+            await record.save();
+        }
+
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
 
 
 module.exports = {
@@ -138,4 +161,5 @@ module.exports = {
     createComment,
     edit,
     deleteArtcle,
+    addLike
 }

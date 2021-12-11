@@ -45,6 +45,7 @@
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .art-info-items {
   font-style: italic;
@@ -76,16 +77,29 @@
 .button.edit:hover {
   background-color: orange;
 }
+.button.back:hover {
+  background-color: rgb(229, 255, 0);
+}
 strong {
   color: red;
   padding-right: 25px;
 }
 .dt-likes {
-  color: green;
+  color: rgb(128, 0, 49);
 }
 .seler-info li:nth-child(1) {
   text-transform: capitalize;
 }
 .message-box {
   max-width: 50%;
+}
+
+.likes-dtl {
+  background-color: rgb(98, 212, 5);
+  text-align: center;
+  font-size: 1em;
+  border-radius: 50px;
+  width: 20%;
+  margin: auto;
+  font-weight: bold;
 }

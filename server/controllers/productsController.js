@@ -132,6 +132,16 @@ router.get('/details/comments/:id', async (req, res) => {
     }
 
 });
+router.post('/likeArt', isAuth(), async (req, res) => {
 
+    try {
+        await req.storage.addLike(req.body);
+        res.json({ status: 200, message: 'Succsessfully liked!' })
+        console.log('Liked Article!');
+    } catch (err) {
+        res.json({ status: 404, message: 'Error likes' })
+    }
+
+});
 
 module.exports = router;

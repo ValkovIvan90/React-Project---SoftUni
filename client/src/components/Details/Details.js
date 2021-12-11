@@ -10,23 +10,30 @@ import UserContext from '../../context/UserDataContext';
 import SendMessage from './DetailsMessages/SendMessage';
 import Comments from './Comments';
 
-import { deleteArticle, getById } from '../../services/article';
+import { addLike, deleteArticle, getById } from '../../services/article';
 
 export default function Details() {
     const { userData } = useContext(UserContext);
+
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
+    const [likes, setLikes] = useState([]);
+    const [isLiked, setIsLiked] = useState(false);
+
     const navigate = useNavigate();
 
     const { artId } = useParams();
+
     useEffect(() => {
         getById(artId)
             .then(res =>
                 setArt(res.article,
                     setArtOwner(res.owner),
+                    setLikes(state => ({ ...state, like: res.article.liked }))
                 ));
-    }, [artId]);
+    }, [artId, isLiked]);
 
+    //Delete Art
     const deleteArt = (artId) => {
         confirmAlert({
             title: 'Confirm to submit',
@@ -50,6 +57,22 @@ export default function Details() {
 
     }
 
+    //Like article
+    const likeArt = () => {
+        const data = {
+            artId,
+            userId: userData._id,
+            category: art.category
+        }
+        addLike(data).then(res => {
+            if (res.status === 200) {
+                setIsLiked(true)
+            }
+            setIsLiked(false)
+        }).catch(err => {
+            console.log(err.message);
+        })
+    }
     return (
         <section className="details">
             <h1 className="details-title">Details</h1>
@@ -99,6 +122,9 @@ export default function Details() {
                     articleId={artId} /> : ""}
 
             </article>
+            <article className='likes-dtl'>
+                <p className='likes-count'>Likes {likes.like?.length}</p>
+            </article>
 
             {userData ? <article className="buttons">
                 {userData._id === art.owner ?
@@ -106,7 +132,8 @@ export default function Details() {
                         <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
                         <Link to="#" onClick={() => deleteArt(artId)} className="button del">Delete</Link>
                     </>
-                    : <Link to="#" className="button like">Like</Link>}
+                    : !likes.like?.includes(userData._id) ? <Link to="#" onClick={() => likeArt()} className="button like">Like</Link> : ""}
+                <Link to="/catalog" className="button back">Back</Link>
             </article> : ""}
             <Comments category={art.category} />
         </section>
