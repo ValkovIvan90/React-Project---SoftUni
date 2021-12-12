@@ -77,3 +77,8 @@ export function addLike(data) {
         body: JSON.stringify(data)
     }).then(res => res.json());
 }
+// get my articles
+export function getUserArticles(userId) {
+    return fetch('http://localhost:5000/products/userArticles/' + userId)
+        .then(res => res.json());
+}

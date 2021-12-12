@@ -144,4 +144,16 @@ router.post('/likeArt', isAuth(), async (req, res) => {
 
 });
 
+router.get('/userArticles/:id', async (req, res) => {
+    try {
+        const result = await req.storage.getUserArticles(req.params.id);
+        if (!result) {
+            throw new Error('No items found!')
+        }
+        res.json({ status: 200, article: result })
+    } catch (err) {
+        res.json({ status: 404, message: err.message })
+    }
+})
+
 module.exports = router;

@@ -152,6 +152,19 @@ async function addLike({ artId, userId, category }) {
     }
 
 }
+async function getUserArticles(userId) {
+    try {
+        const result = await (await getAll()).filter(x => x.owner == userId);
+        if (!result) {
+            throw new Error('No such article!')
+        } else {
+            return result;
+        }
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
 
 
 module.exports = {
@@ -161,5 +174,6 @@ module.exports = {
     createComment,
     edit,
     deleteArtcle,
-    addLike
+    addLike,
+    getUserArticles
 }

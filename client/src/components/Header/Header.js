@@ -47,6 +47,7 @@ export default function Header() {
                     {userData.username ?
                         <>
                             <li><Link to="/create">Create</Link ></li>
+                            <li><Link to="/catalog/?name=myArticles">My Articles</Link ></li>
                             <button className="logOutBtn" onClick={logoutUser}>Sign out</button>
                         </>
                         :
