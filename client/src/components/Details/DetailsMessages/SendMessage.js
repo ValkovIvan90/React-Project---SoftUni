@@ -11,9 +11,10 @@ import './SendMessage.css'
 export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
 
     const [send, setSend] = useState([]);
-     
-    async function submitHandler(value, { resetForm }) {
+    const [msgIsSend, setMsgIsSend] = useState(false);
 
+
+    async function submitHandler(value, { resetForm }) {
         const data = {
             username: value.username,
             mail: value.email,
@@ -22,19 +23,19 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
             userId,
             articleId
         }
+        setMsgIsSend(false);
         try {
             const result = await sendMessage(data);
 
             if (result.status === 200) {
                 setSend({ message: result.message });
+                setMsgIsSend(true)
             }
-
         } catch (err) {
             setSend(err.message)
         }
         resetForm({ value: "" });
     }
-
 
     return (
         <>
@@ -80,7 +81,7 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
                         </div>
                     </Form>
                 </Formik>
-                {send.message !== undefined ? <MessageNot message={send.message} /> : ""}
+                {msgIsSend ? <MessageNot message={send.message} /> : ""}
             </article>
         </>
     )

@@ -17,6 +17,7 @@ export default function Details() {
 
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
+    
     const [likes, setLikes] = useState([]);
     const [isLiked, setIsLiked] = useState(false);
 
