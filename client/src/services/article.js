@@ -82,3 +82,7 @@ export function getUserArticles(userId) {
     return fetch('http://localhost:5000/products/userArticles/' + userId)
         .then(res => res.json());
 }
+export function getUserLikedArticles(userId) {
+    return fetch('http://localhost:5000/products/getUserLikedArticles/' + userId)
+        .then(res => res.json());
+}

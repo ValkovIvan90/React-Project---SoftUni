@@ -1,13 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserDataContext';
 
 import './UserProfile.css';
 import avatar from '../../images/avatar.jpg';
-
+import ArtCard from '../catalog/Card/ArtCard'
+import { getUserLikedArticles } from '../../services/article';
 
 export default function UserProfile() {
     const { userData } = useContext(UserContext);
+    const [artData, setArtData] = useState([]);
+
+
+    useEffect(() => {
+        getUserLikedArticles(userData._id).then(res => {
+            setArtData(res.article)
+        })
+    }, [userData._id]);
 
     return (
         <section className="profile">
@@ -25,8 +34,6 @@ export default function UserProfile() {
                 <div className="profile-links-section">
                     <nav>
                         <ul className="nav-links">
-                            <li><Link to="">My Articles</Link></li>
-                            <li><Link to="">Liked</Link></li>
                             <li><Link to="">Messages</Link></li>
                         </ul>
                     </nav>
@@ -42,32 +49,11 @@ export default function UserProfile() {
                     </div>
                 </div>
                 <div className="profile-info-article">
-                    <h1 className="profile-article-title">Last Liked Article</h1>
-                    <article className="card">
-                        <div className="img">
-                            <img
-                                src="https://i.guim.co.uk/img/media/684c9d087dab923db1ce4057903f03293b07deac/205_132_1915_1150/master/1915.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=14a95b5026c1567b823629ba35c40aa0"
-                                alt=""
-                            />
-                        </div>
-                        <article className="info">
-                            <div className="card-info city">
-                                <h4>Vienna</h4>
-                            </div>
-                            <div className="card-info date">
-                                <p>Date</p>
-                            </div>
-                            <div className="card-info price">
-                                <p>Price</p>
-                            </div>
-                            <div className="card-info likes">
-                                <h4>Likes</h4>
-                            </div>
-                            <div className="data-buttons">
-                                <Link to="#" className="details-btn">Details</Link>
-                            </div>
-                        </article>
-                    </article>
+                    <h1 className="profile-article-title">Last Liked Articles</h1>
+
+                    {artData?.length > 0 ? artData.map(x => <ArtCard key={x._id} article={x} />) :
+                        "No liked articles yet!"
+                    }
                 </div>
             </div>
         </section>

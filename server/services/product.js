@@ -165,6 +165,26 @@ async function getUserArticles(userId) {
     }
 
 }
+async function getUserLikedArticles(userId) {
+    let likedArt = [];
+
+    try {
+        await (await getAll()).forEach((art) => {
+            art.liked.forEach((x) => {
+                if (x == userId) {
+                    if (!likedArt.includes(art)) {
+                        likedArt.push(art)
+                    }
+                }
+            })
+        });
+
+        return likedArt;
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
 
 
 module.exports = {
@@ -175,5 +195,6 @@ module.exports = {
     edit,
     deleteArtcle,
     addLike,
-    getUserArticles
+    getUserArticles,
+    getUserLikedArticles
 }

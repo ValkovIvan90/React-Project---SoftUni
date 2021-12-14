@@ -78,11 +78,6 @@
   margin-bottom: 10px;
   color: #626d53;
 }
-.profile-article-title {
-  text-align: center;
-  font-size: 1.5em;
-  color: #626d53;
-}
 
 .user-info p {
   display: flex;
@@ -94,4 +89,18 @@
 }
 .user-info-name strong {
   text-transform: capitalize;
+}
+.profile-info-article {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: scroll;
+  height: 400px;
+}
+
+.profile-article-title {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  color: #626d53;
 }

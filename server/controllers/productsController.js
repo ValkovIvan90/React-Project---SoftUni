@@ -155,5 +155,13 @@ router.get('/userArticles/:id', async (req, res) => {
         res.json({ status: 404, message: err.message })
     }
 })
+router.get('/getUserLikedArticles/:id', async (req, res) => {
+    try {
+        const result = await req.storage.getUserLikedArticles(req.params.id);
+        res.json({ status: 200, article: result })
+    } catch (err) {
+        res.json({ status: 404, message: err.message })
+    }
+})
 
 module.exports = router;

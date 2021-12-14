@@ -12,7 +12,7 @@ import UserContext from '../../../context/UserDataContext';
 
 export default function Catalog() {
     const [articles, setArticle] = useState([]);
-    const [serverMsg, setServerMsg] = useState("");
+
 
     const { search } = useLocation();
     const { name } = queryString.parse(search);
@@ -23,22 +23,18 @@ export default function Catalog() {
         if (name === 'clothes' || name === 'animals' || name === 'cars') {
             getByCategory(name).then(result => {
                 setArticle(result.article);
-                setServerMsg(result.message)
             }).catch(err => {
                 console.log(err.message);
             })
         } else if (name === "myArticles") {
             getUserArticles(userData._id).then(result => {
-                console.log(result);
                 setArticle(result.article);
-                setServerMsg(result.message)
             }).catch(err => {
                 console.log(err.message);
             });
         } else {
             getAll().then(result => {
                 setArticle(result.article);
-                setServerMsg(result.message)
             }).catch(err => {
                 console.log(err.message);
             });
@@ -50,7 +46,7 @@ export default function Catalog() {
             <h1 className="catalog-title">All added Articles</h1>
             <article className="cards">
                 {articles?.length > 0 ? articles.map(x => <ArtCard key={x._id} article={x} />) :
-                    <h1 className="sv-msg">{serverMsg}</h1>
+                    <h1 className="sv-msg">No Articles</h1>
                 }
 
             </article>
