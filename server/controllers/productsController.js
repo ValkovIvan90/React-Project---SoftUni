@@ -156,9 +156,10 @@ router.get('/userArticles/:id', async (req, res) => {
     }
 })
 router.get('/getUserLikedArticles/:id', async (req, res) => {
+    const createdArticle = await req.storage.getUserArticles(req.params.id);
     try {
         const result = await req.storage.getUserLikedArticles(req.params.id);
-        res.json({ status: 200, article: result })
+        res.json({ status: 200, article: result, userArticle: createdArticle.length })
     } catch (err) {
         res.json({ status: 404, message: err.message })
     }

@@ -17,7 +17,7 @@ export default function Details() {
 
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
-    
+
     const [likes, setLikes] = useState([]);
     const [isLiked, setIsLiked] = useState(false);
 
@@ -119,7 +119,7 @@ export default function Details() {
                         </div>
                         : ''}
                 </ul>
-                {userData ? <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
+                {userData && userData._id !== artOwner._id ? <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
                     articleId={artId} /> : ""}
 
             </article>

@@ -10,11 +10,14 @@ import { getUserLikedArticles } from '../../services/article';
 export default function UserProfile() {
     const { userData } = useContext(UserContext);
     const [artData, setArtData] = useState([]);
+    const [createdArtCount, setCreatedArtCount] = useState(0);
 
 
     useEffect(() => {
         getUserLikedArticles(userData._id).then(res => {
-            setArtData(res.article)
+            setArtData(res.article,
+                setCreatedArtCount(res.userArticle))
+
         })
     }, [userData._id]);
 
@@ -46,6 +49,8 @@ export default function UserProfile() {
                             User-Info</h1>
                         <p className="user-info-name"><span>Name</span>  <strong className="data-span">{userData.username}</strong></p>
                         <p className="user-info-email"><span>Email</span> <strong className="data-span">{userData.email}</strong></p>
+                        <p className="user-info-liked-art"><span>Created Articles</span> <strong className="data-span">{createdArtCount}</strong></p>
+                        <p className="user-info-created-art"><span>Liked Articles</span> <strong className="data-span">{artData.length}</strong></p>
                     </div>
                 </div>
                 <div className="profile-info-article">
