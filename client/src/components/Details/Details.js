@@ -126,8 +126,7 @@ export default function Details() {
                         </div>
                         : ''}
                 </ul>
-                {userData && userData._id !== artOwner._id ? <SendMessage ownerName={artOwner.username} ownerId={artOwner._id} userId={userData._id}
-                    articleId={artId} /> : ""}
+                {userData && userData._id !== artOwner._id ? <SendMessage /> : ""}
 
             </article>
             <article className='likes-dtl'>

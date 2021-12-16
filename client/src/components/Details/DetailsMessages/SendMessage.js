@@ -1,14 +1,21 @@
-
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import { sendMessage } from '../../../services/user';
-import MessageNot from '../../Notification/MessageNot';
 import { sendMessageSchema } from '../../../yupSchemaValidation/userValidation';
+
+import MessageNot from '../../Notification/MessageNot';
 import Notification from '../../Notification/InputNotification/Notification'
+
+import ArticleContext from '../../../context/ArticleContext';
+import UserContext from '../../../context/UserDataContext';
 
 import './SendMessage.css'
 
-export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
+export default function SendMessage() {
+
+    const { currentArt } = useContext(ArticleContext);
+    const { userData } = useContext(UserContext);
 
     const [send, setSend] = useState([]);
     const [msgIsSend, setMsgIsSend] = useState(false);
@@ -19,9 +26,9 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
             username: value.username,
             mail: value.email,
             message: value.message,
-            ownerId,
-            userId,
-            articleId
+            ownerId: currentArt.owner,
+            userId: userData._id,
+            articleId: currentArt._id
         }
         setMsgIsSend(false);
         try {
@@ -40,7 +47,7 @@ export default function SendMessage({ ownerId, ownerName, userId, articleId }) {
     return (
         <>
             <article className="message-box">
-                <h4 className="box-title">Send message to <span>{ownerName}</span></h4>
+                <h4 className="box-title">Send message to <span>{userData.username}</span></h4>
                 <Formik
                     initialValues={{
                         username: '',
