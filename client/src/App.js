@@ -6,6 +6,8 @@ import { ArticleProvider } from './context/ArticleContext';
 
 
 import Header from './components/Header';
+import Footer from './components/Footer';
+
 import HomePage from './components/HomePage';
 import Catalog from './components/catalog/Catalog';
 import UserProfile from './components/UserProfile';
@@ -47,6 +49,7 @@ function App() {
                             <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </section>
+                    <Footer />
                 </ArticleProvider>
             </AuthProvider>
         </>

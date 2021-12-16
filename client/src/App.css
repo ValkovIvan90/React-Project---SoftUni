@@ -12,33 +12,6 @@ body {
   margin: 10px 15px;
   background-color: white;
 }
-
-/* Header */
-
-
-
-/* HOME */
-
-
-/* Catalog */
-
-
-
-/* Login */
-
-
-
-/* register */
-
-
-
-/* Details */
-
-
-
-/* create */
-
-
-
-/* Edit */
-
+.container {
+  padding-bottom: 35px;
+}

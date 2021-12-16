@@ -1,0 +1,21 @@
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #b9e3f7;
+  margin-bottom: 5px;
+}
+.footer-nav-items {
+  display: flex;
+  margin: 10px;
+}
+.footer-title {
+  font-size: 1.2em;
+  margin: 10px;
+  color: #3f82ec;
+  font-style: italic;
+}
