@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import ArticleContext from '../../context/ArticleContext';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import './Details.css';
+
 import { Link, useParams } from 'react-router-dom';
 import UserContext from '../../context/UserDataContext';
 import SendMessage from './DetailsMessages/SendMessage';
@@ -14,6 +16,7 @@ import { addLike, deleteArticle, getById } from '../../services/article';
 
 export default function Details() {
     const { userData } = useContext(UserContext);
+    const { setCurrentArt } = useContext(ArticleContext);
 
     const [art, setArt] = useState({});
     const [artOwner, setArtOwner] = useState({});
@@ -33,6 +36,10 @@ export default function Details() {
                     setLikes(state => ({ ...state, like: res.article.liked }))
                 ));
     }, [artId, isLiked]);
+
+    useEffect(() => {
+        setCurrentArt(art)
+    }, [setCurrentArt, art])
 
     //Delete Art
     const deleteArt = (artId) => {
@@ -57,7 +64,6 @@ export default function Details() {
         });
 
     }
-
     //Like article
     const likeArt = () => {
         const data = {
@@ -74,8 +80,9 @@ export default function Details() {
             console.log(err.message);
         })
     }
+
     return (
-        <section className="details">
+        < section className="details">
             <h1 className="details-title">Details</h1>
             <article className="details-info">
                 <div className="details-info-img">

@@ -5,7 +5,7 @@ import UserContext from '../../context/UserDataContext';
 import './UserProfile.css';
 import avatar from '../../images/avatar.jpg';
 import ArtCard from '../catalog/Card/ArtCard'
-import { getUserLikedArticles } from '../../services/article';
+import { getUserLikedCreatedArticles } from '../../services/article';
 
 export default function UserProfile() {
     const { userData } = useContext(UserContext);
@@ -14,7 +14,7 @@ export default function UserProfile() {
 
 
     useEffect(() => {
-        getUserLikedArticles(userData._id).then(res => {
+        getUserLikedCreatedArticles(userData._id).then(res => {
             setArtData(res.article,
                 setCreatedArtCount(res.userArticle))
 

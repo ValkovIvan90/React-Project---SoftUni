@@ -7,7 +7,6 @@ import Animals from '../CategoryModels/Animals'
 import Cars from '../CategoryModels/Cars'
 import Clothes from '../CategoryModels/Clothes'
 
-
 export default function Edit() {
 
     const [artData, setArtData] = useState([]);
@@ -28,13 +27,13 @@ export default function Edit() {
     };
 
     return (
-        <section className="edit-article">
-            <div className="edit-article-box">
-                <div className="edit-art-text">
-                    <h1 className="art-title">Edit Article</h1>
+            <section className="edit-article">
+                <div className="edit-article-box">
+                    <div className="edit-art-text">
+                        <h1 className="art-title">Edit Article</h1>
+                    </div>
+                    {modelComponents[artData.category]}
                 </div>
-                {modelComponents[artData.category]}
-            </div>
-        </section>
+            </section>
     )
 }
