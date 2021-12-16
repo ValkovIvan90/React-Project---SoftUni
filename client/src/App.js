@@ -14,6 +14,7 @@ import AuthRoute from './components/Guards/AuthRoute';
 
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import NotFoundPage from './components/NotFoundPage';
 
 import Create from './components/Create';
 import Details from './components/Details';
@@ -43,6 +44,7 @@ function App() {
                                     <Route path="/edit/:artId" element={<Edit />} />
                                 </Route>
                             </Route>
+                            <Route path="*" element={<NotFoundPage />} />
                         </Routes>
                     </section>
                 </ArticleProvider>
