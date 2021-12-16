@@ -3,7 +3,6 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #b9e3f7;
-  border-radius: 6px;
 }
 .nav {
   display: flex;

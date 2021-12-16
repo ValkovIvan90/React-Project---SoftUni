@@ -7,15 +7,18 @@
   justify-content: space-around;
   align-items: center;
   background-color: #b9e3f7;
-  margin-bottom: 5px;
+  width: 100%;
 }
 .footer-nav-items {
   display: flex;
-  margin: 10px;
+  margin: 5px;
 }
 .footer-title {
   font-size: 1.2em;
-  margin: 10px;
+  margin: 5px;
   color: #3f82ec;
   font-style: italic;
+}
+.footer-nav-items li {
+  padding-left: 10px;
 }
