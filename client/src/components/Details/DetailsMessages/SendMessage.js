@@ -12,7 +12,7 @@ import UserContext from '../../../context/UserDataContext';
 
 import './SendMessage.css'
 
-export default function SendMessage() {
+export default function SendMessage({ artOwnerName }) {
 
     const { currentArt } = useContext(ArticleContext);
     const { userData } = useContext(UserContext);
@@ -47,7 +47,7 @@ export default function SendMessage() {
     return (
         <>
             <article className="message-box">
-                <h4 className="box-title">Send message to <span>{userData.username}</span></h4>
+                <h4 className="box-title">Send message to <span>{artOwnerName}</span></h4>
                 <Formik
                     initialValues={{
                         username: '',
