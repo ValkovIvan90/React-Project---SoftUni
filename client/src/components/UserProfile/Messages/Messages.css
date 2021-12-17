@@ -1,0 +1,15 @@
+.message-conrainer {
+  min-height: 100vh;
+  background-color: #b9e3f7;
+  max-width: 80%;
+  margin: 20px auto;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  box-shadow: -1px 1px 8px 3px #000000;
+}
+.message-container-title {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+}
