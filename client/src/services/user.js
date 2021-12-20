@@ -1,4 +1,5 @@
-
+ 
+ 
 
 export function register(data) {
     return fetch('http://localhost:5000/auth/register', {
@@ -36,6 +37,11 @@ export function sendMessage(data) {
         },
         credentials: 'include',
         body: JSON.stringify(data)
+    }).then(res => res.json());
+}
+export function getUserMessages(userId) {
+    return fetch('http://localhost:5000/auth/getUserMessages/' + userId, {
+        credentials: 'include',
     }).then(res => res.json());
 }
 // export function recieveMessage(data) {

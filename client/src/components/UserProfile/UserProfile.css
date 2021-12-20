@@ -99,8 +99,14 @@
 }
 
 .profile-article-title {
+  font: italic small-caps bold 12px/30px Georgia, serif;
   flex-basis: 100%;
   text-align: center;
   font-size: 1.5em;
+  color: #626d53;
+}
+.no-liked-art {
+  margin: auto;
+  font: italic small-caps bold 12px/30px Georgia, serif;
   color: #626d53;
 }

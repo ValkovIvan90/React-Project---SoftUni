@@ -23,8 +23,8 @@ export default function SendMessage({ artOwnerName }) {
 
     async function submitHandler(value, { resetForm }) {
         const data = {
-            username: value.username,
-            mail: value.email,
+            username: userData.username,
+            mail: userData.email,
             message: value.message,
             ownerId: currentArt.owner,
             userId: userData._id,
@@ -33,7 +33,7 @@ export default function SendMessage({ artOwnerName }) {
         setMsgIsSend(false);
         try {
             const result = await sendMessage(data);
-
+            console.log(result);
             if (result.status === 200) {
                 setSend({ message: result.message });
                 setMsgIsSend(true)
@@ -50,8 +50,6 @@ export default function SendMessage({ artOwnerName }) {
                 <h4 className="box-title">Send message to <span>{artOwnerName}</span></h4>
                 <Formik
                     initialValues={{
-                        username: '',
-                        email: '',
                         message: ''
                     }}
                     validationSchema={sendMessageSchema}
@@ -62,16 +60,15 @@ export default function SendMessage({ artOwnerName }) {
                             type="text"
                             id="text-msg"
                             name="username"
+                            value={userData.username}
                         />
-                        <ErrorMessage name="username" component={Notification} />
-
                         <label htmlFor="email">Email</label>
                         <Field
                             type="email"
                             id="email-msg"
                             name="email"
+                            value={userData.email}
                         />
-                        <ErrorMessage name="email" component={Notification} />
                         <label htmlFor="message">Message</label>
                         <Field
                             as="textarea"

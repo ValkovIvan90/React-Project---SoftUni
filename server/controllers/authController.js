@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 
-const { getUserByUsername, getUserByEmail, createMessageSend } = require('../services/userServices');
+const { isAuth } = require('../middlewares/guards')
+const { getUserByUsername, getUserByEmail, createMessageSend, getUserMessages } = require('../services/userServices');
 
 router.post('/register',
     body('username', 'The username should be at least 5 characters long!').isLength({ min: 5 }),
@@ -71,6 +72,7 @@ router.post('/login', async (req, res) => {
         return;
     };
 });
+// Send message
 router.post('/sendMessage', async (req, res) => {
     const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     try {
@@ -90,6 +92,16 @@ router.get('/logout', (req, res) => {
         req.auth.logout();
     } catch (err) {
         console.log(err.message);
+    }
+})
+// Get messages
+router.get('/getUserMessages/:id', isAuth(), async (req, res) => {
+
+    try {
+        const data = await getUserMessages(req.params.id);
+        res.json({ status: 200, dataInfo: data })
+    } catch (err) {
+        res.json({ status: 404, message: err.message })
     }
 })
 

@@ -57,10 +57,10 @@ export default function UserProfile() {
                     <h1 className="profile-article-title">Last Liked Articles</h1>
 
                     {artData?.length > 0 ? artData.map(x => <ArtCard key={x._id} article={x} />) :
-                        "No liked articles yet!"
+                        <p className='no-liked-art'> No liked articles yet!</p>
                     }
                 </div>
             </div>
-        </section>
+        </section >
     )
 }

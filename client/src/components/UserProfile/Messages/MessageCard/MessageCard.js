@@ -1,13 +1,25 @@
 import React from 'react'
 import './MessageCard.css'
-export default function MessageCard() {
+export default function MessageCard({ data }) {
+    console.log(data);
     return (
-        <div className='msg-box'>
-            <h3 className='msg-box-author'>author</h3>
-            <div className='msg-box-img'>
-                <img src="" alt="" />
+        <div className='msg-container'>
+            <div className='msg-box'>
+                <div className='time-author'>
+                    <h3 className='msg-box-author'>{data.userInfo.username}</h3>
+                    <p className='msg-time'>{data.userInfo.time}</p>
+                </div>
+                <div className='msg-box-content'>
+                    <div className='msg-box-img'>
+                        <img src={data.artData.image} alt="article-img" />
+                    </div>
+                    <div className='msg-box-message'>
+                        <p className='msg-box-message-content'>
+                            {data.userInfo.message}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <p className='msg-time'>20</p>
         </div>
     )
 }
