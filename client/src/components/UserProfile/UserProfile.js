@@ -7,6 +7,7 @@ import avatar from '../../images/avatar.jpg';
 import ArtCard from '../catalog/Card/ArtCard'
 import { getUserLikedCreatedArticles } from '../../services/article';
 
+
 export default function UserProfile() {
     const { userData } = useContext(UserContext);
     const [artData, setArtData] = useState([]);

@@ -28,7 +28,6 @@
 .comment.title,
 .text {
   border-bottom: 1px solid lightgray;
-  text-transform: capitalize;
 }
 .comment.title {
   color: cadetblue;

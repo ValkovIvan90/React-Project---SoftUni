@@ -12,7 +12,6 @@ export default function Messages() {
     const { userId } = useParams();
 
     const [data, setData] = useState({});
-
     useEffect(() => {
         getUserMessages(userId).then(res => {
             setData(state => ({ ...state, info: res.dataInfo }))
@@ -21,12 +20,11 @@ export default function Messages() {
         })
     }, [userId])
 
-    console.log(data);
     return (
         <div className='message-conrainer'>
             <h1 className='message-container-title'>Messages</h1>
             {data.info?.length > 0 ? data.info.map(x => <MessageCard key={x.userInfo.message} data={x} />) :
-                <h1 className="sv-msg">No Articles</h1>
+                <h1 className="sv-msg">No Messages yet</h1>
             }
         </div>
     )

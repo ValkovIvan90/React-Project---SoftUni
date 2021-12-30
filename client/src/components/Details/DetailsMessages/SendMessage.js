@@ -33,7 +33,6 @@ export default function SendMessage({ artOwnerName }) {
         setMsgIsSend(false);
         try {
             const result = await sendMessage(data);
-            console.log(result);
             if (result.status === 200) {
                 setSend({ message: result.message });
                 setMsgIsSend(true)

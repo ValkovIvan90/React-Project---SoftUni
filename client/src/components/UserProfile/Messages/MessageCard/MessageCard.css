@@ -19,7 +19,8 @@
   padding: 5px;
 }
 .msg-box-img img {
-  max-width: 40%;
+  width: 70px;
+  height: 60px;
   border-radius: 5px;
 }
 .msg-box-message {
@@ -27,7 +28,12 @@
   margin: auto;
 }
 .msg-box-message-content {
-  margin: 0;
+  margin: 5px auto;
+  width: 50%;
+  white-space: nowrap;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .time-author {
   display: flex;
@@ -41,4 +47,11 @@
   font-size: 15px;
   font-style: italic;
   color: blue;
+}
+.msg-card-btn button {
+  border-radius: 4px;
+  background-color: rgb(148, 192, 148);
+  color: white;
+  font-style: italic;
+  margin-right: 20px;
 }

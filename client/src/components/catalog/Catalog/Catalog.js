@@ -39,6 +39,9 @@ export default function Catalog() {
                 console.log(err.message);
             });
         }
+        return () => {
+            setArticle([]);
+        };
     }, [name, userData._id])
 
     return (

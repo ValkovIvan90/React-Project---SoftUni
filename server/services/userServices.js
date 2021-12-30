@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const { getAll } = require('../services/product');
 const { createDate } = require('../util/currentDate');
-
+const uniqId = require('uniqid')
 
 async function createUser(username, email, hashedPassword) {
     const user = new User({
@@ -41,6 +41,7 @@ async function createMessageSend(data) {
         const recieverUser = await User.findOne({ _id: data.ownerId });
 
         recieverUser.recievedMessages.push({
+            messageId: uniqId(),
             username: data.username,
             email: data.mail,
             senderId: data.userId,
@@ -72,11 +73,11 @@ async function getUserMessages(userId) {
         const articles = await (await getAll())
             .filter(x => x.owner == userId)
             .reduce((acc, c) => {
-                user.recievedMessages.forEach((y) => {
-                    if (c._id == y.articleId) {
-                        acc.push({ artData: c, userInfo: y })
+                userSenderInfo.forEach((x) => {
+                    if (x.articleId == c._id) {
+                        acc.push({ artData: c, userInfo: x })
                     }
-                })
+                });
                 return acc
             }, [])
 

@@ -46,10 +46,10 @@ select {
   color: white;
 }
 #description {
-  max-width: 338px;
+  max-width: 400px;
   border-radius: 10px;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 #category {
-  max-width: 339px;
+  max-width: 400px;
 }

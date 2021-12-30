@@ -1,7 +1,6 @@
 import React from 'react'
 import './MessageCard.css'
 export default function MessageCard({ data }) {
-    console.log(data);
     return (
         <div className='msg-container'>
             <div className='msg-box'>
@@ -17,6 +16,9 @@ export default function MessageCard({ data }) {
                         <p className='msg-box-message-content'>
                             {data.userInfo.message}
                         </p>
+                    </div>
+                    <div className='msg-card-btn'>
+                         <button>more</button>
                     </div>
                 </div>
             </div>
