@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { getAll } = require('../services/product');
 const { createDate } = require('../util/currentDate');
+const { createTime } = require('../util/createTime');
 const uniqId = require('uniqid')
 
 async function createUser(username, email, hashedPassword) {
@@ -9,7 +10,11 @@ async function createUser(username, email, hashedPassword) {
         email,
         hashedPassword
     });
-    await user.save();
+    await user.save()
+        .then(doc => { })
+        .catch(err => {
+            throw new Error(err)
+        });;
 
     return user;
 };
@@ -27,12 +32,9 @@ async function getUserById(id) {
     return user;
 };
 async function createMessageSend(data) {
-    let time = new Date()
-    const hour = time.getHours()
-    const minutes = time.getMinutes();
-    const seconds = time.getSeconds();
 
-    const currentTime = `${createDate()} && ${hour}:${minutes}:${seconds}`;
+
+    const currentTime = `${createDate()} / ${createTime()}`;
 
     try {
         if (!data.username || !data.mail || !data.userId || !data.message || !data.articleId) {
@@ -40,17 +42,48 @@ async function createMessageSend(data) {
         }
         const recieverUser = await User.findOne({ _id: data.ownerId });
 
-        recieverUser.recievedMessages.push({
-            messageId: uniqId(),
-            username: data.username,
-            email: data.mail,
-            senderId: data.userId,
-            message: data.message,
-            articleId: data.articleId,
-            time: currentTime
-        });
+        if (!recieverUser.recievedMessages.find(x => x.senderId == data.userId)) {
+            recieverUser.recievedMessages.push({
+                senderId: data.userId,
+                message: [{
+                    messageId: uniqId(),
+                    msg: data.message,
+                    username: data.username,
+                    email: data.mail,
+                    articleId: data.articleId,
+                    time: currentTime
+                }]
+            });
+            await recieverUser.save()
+                .then(doc => { })
+                .catch(err => {
+                    throw new Error(err)
+                });
+        } else {
+            const obje = {
+                messageId: uniqId(),
+                username: data.username,
+                email: data.mail,
+                msg: data.message,
+                articleId: data.articleId,
+                time: currentTime
+            }
+            await User.updateOne(
+                {
+                    _id: data.ownerId,
+                    "recievedMessages.senderId": data.userId
+                },
+                {
+                    $push: { "recievedMessages.$.message": obje }
+                }).then(result => {
+                    if (result.nModified == 1 && result.n == 1) {
+                        console.log(`Successfully added a new review.`)
+                    }
+                })
+                .catch(err => console.error(`Failed to add review: ${err}`))
 
-        await recieverUser.save();
+        }
+
     } catch (err) {
         return err.message
     }

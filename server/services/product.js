@@ -47,13 +47,25 @@ async function createArtModel(art) {
     try {
         if (art.category == 'cars') {
             const record = new Car(art);
-            return record.save();
+            return record.save()
+                .then(doc => { })
+                .catch(err => {
+                    throw new Error(err)
+                });
         } else if (art.category == 'animals') {
             const record = new Animal(art);
-            return record.save();
+            return record.save()
+                .then(doc => { })
+                .catch(err => {
+                    throw new Error(err)
+                });
         } else if (art.category == 'clothes') {
             const record = new Dress(art);
-            return record.save();
+            return record.save()
+                .then(doc => { })
+                .catch(err => {
+                    throw new Error(err)
+                });
         }
     } catch (err) {
         throw new Error(err.message)
