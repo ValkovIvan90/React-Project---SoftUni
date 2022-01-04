@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const { getAll } = require('../services/product');
-const { createDate } = require('../util/currentDate');
-const { createTime } = require('../util/createTime');
+const { createDate, createTime } = require('../util/currentDateAndTime');
 const uniqId = require('uniqid')
 
 async function createUser(username, email, hashedPassword) {
@@ -32,7 +31,6 @@ async function getUserById(id) {
     return user;
 };
 async function createMessageSend(data) {
-
 
     const currentTime = `${createDate()} / ${createTime()}`;
 
@@ -77,10 +75,10 @@ async function createMessageSend(data) {
                     $push: { "recievedMessages.$.message": obje }
                 }).then(result => {
                     if (result.nModified == 1 && result.n == 1) {
-                        console.log(`Successfully added a new review.`)
+                        console.log(`Successfully added a new message.`)
                     }
                 })
-                .catch(err => console.error(`Failed to add review: ${err}`))
+                .catch(err => console.error(`Failed to add message: ${err}`))
 
         }
 
@@ -94,27 +92,32 @@ async function getUserMessages(userId) {
     try {
         const user = await User.findOne({ _id: userId });
 
-        // 1. User who sent me a message!
-        const userSenderInfo = user.recievedMessages.reduce((acc, c) => {
-            if (!acc.find(x => x.senderId == c.senderId)) {
-                acc.push(c)
-            }
+        const messages = user.recievedMessages.reduce((acc, c) => {
+            const currentMessages = [];
+            c.message.forEach((y) => {
+                if (!currentMessages.find(x => x.articleId == y.articleId)) {
+                    currentMessages.push(y)
+                }
+            })
+            acc.push(currentMessages);
             return acc
-        }, []);
-
-        //   2. All my articles for which I have received message
-        const articles = await (await getAll())
-            .filter(x => x.owner == userId)
-            .reduce((acc, c) => {
-                userSenderInfo.forEach((x) => {
-                    if (x.articleId == c._id) {
-                        acc.push({ artData: c, userInfo: x })
+        }, [])
+        const userMessageInfo = [];
+        messages.map((x) => {
+            x.forEach((y) => {
+                userMessageInfo.push(y)
+            })
+        })
+        const docInfo = await (await getAll())
+            .filter(x => x.owner == userId).reduce((acc, c) => {
+                userMessageInfo.forEach((a) => {
+                    if (a.articleId == c._id) {
+                        acc.push({ documentId: uniqId(), artData: c, userInfo: a })
                     }
-                });
+                })
                 return acc
             }, [])
-
-        return articles;
+      return docInfo
     } catch (err) {
         return err.message
     }

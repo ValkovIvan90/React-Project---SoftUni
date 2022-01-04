@@ -20,10 +20,11 @@ export default function Messages() {
         })
     }, [userId])
 
+    console.log(data);
     return (
         <div className='message-conrainer'>
             <h1 className='message-container-title'>Messages</h1>
-            {data.info?.length > 0 ? data.info.map(x => <MessageCard key={x.userInfo.message} data={x} />) :
+            {data.info?.length > 0 ? data.info.map(x => <MessageCard key={x.documentId} data={x} />) :
                 <h1 className="sv-msg">No Messages yet</h1>
             }
         </div>

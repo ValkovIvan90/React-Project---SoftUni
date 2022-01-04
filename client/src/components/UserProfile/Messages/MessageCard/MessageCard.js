@@ -14,11 +14,11 @@ export default function MessageCard({ data }) {
                     </div>
                     <div className='msg-box-message'>
                         <p className='msg-box-message-content'>
-                            {data.userInfo.message}
+                            {data.userInfo.msg}
                         </p>
                     </div>
                     <div className='msg-card-btn'>
-                         <button>more</button>
+                        <button>more</button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-const { createDate } = require('./currentDate');
+const { createDate } = require('./currentDateAndTime');
 
 function createAndEditArt(data) {
 
