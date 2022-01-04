@@ -12,6 +12,7 @@ import HomePage from './components/HomePage';
 import Catalog from './components/catalog/Catalog';
 import UserProfile from './components/UserProfile';
 import Messages from './components/UserProfile/Messages/Messages';
+import Discussion from './components/UserProfile/Messages/MessageCard/Discussion';
 
 import AuthRoute from './components/Guards/AuthRoute';
 
@@ -44,6 +45,7 @@ function App() {
                                 <Route path="/create" element={<Create />} />
                                 <Route path="/profile" element={<UserProfile />} />
                                 <Route path="/messages/:userId" element={<Messages />} />
+                                <Route path="/messages/:userId/:artId" element={<Discussion />} />
                                 <Route element={<IsOwner />}>
                                     <Route path="/edit/:artId" element={<Edit />} />
                                 </Route>

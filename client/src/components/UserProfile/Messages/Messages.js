@@ -20,7 +20,6 @@ export default function Messages() {
         })
     }, [userId])
 
-    console.log(data);
     return (
         <div className='message-conrainer'>
             <h1 className='message-container-title'>Messages</h1>

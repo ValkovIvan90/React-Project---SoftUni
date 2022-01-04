@@ -1,6 +1,10 @@
-import React from 'react'
-import './MessageCard.css'
+import React from 'react';
+import './MessageCard.css';
+
+import { Link } from 'react-router-dom';
+
 export default function MessageCard({ data }) {
+
     return (
         <div className='msg-container'>
             <div className='msg-box'>
@@ -18,7 +22,7 @@ export default function MessageCard({ data }) {
                         </p>
                     </div>
                     <div className='msg-card-btn'>
-                        <button>more</button>
+                        <Link to={`/messages/${data.artData.owner}/${data.artData._id}`}>more</Link>
                     </div>
                 </div>
             </div>

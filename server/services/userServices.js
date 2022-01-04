@@ -116,8 +116,9 @@ async function getUserMessages(userId) {
                     }
                 })
                 return acc
-            }, [])
-      return docInfo
+            }, []);
+
+      return docInfo;
     } catch (err) {
         return err.message
     }
