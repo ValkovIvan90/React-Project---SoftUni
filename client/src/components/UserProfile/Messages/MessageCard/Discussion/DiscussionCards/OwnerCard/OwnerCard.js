@@ -2,7 +2,7 @@ import React from 'react'
 
 import './OwnerCard.css'
 
-export default function OwnerCard() {
+export default function OwnerCard({ recMesg }) {
     return (
         <div className='chat-msg-box-me'>
             <div className='chat-avatar-me'>
@@ -11,12 +11,11 @@ export default function OwnerCard() {
                 </h4>
             </div>
             <p className='chat-message-me'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro eius fugit magnam dolorum libero. Velit harum reiciendis assumenda corporis vel.
-                Lorem ipsum dolor sit amet consecte
+                {recMesg.msg}
             </p>
-            <div className='msg-time-me'>
-                  12:12:12- 123342432
-             </div>
+            <div className='msg-time'>
+                {recMesg.time}
+            </div>
         </div>
     )
 }

@@ -25,7 +25,7 @@ export default function Discussion() {
     useEffect(() => {
         getAllMessagesForCurrentArticle(artId, senderId).then(res => {
             if (res.status === 200) {
-                setRecMesg(res.dataInfo)
+                setRecMesg(res);
             }
         }).catch(err => {
             console.log(err);
@@ -39,6 +39,7 @@ export default function Discussion() {
             console.log(err.message);
         })
     }, [artId]);
+
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -88,10 +89,10 @@ export default function Discussion() {
             <div className='chat-msg-container'>
                 <h3 className='dsc-chat-msg-title'>Chat</h3>
                 <div className='my-msg-stra'>
-                    {recMesg?.length > 0 ? recMesg.map(x => <SenderCard key={x.messageId} recMesg={x} />) :
+                    {recMesg?.foreignMsg?.length > 0 ? recMesg.foreignMsg.map(x => <SenderCard key={x.messageId} recMesg={x} />) :
                         ""
                     }
-                    {recMesg?.length > 0 ? recMesg.map(x => <OwnerCard key={x.messageId} recMesg={x} />) :
+                    {recMesg?.myMsg?.length > 0 ? recMesg?.myMsg.map(x => <OwnerCard key={x.messageId} recMesg={x} />) :
                         ""
                     }
                 </div>

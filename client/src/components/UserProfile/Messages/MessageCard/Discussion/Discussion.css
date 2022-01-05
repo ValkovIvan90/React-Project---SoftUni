@@ -1,4 +1,5 @@
 .discussion-container {
+  max-width: 100%;
   min-height: 100vh;
   background-color: #c8e6f3;
   margin: 10px 0;
@@ -62,6 +63,7 @@
 }
 
 .my-msg-stra {
+  width: 700px;
   height: 300px;
   overflow: auto;
 }

@@ -139,6 +139,7 @@ async function getUserMessages(userId) {
 
     try {
         const user = await User.findOne({ _id: userId });
+
         const messages = user.recievedMessages.reduce((acc, c) => {
             const currentMessages = [];
             c.message.forEach((y) => {
@@ -156,7 +157,8 @@ async function getUserMessages(userId) {
                 userMessageInfo.push(y)
             })
         })
-        const docInfo = await (await getAll())
+
+        let docInfo = await (await getAll())
             .filter(x => x.owner == userId).reduce((acc, c) => {
                 userMessageInfo.forEach((a) => {
                     if (a.articleId == c._id) {
@@ -165,6 +167,19 @@ async function getUserMessages(userId) {
                 })
                 return acc
             }, []);
+        if (docInfo.length == 0) {
+
+            docInfo = await (await getAll())
+                .filter(x => x._id == userMessageInfo[0].articleId).reduce((acc, c) => {
+                    userMessageInfo.forEach((a) => {
+                        console.log(a);
+                        if (a.articleId == c._id) {
+                            acc.push({ documentId: uniqId(), artData: c, userInfo: a })
+                        }
+                    })
+                    return acc
+                }, []);
+        }
         return docInfo;
     } catch (err) {
         return err.message
@@ -191,17 +206,18 @@ async function getAllMessagesForCurrentArticle(artId, senderIds, userId) {
 
 
 
-        // const myMsgForCurrentArticle = owner.sendedMessages
-        //     .filter(x => x.recieverId == sender._id)
-        //     .reduce((acc, c) => {
-        //         c.message.forEach((x) => {
-        //             if (x.articleId == article._id) {
-        //                 acc.push(x)
-        //             }
-        //         })
-        //         return acc
-        //     }, []);
-        return msgForCurrentArt;
+        const myMsgForCurrentArticle = owner.sendedMessages
+            .filter(x => x.recieverId == sender._id)
+            .reduce((acc, c) => {
+                c.message.forEach((x) => {
+                    if (x.articleId == article._id) {
+                        acc.push(x)
+                    }
+                })
+                return acc
+            }, []);
+
+        return { msgForCurrentArt, myMsgForCurrentArticle };
     } catch (err) {
         throw new Error(err.message)
     }

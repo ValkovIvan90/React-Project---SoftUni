@@ -19,7 +19,6 @@ export default function Messages() {
             console.log(err.message);
         })
     }, [userId])
-
     return (
         <div className='message-conrainer'>
             <h1 className='message-container-title'>Messages</h1>
