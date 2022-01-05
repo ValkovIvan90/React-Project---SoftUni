@@ -118,18 +118,40 @@ async function getUserMessages(userId) {
                 return acc
             }, []);
 
-      return docInfo;
+        return docInfo;
     } catch (err) {
         return err.message
     }
 
 };
 
+async function getAllMessagesForCurrentArticle(artId, senderEmail, userId) {
+    try {
+        const article = await (await getAll()).find(x => x._id == artId);
+        const sender = await User.findOne({ email: senderEmail });
+        const owner = await User.findById({ _id: userId });
+
+        const msgForCurrentArt = owner.recievedMessages
+            .filter(x => x.senderId == sender._id)
+            .reduce((acc, c) => {
+                c.message.forEach((x) => {
+                    if (x.articleId == article._id) {
+                        acc.push(x)
+                    }
+                })
+                return acc
+            }, []);
+        return msgForCurrentArt;
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
 module.exports = {
     createUser,
     getUserByUsername,
     getUserByEmail,
     getUserById,
     createMessageSend,
-    getUserMessages
+    getUserMessages,
+    getAllMessagesForCurrentArticle
 }

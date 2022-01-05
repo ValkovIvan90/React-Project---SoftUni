@@ -45,7 +45,7 @@ function App() {
                                 <Route path="/create" element={<Create />} />
                                 <Route path="/profile" element={<UserProfile />} />
                                 <Route path="/messages/:userId" element={<Messages />} />
-                                <Route path="/messages/:userId/:artId" element={<Discussion />} />
+                                <Route path="/messages/:userId/:artId/:email" element={<Discussion />} />
                                 <Route element={<IsOwner />}>
                                     <Route path="/edit/:artId" element={<Edit />} />
                                 </Route>

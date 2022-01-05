@@ -1,37 +1,76 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
+import OwnerCard from './DiscussionCards/OwnerCard/OwnerCard';
+import SenderCard from './DiscussionCards/SenderCard/SenderCard';
+
+import { useParams } from 'react-router-dom';
+import { getAllMessagesForCurrentArticle } from '../../../../../services/user';
 import './Discussion.css'
+import { getById } from '../../../../../services/article';
 
 export default function Discussion() {
+
+    const [recMesg, setRecMesg] = useState();
+    const [article, setArticle] = useState();
+
+    const { artId, email } = useParams([]);
+
+    useEffect(() => {
+        getAllMessagesForCurrentArticle(artId, email).then(res => {
+            if (res.status === 200) {
+                setRecMesg(res.dataInfo)
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }, [artId, email])
+
+    useEffect(() => {
+        getById(artId).then(res => {
+            setArticle(res.article)
+        }).catch(err => {
+            console.log(err.message);
+        })
+    }, [artId]);
+
     return (
         <div className='discussion-container'>
             <div className='discussion-article-info-img'>
                 <h3 className='discussion-article-info-title'>Article-Info</h3>
                 <div className='discussion-art-img'>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZlDLe4x52RtGHIx0oOU7jRL3kDICYAUeQkg&usqp=CAU" alt="" />
+                    <img src={article?.image} alt="artImage" />
                 </div>
                 <div className='discussion-art-info'>
                     <ul className='discussion-ul-items'>
-                        <li>City - Burgas</li>
-                        <li>Data - 123.12123</li>
-                        <li>Likes - 20</li>
-                        <li>Price - 1000$</li>
+                        <li>City - {article?.city}</li>
+                        <li>Year - {article?.year || article?.birthday}</li>
+                        <li>Likes - {article?.liked?.length}</li>
+                        <li>Price - {article?.price}$</li>
                     </ul>
                 </div>
             </div>
             <div className='chat-msg-container'>
-                <h3 className='dsc-chat-msg-title'>Chat</h3>
-                <div className='chat-msg-box'>
-                    <div className='chat-avatar'>
-                        <h4 className='chat-av-name'>
-                            IV
-                        </h4>
-                    </div>
-                    <p className='chat-message'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro eius fugit magnam dolorum libero. Velit harum reiciendis assumenda corporis vel.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa fugit ab iure maxime asperiores dignissimos reprehenderit ea saepe, aliquam reiciendis, nihil doloribus assumenda vel eligendi. Impedit, saepe rerum consequuntur quod hic officiis necessitatibus ab molestiae esse, temporibus commodi sed fugiat eius similique aspernatur sequi voluptatum eos possimus in? Natus eveniet velit mollitia ab quisquam id magni praesentium harum veniam magnam beatae, placeat quibusdam corporis rem autem repellendus sed reprehenderit asperiores consectetur provident officia ipsum quae deleniti. Odio, accusantium a repellendus earum distinctio, voluptatum nobis aliquid tempora temporibus, nesciunt inventore doloremque dolorem architecto. Amet a quos unde corrupti vel odio voluptatibus.                      
-                    </p>
+                <div className='my-msg-stra'>
+                    <h3 className='dsc-chat-msg-title'>Chat</h3>
+                    {recMesg?.length > 0 ? recMesg.map(x => <SenderCard key={x.messageId} recMesg={x} />) :
+                        ""
+                    }
+                    {recMesg?.length > 0 ? recMesg.map(x => <OwnerCard key={x.messageId} recMesg={x} />) :
+                        ""
+                    }
                 </div>
+                <div className='form-msg'>
+                    <form>
+                        <textarea name="" id="txt-area" cols="70" rows="4" placeholder='Your message...'></textarea>
+                        <div className="form-btn">
+                            <input className="submit-btn" type="submit" value="Send" />
+                            <input className="reset-btn" type="reset" value="Reset" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div className='del-discussion'>
+                <button className='del-discuss-btn'>Remove Discussion</button>
             </div>
         </div>
     )
