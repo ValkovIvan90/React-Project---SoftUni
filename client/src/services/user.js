@@ -44,8 +44,8 @@ export function getUserMessages(userId) {
         credentials: 'include',
     }).then(res => res.json());
 }
-export function getAllMessagesForCurrentArticle(artId, email) {
-    return fetch('http://localhost:5000/auth/getAllMessagesForCurrentArticle/' + artId + "/" + email, {
+export function getAllMessagesForCurrentArticle(artId, senderId) {
+    return fetch('http://localhost:5000/auth/getAllMessagesForCurrentArticle/' + artId + "/" + senderId, {
         credentials: 'include',
     }).then(res => res.json());
 }

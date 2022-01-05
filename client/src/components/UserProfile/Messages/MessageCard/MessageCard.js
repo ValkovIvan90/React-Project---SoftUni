@@ -4,6 +4,7 @@ import './MessageCard.css';
 import { Link } from 'react-router-dom';
 
 export default function MessageCard({ data }) {
+    
     return (
         <div className='msg-container'>
             <div className='msg-box'>
@@ -21,7 +22,7 @@ export default function MessageCard({ data }) {
                         </p>
                     </div>
                     <div className='msg-card-btn'>
-                        <Link to={`/messages/${data.artData.owner}/${data.artData._id}/${data.userInfo.email}`}>more</Link>
+                        <Link to={`/messages/${data.artData.owner}/${data.artData._id}/${data.userInfo.senderId}`}>more</Link>
                     </div>
                 </div>
             </div>

@@ -38,13 +38,60 @@ async function createMessageSend(data) {
         if (!data.username || !data.mail || !data.userId || !data.message || !data.articleId) {
             throw new Error('Invalid data!')
         }
-        const recieverUser = await User.findOne({ _id: data.ownerId });
 
+        const recieverUser = await User.findOne({ _id: data.ownerId });
+        const sender = await User.findOne({ _id: data.userId });
+
+        if (!sender.sendedMessages.find(x => x.recieverId == data.ownerId)) {
+            sender.sendedMessages.push({
+                recieverId: data.ownerId,
+                message: [{
+                    messageId: uniqId(),
+                    recieverId: data.ownerId,
+                    msg: data.message,
+                    username: recieverUser.username,
+                    email: recieverUser.email,
+                    articleId: data.articleId,
+                    time: currentTime
+                }]
+            });
+            await sender.save()
+                .then(doc => { })
+                .catch(err => {
+                    throw new Error(err)
+                });
+        } else {
+            const obje = {
+                messageId: uniqId(),
+                recieverId: data.ownerId,
+                username: recieverUser.username,
+                email: recieverUser.email,
+                msg: data.message,
+                articleId: data.articleId,
+                time: currentTime
+            }
+            await User.updateOne(
+                {
+                    _id: data.userId,
+                    "sendedMessages.recieverId": data.ownerId
+                },
+                {
+                    $push: { "sendedMessages.$.message": obje }
+                }).then(result => {
+                    if (result.nModified == 1 && result.n == 1) {
+                        console.log(`Successfully added a new message.`)
+                    }
+                })
+                .catch(err => console.error(`Failed to add message: ${err}`))
+        }
+
+        // 2 
         if (!recieverUser.recievedMessages.find(x => x.senderId == data.userId)) {
             recieverUser.recievedMessages.push({
                 senderId: data.userId,
                 message: [{
                     messageId: uniqId(),
+                    senderId: data.userId,
                     msg: data.message,
                     username: data.username,
                     email: data.mail,
@@ -60,6 +107,7 @@ async function createMessageSend(data) {
         } else {
             const obje = {
                 messageId: uniqId(),
+                senderId: data.userId,
                 username: data.username,
                 email: data.mail,
                 msg: data.message,
@@ -91,7 +139,6 @@ async function getUserMessages(userId) {
 
     try {
         const user = await User.findOne({ _id: userId });
-
         const messages = user.recievedMessages.reduce((acc, c) => {
             const currentMessages = [];
             c.message.forEach((y) => {
@@ -102,6 +149,7 @@ async function getUserMessages(userId) {
             acc.push(currentMessages);
             return acc
         }, [])
+
         const userMessageInfo = [];
         messages.map((x) => {
             x.forEach((y) => {
@@ -117,7 +165,6 @@ async function getUserMessages(userId) {
                 })
                 return acc
             }, []);
-
         return docInfo;
     } catch (err) {
         return err.message
@@ -125,10 +172,10 @@ async function getUserMessages(userId) {
 
 };
 
-async function getAllMessagesForCurrentArticle(artId, senderEmail, userId) {
+async function getAllMessagesForCurrentArticle(artId, senderIds, userId) {
     try {
         const article = await (await getAll()).find(x => x._id == artId);
-        const sender = await User.findOne({ email: senderEmail });
+        const sender = await User.findById({ _id: senderIds });
         const owner = await User.findById({ _id: userId });
 
         const msgForCurrentArt = owner.recievedMessages
@@ -141,6 +188,19 @@ async function getAllMessagesForCurrentArticle(artId, senderEmail, userId) {
                 })
                 return acc
             }, []);
+
+
+
+        // const myMsgForCurrentArticle = owner.sendedMessages
+        //     .filter(x => x.recieverId == sender._id)
+        //     .reduce((acc, c) => {
+        //         c.message.forEach((x) => {
+        //             if (x.articleId == article._id) {
+        //                 acc.push(x)
+        //             }
+        //         })
+        //         return acc
+        //     }, []);
         return msgForCurrentArt;
     } catch (err) {
         throw new Error(err.message)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './OwnerCard.js'
+import './OwnerCard.css'
 
 export default function OwnerCard() {
     return (
@@ -10,10 +10,13 @@ export default function OwnerCard() {
                     Me
                 </h4>
             </div>
-            <p className='chat-message'>
+            <p className='chat-message-me'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro eius fugit magnam dolorum libero. Velit harum reiciendis assumenda corporis vel.
                 Lorem ipsum dolor sit amet consecte
             </p>
+            <div className='msg-time-me'>
+                  12:12:12- 123342432
+             </div>
         </div>
     )
 }

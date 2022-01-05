@@ -104,11 +104,10 @@ router.get('/getUserMessages/:id', isAuth(), async (req, res) => {
         res.json({ status: 404, message: err.message })
     }
 })
-router.get('/getAllMessagesForCurrentArticle/:artId/:senderEmail', isAuth(), async (req, res) => {
-
+router.get('/getAllMessagesForCurrentArticle/:artId/:senderId', isAuth(), async (req, res) => {
 
     try {
-        const data = await getAllMessagesForCurrentArticle(req.params.artId, req.params.senderEmail, req.user._id);
+        const data = await getAllMessagesForCurrentArticle(req.params.artId, req.params.senderId, req.user._id);
         res.json({ status: 200, dataInfo: data })
     } catch (err) {
         res.json({ status: 404, message: err.message })

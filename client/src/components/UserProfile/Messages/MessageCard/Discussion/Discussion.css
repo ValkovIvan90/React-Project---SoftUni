@@ -23,7 +23,6 @@
 }
 .discussion-article-info-title {
   text-align: center;
-  border-bottom: 1px dotted black;
   margin: 0;
   padding-bottom: 10px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -63,13 +62,15 @@
 }
 
 .my-msg-stra {
-  max-width: 100%;
+  height: 300px;
+  overflow: auto;
 }
 /*  my message */
 
 /* Form msg */
 .form-msg {
-  max-width: 90%;
+  max-width: 80%;
+  margin-top: 40px;
 }
 #txt-area {
   max-width: 100%;
@@ -80,7 +81,7 @@
 .del-discussion {
   flex-basis: 100%;
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .del-discuss-btn {
   background-color: rgb(238, 183, 30);

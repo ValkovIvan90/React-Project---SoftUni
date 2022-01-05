@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import OwnerCard from './DiscussionCards/OwnerCard/OwnerCard';
 import SenderCard from './DiscussionCards/SenderCard/SenderCard';
+import MessageNot from '../../../../Notification/MessageNot';
+
+import { getAllMessagesForCurrentArticle, sendMessage } from '../../../../../services/user';
 
 import { useParams } from 'react-router-dom';
-import { getAllMessagesForCurrentArticle } from '../../../../../services/user';
-import './Discussion.css'
 import { getById } from '../../../../../services/article';
+import UserContext from '../../../../../context/UserDataContext';
+
+import './Discussion.css'
 
 export default function Discussion() {
+    const { userData } = useContext(UserContext);
+    const { artId, senderId } = useParams([]);
 
     const [recMesg, setRecMesg] = useState();
     const [article, setArticle] = useState();
+    const [msgNot, setMsgNot] = useState([]);
+    const [msgIsSend, setMsgIsSend] = useState(false);
 
-    const { artId, email } = useParams([]);
 
     useEffect(() => {
-        getAllMessagesForCurrentArticle(artId, email).then(res => {
+        getAllMessagesForCurrentArticle(artId, senderId).then(res => {
             if (res.status === 200) {
                 setRecMesg(res.dataInfo)
             }
         }).catch(err => {
             console.log(err);
         })
-    }, [artId, email])
+    }, [artId, senderId]);
 
     useEffect(() => {
         getById(artId).then(res => {
@@ -33,6 +40,35 @@ export default function Discussion() {
         })
     }, [artId]);
 
+    async function submitHandler(e) {
+        e.preventDefault();
+        const msg = Object.fromEntries(new FormData(e.target));
+
+
+        if (msg.message.length > 5) {
+            const data = {
+                username: userData.username,
+                mail: userData.email,
+                message: msg.message,
+                ownerId: senderId,
+                userId: userData._id,
+                articleId: article._id
+            }
+            setMsgIsSend(false);
+            try {
+                const result = await sendMessage(data);
+                if (result.status === 200) {
+                    setMsgNot({ message: result.message });
+                    setMsgIsSend(true);
+                    e.target.reset();
+                }
+            } catch (err) {
+                setMsgNot(err.message)
+            }
+        } else {
+            setMsgNot({ err: "The message must be large than 5 characters!" })
+        }
+    }
     return (
         <div className='discussion-container'>
             <div className='discussion-article-info-img'>
@@ -50,8 +86,8 @@ export default function Discussion() {
                 </div>
             </div>
             <div className='chat-msg-container'>
+                <h3 className='dsc-chat-msg-title'>Chat</h3>
                 <div className='my-msg-stra'>
-                    <h3 className='dsc-chat-msg-title'>Chat</h3>
                     {recMesg?.length > 0 ? recMesg.map(x => <SenderCard key={x.messageId} recMesg={x} />) :
                         ""
                     }
@@ -60,13 +96,14 @@ export default function Discussion() {
                     }
                 </div>
                 <div className='form-msg'>
-                    <form>
-                        <textarea name="" id="txt-area" cols="70" rows="4" placeholder='Your message...'></textarea>
+                    <form onSubmit={submitHandler}>
+                        <textarea name="message" id="txt-area" cols="70" rows="4" placeholder='Your message...'></textarea>
                         <div className="form-btn">
                             <input className="submit-btn" type="submit" value="Send" />
                             <input className="reset-btn" type="reset" value="Reset" />
                         </div>
                     </form>
+                    {msgIsSend ? <MessageNot message={msgNot.message} /> : ""}
                 </div>
             </div>
             <div className='del-discussion'>
