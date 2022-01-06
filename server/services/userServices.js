@@ -129,7 +129,7 @@ async function createMessageSend(data) {
                 .catch(err => console.error(`Failed to add message: ${err}`))
 
         }
-
+        return uniqId();
     } catch (err) {
         return err.message
     }

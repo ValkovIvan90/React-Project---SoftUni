@@ -20,7 +20,7 @@ export default function Discussion() {
     const [article, setArticle] = useState();
     const [msgNot, setMsgNot] = useState([]);
     const [msgIsSend, setMsgIsSend] = useState(false);
-
+    const [messageId, setMessageId] = useState({})
 
     useEffect(() => {
         getAllMessagesForCurrentArticle(artId, senderId).then(res => {
@@ -30,7 +30,7 @@ export default function Discussion() {
         }).catch(err => {
             console.log(err);
         })
-    }, [artId, senderId]);
+    }, [artId, senderId, messageId]);
 
     useEffect(() => {
         getById(artId).then(res => {
@@ -60,6 +60,7 @@ export default function Discussion() {
                 const result = await sendMessage(data);
                 if (result.status === 200) {
                     setMsgNot({ message: result.message });
+                    setMessageId(result.msgId)
                     setMsgIsSend(true);
                     e.target.reset();
                 }

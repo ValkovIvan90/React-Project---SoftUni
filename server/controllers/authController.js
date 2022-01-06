@@ -79,8 +79,8 @@ router.post('/sendMessage', async (req, res) => {
         if (!req.body.mail.match(emailReg)) {
             throw new Error('Invalid Data!')
         }
-        await createMessageSend(req.body);
-        res.json({ message: 'The message has been send successfully ', status: 200 })
+        const messageId = await createMessageSend(req.body);
+        res.json({ message: 'The message has been send successfully ', status: 200, msgId: messageId })
     } catch (err) {
         res.json({ status: 404, message: err.message })
         return;
