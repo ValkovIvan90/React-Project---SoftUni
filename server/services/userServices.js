@@ -137,10 +137,10 @@ async function createMessageSend(data) {
 
 };
 async function getUserMessages(userId) {
-
     try {
         const user = await User.findOne({ _id: userId });
 
+        //1
         const messages = user.recievedMessages.reduce((acc, c) => {
             const currentMessages = [];
             c.message.forEach((y) => {
@@ -169,7 +169,38 @@ async function getUserMessages(userId) {
                 return acc
             }, []);
 
-        return docInfo;
+        //2
+        const mySendedMsg = user.sendedMessages.reduce((acc, c) => {
+            const currSendMsg = [];
+            c.message.forEach((y) => {
+                if (!currSendMsg.find(x => x.articleId == y.articleId)) {
+                    currSendMsg.push(y)
+                }
+            })
+            acc.push(currSendMsg);
+            return acc
+        }, [])
+
+        const userMsgInfo = [];
+        mySendedMsg.map((x) => {
+            x.forEach((y) => {
+                userMsgInfo.push(y)
+            })
+        })
+
+        let myDocInfo = await (await getAll())
+            .filter(x => x.owner != userId).reduce((acc, c) => {
+                userMsgInfo.forEach((a) => {
+                    if (a.articleId == c._id) {
+                        acc.push({ documentId: uniqId(), artData: c, userInfo: a })
+                    }
+                })
+                return acc
+            }, []);
+
+        const allDocInfo = [...docInfo, ...myDocInfo];
+
+        return allDocInfo;
     } catch (err) {
         return err.message
     }
@@ -207,7 +238,6 @@ async function getAllMessagesForCurrentArticle(artId, senderIds, userId) {
                 return acc
             }, []);
         const array = [...msgForCurrentArt, ...myMsgForCurrentArticle].sort(function (a, b) {
-            console.log(a);
             var c = new Date(a.date);
             var d = new Date(b.date);
             return c - d;

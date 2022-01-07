@@ -40,7 +40,6 @@ export default function Discussion() {
         })
     }, [artId]);
 
-
     async function submitHandler(e) {
         e.preventDefault();
         const msg = Object.fromEntries(new FormData(e.target));
