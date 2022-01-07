@@ -1,8 +1,10 @@
 import React from 'react'
+import { getMessageDateAndTime } from '../../../../../../../date/getMsgDateTime';
 
 import './OwnerCard.css'
 
 export default function OwnerCard({ recMesg }) {
+    const currentDateAndTime = getMessageDateAndTime(recMesg.date);
     return (
         <div className='chat-msg-box-me'>
             <div className='chat-avatar-me'>
@@ -14,7 +16,7 @@ export default function OwnerCard({ recMesg }) {
                 {recMesg.msg}
             </p>
             <div className='msg-time'>
-                {recMesg.time}
+                {currentDateAndTime}
             </div>
         </div>
     )

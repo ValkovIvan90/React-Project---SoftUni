@@ -90,10 +90,10 @@ export default function Discussion() {
             <div className='chat-msg-container'>
                 <h3 className='dsc-chat-msg-title'>Chat</h3>
                 <div className='my-msg-stra'>
-                    {recMesg?.foreignMsg?.length > 0 ? recMesg.foreignMsg.map(x => <SenderCard key={x.messageId} recMesg={x} />) :
-                        ""
-                    }
-                    {recMesg?.myMsg?.length > 0 ? recMesg?.myMsg.map(x => <OwnerCard key={x.messageId} recMesg={x} />) :
+                    {recMesg?.infoData?.length > 0 ?
+                        recMesg?.infoData.map(x => x.myMessage ? <OwnerCard key={x.messageId} recMesg={x} /> :
+                            <SenderCard key={x.messageId} recMesg={x} />)
+                        :
                         ""
                     }
                 </div>

@@ -109,7 +109,7 @@ router.get('/getAllMessagesForCurrentArticle/:artId/:senderId', isAuth(), async 
     try {
         const data = await getAllMessagesForCurrentArticle(req.params.artId, req.params.senderId, req.user._id);
 
-        res.json({ status: 200, foreignMsg: data.msgForCurrentArt, myMsg: data.myMsgForCurrentArticle })
+        res.json({ status: 200, infoData: data })
     } catch (err) {
         res.json({ status: 404, message: err.message })
     }

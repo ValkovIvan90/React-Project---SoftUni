@@ -1,9 +1,11 @@
 import React from 'react'
+import { getMessageDateAndTime } from '../../../../../../../date/getMsgDateTime';
 
 import './SenderCard.css'
 export default function SenderCard({ recMesg }) {
-    const name = recMesg.username.slice(0, 2).toUpperCase();
 
+    const currentDateAndTime = getMessageDateAndTime(recMesg.date);
+    const name = recMesg.username.slice(0, 2).toUpperCase();
     return (
         <div className='chat-msg-box'>
             <div className='chat-avatar'>
@@ -14,9 +16,9 @@ export default function SenderCard({ recMesg }) {
             <p className='chat-message'>
                 {recMesg.msg}
             </p>
-             <div className='msg-time'>
-                 {recMesg.time}
-             </div>
+            <div className='msg-time'>
+                {currentDateAndTime}
+            </div>
         </div>
     )
 }

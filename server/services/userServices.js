@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const { getAll } = require('../services/product');
-const { createDate, createTime } = require('../util/currentDateAndTime');
 const uniqId = require('uniqid')
 
 async function createUser(username, email, hashedPassword) {
@@ -32,8 +31,6 @@ async function getUserById(id) {
 };
 async function createMessageSend(data) {
 
-    const currentTime = `${createDate()} / ${createTime()}`;
-
     try {
         if (!data.username || !data.mail || !data.userId || !data.message || !data.articleId) {
             throw new Error('Invalid data!')
@@ -48,11 +45,12 @@ async function createMessageSend(data) {
                 message: [{
                     messageId: uniqId(),
                     recieverId: data.ownerId,
+                    senderId: data.userId,
                     msg: data.message,
-                    username: recieverUser.username,
-                    email: recieverUser.email,
+                    username: sender.username,
+                    email: sender.email,
                     articleId: data.articleId,
-                    time: currentTime
+                    date: new Date()
                 }]
             });
             await sender.save()
@@ -64,11 +62,12 @@ async function createMessageSend(data) {
             const obje = {
                 messageId: uniqId(),
                 recieverId: data.ownerId,
-                username: recieverUser.username,
-                email: recieverUser.email,
+                senderId: data.userId,
+                username: sender.username,
+                email: sender.email,
                 msg: data.message,
                 articleId: data.articleId,
-                time: currentTime
+                date: new Date()
             }
             await User.updateOne(
                 {
@@ -91,12 +90,13 @@ async function createMessageSend(data) {
                 senderId: data.userId,
                 message: [{
                     messageId: uniqId(),
+                    recieverId: data.ownerId,
                     senderId: data.userId,
                     msg: data.message,
                     username: data.username,
                     email: data.mail,
                     articleId: data.articleId,
-                    time: currentTime
+                    date: new Date()
                 }]
             });
             await recieverUser.save()
@@ -107,12 +107,13 @@ async function createMessageSend(data) {
         } else {
             const obje = {
                 messageId: uniqId(),
+                recieverId: data.ownerId,
                 senderId: data.userId,
                 username: data.username,
                 email: data.mail,
                 msg: data.message,
                 articleId: data.articleId,
-                time: currentTime
+                date: new Date()
             }
             await User.updateOne(
                 {
@@ -167,19 +168,7 @@ async function getUserMessages(userId) {
                 })
                 return acc
             }, []);
-        if (docInfo.length == 0) {
 
-            docInfo = await (await getAll())
-                .filter(x => x._id == userMessageInfo[0].articleId).reduce((acc, c) => {
-                    userMessageInfo.forEach((a) => {
-                        console.log(a);
-                        if (a.articleId == c._id) {
-                            acc.push({ documentId: uniqId(), artData: c, userInfo: a })
-                        }
-                    })
-                    return acc
-                }, []);
-        }
         return docInfo;
     } catch (err) {
         return err.message
@@ -210,14 +199,22 @@ async function getAllMessagesForCurrentArticle(artId, senderIds, userId) {
             .filter(x => x.recieverId == sender._id)
             .reduce((acc, c) => {
                 c.message.forEach((x) => {
+                    x.myMessage = true
                     if (x.articleId == article._id) {
                         acc.push(x)
                     }
                 })
                 return acc
             }, []);
+        const array = [...msgForCurrentArt, ...myMsgForCurrentArticle].sort(function (a, b) {
+            console.log(a);
+            var c = new Date(a.date);
+            var d = new Date(b.date);
+            return c - d;
+        });
 
-        return { msgForCurrentArt, myMsgForCurrentArticle };
+        return array;
+        return
     } catch (err) {
         throw new Error(err.message)
     }

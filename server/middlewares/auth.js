@@ -64,7 +64,7 @@ module.exports = () => (req, res, next) => {
     //createToken!
     function createToken(user) {
         let userViewModel = { _id: user._id, username: user.username, email: user.email };
-        const token = jwt.sign(userViewModel, TOKEN_SECRET);
+        const token = jwt.sign(userViewModel, TOKEN_SECRET, { expiresIn: "10h" });
         res.cookie(COOKIE_NAME, token, { htppOnly: true });
         userViewModel.token = token;
         return userViewModel;
