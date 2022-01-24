@@ -4,9 +4,9 @@ import OwnerCard from './DiscussionCards/OwnerCard/OwnerCard';
 import SenderCard from './DiscussionCards/SenderCard/SenderCard';
 import MessageNot from '../../../../Notification/MessageNot';
 
-import { getAllMessagesForCurrentArticle, sendMessage } from '../../../../../services/user';
+import { deleteDiscussion, getAllMessagesForCurrentArticle, sendMessage } from '../../../../../services/user';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getById } from '../../../../../services/article';
 import UserContext from '../../../../../context/UserDataContext';
 
@@ -15,6 +15,7 @@ import './Discussion.css'
 export default function Discussion() {
     const { userData } = useContext(UserContext);
     const { artId, senderId } = useParams([]);
+    const navigate = useNavigate();
 
     const [recMesg, setRecMesg] = useState();
     const [article, setArticle] = useState();
@@ -67,6 +68,7 @@ export default function Discussion() {
                 setMsgNot(err.message)
             }
         } else {
+            setMsgIsSend(false);
             setMsgNot({ err: "The message must be large than 5 characters!" })
         }
     }
@@ -104,11 +106,12 @@ export default function Discussion() {
                             <input className="reset-btn" type="reset" value="Reset" />
                         </div>
                     </form>
-                    {msgIsSend ? <MessageNot message={msgNot.message} /> : ""}
+                    {msgIsSend ? <MessageNot message={msgNot.message} /> : <p style={{ color: "red", 'fontSize': "12px" }}>{msgNot.err}</p>}
                 </div>
             </div>
             <div className='del-discussion'>
-                <button className='del-discuss-btn'>Remove Discussion</button>
+                <button type='button' onClick={(() => deleteDiscussion(recMesg?.infoData[0].articleId, recMesg?.infoData[0].recieverId, recMesg?.infoData[0].senderId)
+                    .then(res => res.status === 200 ? navigate(`/messages/${userData._id}`) : ""))} className='del-discuss-btn'>Remove Discussion</button>
             </div>
         </div>
     )

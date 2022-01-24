@@ -249,6 +249,61 @@ async function getAllMessagesForCurrentArticle(artId, senderIds, userId) {
         throw new Error(err.message)
     }
 }
+async function deleteDiscussion(data) {
+
+    let isDeleted = false;
+
+    const participantId = data.profileOwnerId != data.recieverId ? data.recieverId : data.senderId;
+    const profileOwner = await User.findById({ _id: data.profileOwnerId });
+
+
+    await User.updateOne(
+        {
+            _id: profileOwner._id,
+        },
+        {
+            $pull:
+            {
+                recievedMessages: {
+                    message: { $elemMatch: { senderId: participantId } }
+                }
+
+            }
+        },
+        { multi: true },   // if you have multiple articleId and randid in your array, remove otherwise
+        function (err, result) {
+            if (err)
+                isDeleted = false
+            else
+                isDeleted = true
+            console.log(result);
+        })
+
+
+    await User.updateOne(
+        {
+            _id: profileOwner._id,
+        },
+        {
+            $pull:
+            {
+                sendedMessages: {
+                    message: { $elemMatch: { recieverId: participantId } }
+                }
+            }
+        },
+        { multi: true },   // if you have multiple articleId and randid in your array, remove otherwise
+        function (err, result) {
+            if (err)
+                isDeleted = false;
+            else
+                isDeleted = true;
+            console.log(result);
+
+        });
+
+    return isDeleted;
+}
 module.exports = {
     createUser,
     getUserByUsername,
@@ -256,5 +311,6 @@ module.exports = {
     getUserById,
     createMessageSend,
     getUserMessages,
-    getAllMessagesForCurrentArticle
+    getAllMessagesForCurrentArticle,
+    deleteDiscussion
 }

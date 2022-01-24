@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 
 const { isAuth } = require('../middlewares/guards')
-const { getUserByUsername, getUserByEmail, createMessageSend, getUserMessages, getAllMessagesForCurrentArticle } = require('../services/userServices');
+const { getUserByUsername, getUserByEmail, createMessageSend, getUserMessages, getAllMessagesForCurrentArticle, deleteDiscussion } = require('../services/userServices');
 
 router.post('/register',
     body('username', 'The username should be at least 5 characters long!').isLength({ min: 5 }),
@@ -114,6 +114,20 @@ router.get('/getAllMessagesForCurrentArticle/:artId/:senderId', isAuth(), async 
         res.json({ status: 404, message: err.message })
     }
 })
+router.post('/deleteDiscussion', isAuth(), async (req, res) => {
+    const data = { ...req.body };
+    const profileOwnerId = req.user._id;
+    data.profileOwnerId = profileOwnerId;
+    try {
+        const result = await deleteDiscussion(data);
+   
+        if (result) {
+            res.json({ status: 200})
+        }
 
+    } catch (err) {
+        throw new Error('Database error!')
+    }
+})
 
 module.exports = router;
