@@ -39,6 +39,7 @@ export default function UserProfile() {
                     <nav>
                         <ul className="nav-links">
                             <li><Link to={`/messages/${userData._id}`}>Messages</Link></li>
+                            <li><Link to={`/messag/${userData}`}>Settings</Link></li>
                         </ul>
                     </nav>
                 </div>

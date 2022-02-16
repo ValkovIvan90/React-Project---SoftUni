@@ -120,12 +120,13 @@ router.post('/deleteDiscussion', isAuth(), async (req, res) => {
     data.profileOwnerId = profileOwnerId;
     try {
         const result = await deleteDiscussion(data);
-   
+
         if (result) {
-            res.json({ status: 200})
+            res.json({ status: 200 })
         }
 
     } catch (err) {
+        console.log(err.message);
         throw new Error('Database error!')
     }
 })

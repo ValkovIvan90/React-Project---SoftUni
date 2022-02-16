@@ -265,7 +265,7 @@ async function deleteDiscussion(data) {
             $pull:
             {
                 recievedMessages: {
-                    message: { $elemMatch: { senderId: participantId } }
+                    message: { $elemMatch: { senderId: participantId, articleId: data.artId } }
                 }
 
             }
@@ -288,7 +288,7 @@ async function deleteDiscussion(data) {
             $pull:
             {
                 sendedMessages: {
-                    message: { $elemMatch: { recieverId: participantId } }
+                    message: { $elemMatch: { recieverId: participantId, articleId: data.artId } }
                 }
             }
         },
