@@ -27,8 +27,6 @@ import IsOwner from './components/Guards/IsOwner';
 
 
 function App() {
-
-
     return (
         <>
             <AuthProvider>
