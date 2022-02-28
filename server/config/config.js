@@ -8,7 +8,7 @@ const config = {
         COOKIE_NAME: 'SESSION_DATA',
         DB_CONNECTION: 'mongodb+srv://ivan:1990@shopcluster.9cs5p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
         CORS: {
-            origin: 'http://localhost:3000',
+            origin: ['http://localhost:3000'],
             credentials: true
         }
     },
