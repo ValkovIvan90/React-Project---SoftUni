@@ -11,7 +11,16 @@ const config = {
             origin: 'http://localhost:3000',
             credentials: true
         }
+    },
+    production: {
+        PORT: process.env.PORT || 80,
+        DB_CONNECTION: process.env.DB_CONNECTION,
+        COOKIE_NAME: 'SESSION_DATA',
+        SECRET: 'very strong secret',
+        CORS: {
+            origin: ["https://git.heroku.com/su-free-shoop.git"],
+            credentials: true
+        }
     }
 }
-
 module.exports = config[env];
