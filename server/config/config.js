@@ -18,7 +18,7 @@ const config = {
         COOKIE_NAME: 'SESSION_DATA',
         SECRET: 'very strong secret',
         CORS: {
-            origin: ["https://git.heroku.com/su-free-shoop.git"],
+            origin: ["https://su-free-shoop.herokuapp.com/"],
             credentials: true
         }
     }
