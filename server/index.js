@@ -1,6 +1,6 @@
 const express = require('express');
 const { PORT } = require('./config/config');
-
+  
 const expressConfig = require('./config/express');
 const routesConfig = require('./config/routes');
 const databaseConfig = require('./config/database');
@@ -20,6 +20,6 @@ async function start() {
 
     app.use(await storage());
     routesConfig(app);
-     
+
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
 }
