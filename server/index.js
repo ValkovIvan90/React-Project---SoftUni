@@ -8,7 +8,6 @@ const databaseConfig = require('./config/database');
 
 const storage = require('./middlewares/storage');
 const logger = require('./middlewares/logger');
-const { route } = require('./controllers/productsController');
 
 start();
 
@@ -23,12 +22,11 @@ async function start() {
     app.use(await storage());
     routesConfig(app);
 
-    app.use(express.static(path.join(__dirname, 'build')));
+    app.use(express.static(path.join(__dirname, 'client/build')));
 
     app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, 'client/build/index.html'));
     });
-    app.use('/api', route);
 
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
 }
