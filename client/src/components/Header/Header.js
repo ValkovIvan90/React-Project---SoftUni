@@ -17,7 +17,7 @@ export default function Header() {
             console.log('Logout Error');
         } else {
             setUserData('')
-            navigate('/')
+            navigate('/home')
         }
     }
 
@@ -25,7 +25,7 @@ export default function Header() {
     return (
         <header>
             <article className="logo">
-                <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
+                <li><Link to="/home"><i className="fas fa-handshake"></i></Link ></li>
                 <li className="userName"><Link to="/profile"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
 
                 <div className="dropdown">
