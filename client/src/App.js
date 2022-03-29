@@ -34,7 +34,7 @@ function App() {
                     <Header />
                     <section className="container">
                         <Routes>
-                            <Route path="/home" element={<HomePage />} />
+                            <Route path="/" element={<HomePage />} />
                             <Route path="/catalog" element={<Catalog />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/register" element={<Register />} />
