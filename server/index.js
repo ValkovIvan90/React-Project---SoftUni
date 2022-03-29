@@ -1,5 +1,5 @@
 const express = require('express');
-const { PORT } = require('./config/config');
+const config = require('./config/config')
 const path = require('path');
 
 const expressConfig = require('./config/express');
@@ -22,11 +22,13 @@ async function start() {
     app.use(await storage());
     routesConfig(app);
 
-    app.use(express.static(path.join(__dirname, 'client/build')));
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client/build','index.html'));
-    });
-
-    app.listen(PORT, () => console.log(`Server is running on port ${PORT}...`));
+    if (process.env.NODE_ENV === 'production') {
+        app.use(express.static(path.join(__dirname, "public/index.html")));
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, "public/index.html"));
+        });
+    }
+    app.listen(config.PORT, () => console.log(`app is listening on port ${config.PORT}`));
 }
+

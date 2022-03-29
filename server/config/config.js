@@ -1,31 +1,28 @@
 
 const env = process.env.NODE_ENV || 'development';
-const { MONGO_URL } = require('./db_url');
+ 
+const { MONGO_URL } = require('./db_url')
 
-
-let config;
-
-if (env === "development") {
-    config = {
+const config = {
+    development: {
         PORT: process.env.PORT || 5000,
+        DB_CONNECTION: MONGO_URL,
         TOKEN_SECRET: 'very secret token',
         COOKIE_NAME: 'SESSION_DATA',
-        DB_CONNECTION: MONGO_URL,
         CORS: {
             origin: ['http://localhost:3000'],
             credentials: true
         }
-    }
-} else {
-    config = {
-        PORT: process.env.PORT || 8080,
-        DB_CONNECTION: process.env.MONGO_URL,
+    },
+    production: {
+        PORT: process.env.PORT || 80,
         COOKIE_NAME: 'SESSION_DATA',
+        DB_CONNECTION: MONGO_URL,
         SECRET: 'very strong secret',
         CORS: {
-            origin: ["https://su-custom-server.herokuapp.com/"],
+            origin: ["https://iwanttohave.herokuapp.com/"],
             credentials: true
         }
     }
 }
-module.exports = config;
+module.exports = config[env];
