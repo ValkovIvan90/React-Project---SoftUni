@@ -34,7 +34,7 @@ module.exports = () => (req, res, next) => {
     //Login middleware!
 
     async function login({ email, password }) {
-
+            console.log(email, password);
         try {
             const user = await getUserByEmail(email);
             if (!user) {

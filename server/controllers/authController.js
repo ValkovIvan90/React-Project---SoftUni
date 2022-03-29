@@ -56,6 +56,7 @@ router.post('/register',
     });
 
 router.post('/login', async (req, res) => {
+
     try {
         await req.auth.login(req.body);
         const user = req.user;
