@@ -1,4 +1,4 @@
-Free-Trade-Store - https://iwanttohave.herokuapp.com/
+# Free-Trade-Store - https://iwanttohave.herokuapp.com/
 
 React JS project for SoftUni React course
 
