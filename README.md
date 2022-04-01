@@ -10,3 +10,7 @@
 - Node.js
 - HTML & CSS
 - Font Awesome Icons
+
+## Functionality
+- Users and guests have access to the catalog with all uploaded items.
+- Logged users have the functionality create/edit/delete their articles, send messages to other users and write comments.
