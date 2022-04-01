@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "heroku-postbuild": "npm install && npm run build"
+    "dev":"nodemon index.js"
   },
   "keywords": [],
   "author": "",

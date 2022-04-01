@@ -1,6 +1,6 @@
 
 const env = process.env.NODE_ENV || 'development';
- 
+
 const { MONGO_URL } = require('./db_url')
 
 const config = {
@@ -16,9 +16,9 @@ const config = {
     },
     production: {
         PORT: process.env.PORT || 80,
-        COOKIE_NAME: 'SESSION_DATA',
         DB_CONNECTION: MONGO_URL,
-        SECRET: 'very strong secret',
+        TOKEN_SECRET: 'very secret token',
+        COOKIE_NAME: 'SESSION_DATA',
         CORS: {
             origin: ["https://iwanttohave.herokuapp.com/"],
             credentials: true

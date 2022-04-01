@@ -26,7 +26,8 @@ module.exports = () => (req, res, next) => {
             const user = await createUser(username, email, hashedPassword);
             req.user = createToken(user);
         } catch (err) {
-            return res.json({ status: 404, message: err.message })
+            console.log(err);
+            res.status(400).send({ message: err.message });
         }
 
     };
@@ -34,7 +35,6 @@ module.exports = () => (req, res, next) => {
     //Login middleware!
 
     async function login({ email, password }) {
-            console.log(email, password);
         try {
             const user = await getUserByEmail(email);
             if (!user) {
