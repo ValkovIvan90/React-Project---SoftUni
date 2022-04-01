@@ -25,7 +25,7 @@ export default function UserProfile() {
         <section className="profile">
             <div className="profile-img-liks-section">
                 <div className="profile-img-section">
-                    <img src={"/images/avatar.jpg'"} alt="avatar-img" />
+                    <img src={"/images/avatar.jpg"} alt="" />
                 </div>
                 <div className="uploadImg">
                     <form action="/action_page.php">
