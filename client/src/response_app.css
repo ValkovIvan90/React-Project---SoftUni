@@ -69,6 +69,9 @@
     width: 80px;
     height: 100px;
   }
+  .info {
+    flex-direction: column;
+  }
 
   /* Details */
   .details {
@@ -195,8 +198,34 @@
     position: static;
     transform: none;
   }
-  .home-message-title {
-    margin: auto;
-    font-size: 1.2em;
+}
+@media (max-width: 350px) {
+  .homePage-img {
+    min-width: 50%;
+  }
+  .nav {
+    margin: 0;
+  }
+  .footer .footer-title {
+    font-weight: 100;
+    font-size: medium;
+  }
+  .cards .card {
+    width: 37%;
+  }
+  article.likes-dtl {
+    width: 50%;
+  }
+  article.article-info > ul > li {
+    font-size: smaller;
+  }
+  .details-text {
+    font-size: medium;
+  }
+  .user-info p strong.data-span {
+    padding: 0;
+  }
+  #root > header > nav > ul {
+    padding: 0;
   }
 }
