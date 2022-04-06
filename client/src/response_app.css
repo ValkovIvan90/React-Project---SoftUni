@@ -199,7 +199,7 @@
     transform: none;
   }
 }
-@media (max-width: 350px) {
+@media (max-width: 450px) {
   .homePage-img {
     min-width: 50%;
   }
@@ -227,5 +227,14 @@
   }
   #root > header > nav > ul {
     padding: 0;
+  }
+  .card .card-info {
+    min-width: 100%;
+  }
+  .card .img img {
+    border-radius: 15px;
+  }
+  #root > section{
+    padding-bottom: 75px;
   }
 }

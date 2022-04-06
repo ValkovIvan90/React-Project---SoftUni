@@ -13,6 +13,7 @@ import SendMessage from './DetailsMessages/SendMessage';
 import Comments from './Comments';
 
 import { addLike, deleteArticle, getById } from '../../services/article';
+import Spinner from '../Spinner';
 
 export default function Details() {
     const { userData } = useContext(UserContext);
@@ -83,67 +84,69 @@ export default function Details() {
 
 
     return (
-        < section className="details">
-            <h1 className="details-title">Details</h1>
-            <article className="details-info">
-                <div className="details-info-img">
-                    <img src={art.image} alt="img-details" />
-                </div>
-                <p className="details-text">
-                    {art.description}
-                </p>
-            </article>
-            <article className="article-info">
-                <ul className="art-info-items">
-                    {art.category === 'animals' ?
-                        <>
-                            <li><strong>Name</strong>  {art.animalName}</li>
-                            <li><strong>Type</strong>  {art.type}</li>
-                            <li><strong>Birthday</strong>  {art.birthday}</li>
-                        </>
-                        : ''}
-                    {art.category === 'cars' ?
-                        <>
-                            <li><strong>Marke</strong>  {art.marke}</li>
-                            <li><strong>Model</strong>  {art.model}</li>
-                            <li><strong>Year</strong>  {art.year}</li>
-                        </>
-                        : ''}
-                    {art.category === 'clothes' ?
-                        <>
-                            <li><strong>Marke</strong>  {art.marke}</li>
-                            <li><strong>Type</strong>  {art.type}</li>
-                            <li><strong>Year</strong>  {art.year}</li>
-                        </>
-                        : ''}
-                    <li><strong>Category</strong>  {art.category}</li>
-                    <li><strong>City</strong>  {art.city}</li>
-                    <li><strong>Date of publication</strong>  {art.createdAt}</li>
-                    <li><strong>Price</strong>  ${art.price}</li>
-                    {userData.token ?
-                        <div className="seler-info">
-                            <li><strong>Seller</strong>  {artOwner.username}</li>
-                            <li><strong>Email</strong>  {artOwner.email}</li>
-                        </div>
-                        : ''}
-                </ul>
-                {userData.token && userData._id !== artOwner._id ? <SendMessage artOwnerName={artOwner.username} /> : ""}
+        art.image ?
+            < section className="details">
+                <h1 className="details-title">Details</h1>
+                <article className="details-info">
+                    <div className="details-info-img">
+                        <img src={art.image} alt="img-details" />
+                    </div>
+                    <p className="details-text">
+                        {art.description}
+                    </p>
+                </article>
+                <article className="article-info">
+                    <ul className="art-info-items">
+                        {art.category === 'animals' ?
+                            <>
+                                <li><strong>Name</strong>  {art.animalName}</li>
+                                <li><strong>Type</strong>  {art.type}</li>
+                                <li><strong>Birthday</strong>  {art.birthday}</li>
+                            </>
+                            : ''}
+                        {art.category === 'cars' ?
+                            <>
+                                <li><strong>Marke</strong>  {art.marke}</li>
+                                <li><strong>Model</strong>  {art.model}</li>
+                                <li><strong>Year</strong>  {art.year}</li>
+                            </>
+                            : ''}
+                        {art.category === 'clothes' ?
+                            <>
+                                <li><strong>Marke</strong>  {art.marke}</li>
+                                <li><strong>Type</strong>  {art.type}</li>
+                                <li><strong>Year</strong>  {art.year}</li>
+                            </>
+                            : ''}
+                        <li><strong>Category</strong>  {art.category}</li>
+                        <li><strong>City</strong>  {art.city}</li>
+                        <li><strong>Date of publication</strong>  {art.createdAt}</li>
+                        <li><strong>Price</strong>  ${art.price}</li>
+                        {userData.token ?
+                            <div className="seler-info">
+                                <li><strong>Seller</strong>  {artOwner.username}</li>
+                                <li><strong>Email</strong>  {artOwner.email}</li>
+                            </div>
+                            : ''}
+                    </ul>
+                    {userData.token && userData._id !== artOwner._id ? <SendMessage artOwnerName={artOwner.username} /> : ""}
 
-            </article>
-            <article className='likes-dtl'>
-                <p className='likes-count'>Likes {likes.like?.length}</p>
-            </article>
+                </article>
+                <article className='likes-dtl'>
+                    <p className='likes-count'>Likes {likes.like?.length}</p>
+                </article>
 
-            {userData.token ? <article className="buttons">
-                {userData._id === art.owner ?
-                    <>
-                        <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
-                        <Link to="#" onClick={() => deleteArt(artId)} className="button del">Delete</Link>
-                    </>
-                    : !likes.like?.includes(userData._id) ? <Link to="#" onClick={() => likeArt()} className="button like">Like</Link> : ""}
-                <Link to="/catalog" className="button back">Back</Link>
-            </article> : ""}
-            <Comments category={art.category} />
-        </section>
+                {userData.token ? <article className="buttons">
+                    {userData._id === art.owner ?
+                        <>
+                            <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
+                            <Link to="#" onClick={() => deleteArt(artId)} className="button del">Delete</Link>
+                        </>
+                        : !likes.like?.includes(userData._id) ? <Link to="#" onClick={() => likeArt()} className="button like">Like</Link> : ""}
+                    <Link to="/catalog" className="button back">Back</Link>
+                </article> : <article className='buttons'><Link to="/catalog" className="button back">Back</Link></article>}
+                <Comments category={art.category} />
+            </section>
+            : <Spinner />
     )
 }
