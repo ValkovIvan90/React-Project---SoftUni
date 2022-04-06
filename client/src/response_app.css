@@ -1,3 +1,9 @@
+@media (max-width: 1200px) {
+  .details-text {
+    min-width: 50%;
+  }
+}
+
 @media (max-width: 950px) {
   header {
     flex-direction: column;
@@ -234,7 +240,7 @@
   .card .img img {
     border-radius: 15px;
   }
-  #root > section{
+  #root > section {
     padding-bottom: 75px;
   }
 }
