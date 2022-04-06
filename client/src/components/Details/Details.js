@@ -81,6 +81,7 @@ export default function Details() {
         })
     }
 
+
     return (
         < section className="details">
             <h1 className="details-title">Details</h1>
@@ -119,21 +120,21 @@ export default function Details() {
                     <li><strong>City</strong>  {art.city}</li>
                     <li><strong>Date of publication</strong>  {art.createdAt}</li>
                     <li><strong>Price</strong>  ${art.price}</li>
-                    {userData ?
+                    {userData.token ?
                         <div className="seler-info">
                             <li><strong>Seller</strong>  {artOwner.username}</li>
                             <li><strong>Email</strong>  {artOwner.email}</li>
                         </div>
                         : ''}
                 </ul>
-                {userData && userData._id !== artOwner._id ? <SendMessage artOwnerName={artOwner.username} /> : ""}
+                {userData.token && userData._id !== artOwner._id ? <SendMessage artOwnerName={artOwner.username} /> : ""}
 
             </article>
             <article className='likes-dtl'>
                 <p className='likes-count'>Likes {likes.like?.length}</p>
             </article>
 
-            {userData ? <article className="buttons">
+            {userData.token ? <article className="buttons">
                 {userData._id === art.owner ?
                     <>
                         <Link to={`/edit/${artId}`} className="button edit">Edit</Link>
