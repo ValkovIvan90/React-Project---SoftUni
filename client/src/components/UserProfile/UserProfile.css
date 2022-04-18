@@ -18,8 +18,8 @@
   max-width: 100%;
 }
 .profile-img-section img {
-  border-radius: 100px;
-  max-width: 150px;
+  border-radius: 20px;
+  width: 9em;
   margin: 20px;
 }
 .nav-links {

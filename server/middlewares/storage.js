@@ -6,6 +6,5 @@ async function init() {
         req.storage = storage;
         next();
     }
-    //req.storage={...productServices} Desctruction!
 }
 module.exports = init;

@@ -9,11 +9,12 @@ import ArtCard from '../catalog/Card/ArtCard'
 import Spinner from '../Spinner';
 
 import { getUserLikedCreatedArticles } from '../../services/article';
-import { loadImages, uploadProfileImage } from '../../services/user';
+import { deleteImageHandler, loadImages, uploadProfileImage } from '../../services/user';
 
 
 export default function UserProfile() {
     const { userData } = useContext(UserContext);
+
     const [artData, setArtData] = useState([]);
     const [createdArtCount, setCreatedArtCount] = useState(0);
 
@@ -21,21 +22,17 @@ export default function UserProfile() {
     const [selectedFile, setSelectedFile] = useState();
 
     const [isLoaded, setIsLoaded] = useState(false);
-
-
+    const [isSended, setIsSended] = useState(false);
     const [imageId, setImageId] = useState('');
 
+
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await loadImages();
-                setImageId(response.data);
-            } catch (e) {
-                console.error(e);
-            }
-        };
-        fetchData();
-    }, []);
+        loadImages().then(res => {
+            setImageId(res.data);
+        }).catch(err => {
+            console.error(err);
+        })
+    }, [isSended]);
 
     useEffect(() => {
         setIsLoaded(false)
@@ -65,7 +62,9 @@ export default function UserProfile() {
         reader.onerror = () => {
             console.error('AHHHHHHHH!!');
         };
+        setIsSended(true);
     };
+
     return (
         isLoaded ?
             <section className="profile">
@@ -100,7 +99,7 @@ export default function UserProfile() {
                             </form>
                         </div>
                         :
-                        "delete image"
+                        <button className='delBtn' type='button' onClick={() => deleteImageHandler(userData._id)}>Delete Image</button>
                     }
                     <div className="profile-links-section">
                         <nav>

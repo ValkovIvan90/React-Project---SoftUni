@@ -74,3 +74,12 @@ export function loadImages() {
         credentials: 'include'
     }).then(res => res.json());
 }
+export function deleteImageHandler(id) {
+    return fetch(`${REACT_APP_BASE_URL}/upload/deleteImage/` + id, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+    }).then(res => res.json());
+}
