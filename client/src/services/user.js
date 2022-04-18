@@ -1,5 +1,5 @@
-const {REACT_APP_BASE_URL} = process.env;
- 
+const { REACT_APP_BASE_URL } = process.env;
+
 export function register(data) {
     return fetch(`${REACT_APP_BASE_URL}/auth/register`, {
         method: 'POST',
@@ -56,5 +56,21 @@ export function deleteDiscussion(artId, recieverId, senderId) {
         },
         credentials: 'include',
         body: JSON.stringify({ artId, recieverId, senderId })
+    }).then(res => res.json());
+}
+export function uploadProfileImage(base64Enc) {
+    return fetch(`${REACT_APP_BASE_URL}/upload/uploadUserImg`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ data: base64Enc })
+    }).then(res => res.json());
+}
+export function loadImages() {
+    return fetch(`${REACT_APP_BASE_URL}/upload/loadImages`, {
+        method: 'GET',
+        credentials: 'include'
     }).then(res => res.json());
 }

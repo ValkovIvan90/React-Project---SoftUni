@@ -8,7 +8,7 @@ export default function HomePage() {
     const [isLoaded, setIsLoaded] = useState(false);
     setTimeout(() => {
         setIsLoaded(true);
-    }, 500);
+    }, 400);
     return (
         isLoaded ?
             <section className="homePage">

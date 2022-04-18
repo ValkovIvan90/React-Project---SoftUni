@@ -5,6 +5,7 @@ const schema = new mongoose.Schema({
     email: { type: String, required: true },
     recievedMessages: [],
     sendedMessages: [],
+    image_id: String,
     hashedPassword: { type: String, required: true }
 });
 

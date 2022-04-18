@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
- const config = require('../config/config');
- 
+const config = require('../config/config');
+
 const { getUserByUsername, getUserByEmail, createUser } = require('../services/userServices');
 
 module.exports = () => (req, res, next) => {
@@ -82,7 +82,7 @@ module.exports = () => (req, res, next) => {
 
                 console.log('Know user', userData.username);
             } catch (err) {
-                res.clearCookie(COOKIE_NAME);
+                res.clearCookie(config.COOKIE_NAME);
                 res.redirect('/auth/login');
                 return false;
             }

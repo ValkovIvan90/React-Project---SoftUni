@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserDataContext';
 
+import { Image } from 'cloudinary-react';
+
 import './UserProfile.css';
 import ArtCard from '../catalog/Card/ArtCard'
-import Spinner from '../Spinner'
+import Spinner from '../Spinner';
+
 import { getUserLikedCreatedArticles } from '../../services/article';
+import { loadImages, uploadProfileImage } from '../../services/user';
 
 
 export default function UserProfile() {
@@ -13,31 +17,91 @@ export default function UserProfile() {
     const [artData, setArtData] = useState([]);
     const [createdArtCount, setCreatedArtCount] = useState(0);
 
+    const [fileInputState, setFileInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
+
     const [isLoaded, setIsLoaded] = useState(false);
+
+
+    const [imageId, setImageId] = useState('');
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await loadImages();
+                setImageId(response.data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         setIsLoaded(false)
         getUserLikedCreatedArticles(userData._id).then(res => {
             setArtData(res.article,
                 setCreatedArtCount(res.userArticle))
-                setIsLoaded(true)
+            setIsLoaded(true)
         })
     }, [userData._id]);
 
+
+    const handleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+        setFileInputState(e.target.value);
+    };
+
+
+    const handleSubmitFile = (e) => {
+        e.preventDefault();
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = () => {
+            uploadProfileImage(reader.result);
+        };
+        reader.onerror = () => {
+            console.error('AHHHHHHHH!!');
+        };
+    };
     return (
         isLoaded ?
             <section className="profile">
                 <div className="profile-img-liks-section">
                     <div className="profile-img-section">
-                        <img src={"/images/avatar.jpg"} alt="" />
+                        {imageId ?
+                            <Image
+                                cloudName='dkkvehvyx'
+                                publicId={imageId}
+                            />
+                            : <img src={"/images/avatar.jpg"} alt="" />
+                        }
                     </div>
-                    <div className="uploadImg">
-                        <form action="/action_page.php">
-                            <label htmlFor="img">Select image: </label>
-                            <input type="file" id="img" name="img" accept="image/*" />
-                            <input className="submitbtn" type="submit" />
-                        </form>
-                    </div>
+                    {!imageId ?
+                        <div className="uploadImg">
+                            <form onSubmit={handleSubmitFile} className="form">
+                                <input
+                                    id="fileInput"
+                                    type="file"
+                                    name="image"
+                                    onChange={handleFileInputChange}
+                                    value={fileInputState}
+                                    className="form-input"
+                                    style={{
+                                        width: "50%",
+                                        marginRight: "10px",
+                                    }}
+                                />
+                                <button className="btn" type="submit">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                        :
+                        "delete image"
+                    }
                     <div className="profile-links-section">
                         <nav>
                             <ul className="nav-links">

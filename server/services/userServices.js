@@ -2,13 +2,13 @@ const User = require('../models/User');
 const { getAll } = require('../services/product');
 const uniqId = require('uniqid')
 
+
 async function createUser(username, email, hashedPassword) {
     const user = new User({
         username,
         email,
         hashedPassword
     });
-    console.log('This is create user funct');
     await user.save()
         .then(doc => { })
         .catch(err => {
