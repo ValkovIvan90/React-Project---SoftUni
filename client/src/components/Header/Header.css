@@ -19,16 +19,6 @@ li a {
   color: #3f82ec;
   padding-right: 10px;
 }
-.logOutBtn {
-  border: none;
-  background-color: #b9e3f7;
-  color: #3f82ec;
-  font-weight: bolder;
-  font-size: 1em;
-}
-.logOutBtn:hover {
-  color: tomato;
-}
 
 .logo i {
   font-size: 50px;

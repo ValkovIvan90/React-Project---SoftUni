@@ -117,3 +117,13 @@
   padding: 5px;
   font-weight: bold;
 }
+.logOutBtn {
+  border-radius: 5px;
+  color: #3f82ec;
+  font-weight: bolder;
+  font-size: 1em;
+  margin-top: 30px;
+}
+.logOutBtn:hover {
+  color: tomato;
+}

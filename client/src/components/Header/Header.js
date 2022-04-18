@@ -1,25 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserDataContext';
-import { useNavigate } from 'react-router-dom';
 
-import { logout } from '../../services/user'
 import './Header.css';
 
 export default function Header() {
+    const { userData } = useContext(UserContext);
 
-    const navigate = useNavigate();
-    const { userData, setUserData } = useContext(UserContext);
-
-    async function logoutUser() {
-        const result = await logout();
-        if (result.status !== 200) {
-            console.log('Logout Error');
-        } else {
-            setUserData('')
-            navigate('/')
-        }
-    }
 
 
     return (
@@ -48,7 +35,6 @@ export default function Header() {
                         <>
                             <li><Link to="/create">Create</Link ></li>
                             <li><Link to="/catalog/?name=myArticles">My Articles</Link ></li>
-                            <button className="logOutBtn" onClick={logoutUser}>Sign out</button>
                         </>
                         :
                         <>

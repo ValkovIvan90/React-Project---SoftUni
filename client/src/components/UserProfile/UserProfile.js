@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import UserContext from '../../context/UserDataContext';
 
 import { Image } from 'cloudinary-react';
@@ -9,11 +9,14 @@ import ArtCard from '../catalog/Card/ArtCard'
 import Spinner from '../Spinner';
 
 import { getUserLikedCreatedArticles } from '../../services/article';
-import { deleteImageHandler, loadImages, uploadProfileImage } from '../../services/user';
+import { deleteImageHandler, loadImages, logout, uploadProfileImage } from '../../services/user';
 
 
 export default function UserProfile() {
-    const { userData } = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
 
     const [artData, setArtData] = useState([]);
     const [createdArtCount, setCreatedArtCount] = useState(0);
@@ -43,6 +46,15 @@ export default function UserProfile() {
         })
     }, [userData._id]);
 
+    async function logoutUser() {
+        const result = await logout();
+        if (result.status !== 200) {
+            console.log('Logout Error');
+        } else {
+            setUserData('')
+            navigate('/')
+        }
+    }
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -106,6 +118,7 @@ export default function UserProfile() {
                             <ul className="nav-links">
                                 <li><Link to={`/messages/${userData._id}`}>Messages</Link></li>
                                 <li><Link to={`/messag/${userData}`}>Settings</Link></li>
+                                <li><button className="logOutBtn" onClick={logoutUser}>Sign out</button></li>
                             </ul>
                         </nav>
                     </div>
