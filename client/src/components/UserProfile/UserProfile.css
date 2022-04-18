@@ -110,3 +110,10 @@
   font: italic small-caps bold 12px/30px Georgia, serif;
   color: #626d53;
 }
+.profileDelBtn{
+  border-radius: 10px;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  font-weight: bold;
+}

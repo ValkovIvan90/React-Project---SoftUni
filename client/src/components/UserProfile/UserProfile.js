@@ -99,7 +99,7 @@ export default function UserProfile() {
                             </form>
                         </div>
                         :
-                        <button className='delBtn' type='button' onClick={() => deleteImageHandler(userData._id)}>Delete Image</button>
+                        <button className='profileDelBtn' type='button' onClick={() => deleteImageHandler(userData._id)}>Delete Image</button>
                     }
                     <div className="profile-links-section">
                         <nav>
