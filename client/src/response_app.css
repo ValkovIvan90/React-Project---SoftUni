@@ -245,4 +245,9 @@
   #root > section {
     padding-bottom: 75px;
   }
+  .dropdown .dropbtn{
+    font-size: small;
+    width: 6rem;
+    margin-right: 20px;
+  } 
 }
