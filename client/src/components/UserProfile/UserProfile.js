@@ -104,9 +104,13 @@ export default function UserProfile() {
                                         margin: "auto",
                                     }}
                                 />
-                                <button className="uploadimage-btn" type="submit">
-                                    Submit
-                                </button>
+                                {selectedFile ?
+                                    <button className="uploadimage-btn" type="submit">
+                                        Submit
+                                    </button>
+                                    : ""
+                                }
+
                             </form>
                         </div>
                         :

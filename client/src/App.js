@@ -1,59 +1,62 @@
+import React, { Suspense } from 'react';
 
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/UserDataContext';
 import { ArticleProvider } from './context/ArticleContext';
 
+const Header = React.lazy(() => import('./components/Header'));
+const Footer = React.lazy(() => import('./components/Footer'));
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+const HomePage = React.lazy(() => import('./components/HomePage'));
+const Catalog = React.lazy(() => import('./components/catalog/Catalog'));
 
-import HomePage from './components/HomePage';
-import Catalog from './components/catalog/Catalog';
-import UserProfile from './components/UserProfile';
-import Messages from './components/UserProfile/Messages/Messages';
-import Discussion from './components/UserProfile/Messages/MessageCard/Discussion';
+const Login = React.lazy(() => import('./components/auth/Login'));
+const Register = React.lazy(() => import('./components/auth/Register'));
 
-import AuthRoute from './components/Guards/AuthRoute';
+const Create = React.lazy(() => import('./components/Create'));
+const Details = React.lazy(() => import('./components/Details'));
+const Edit = React.lazy(() => import('./components/Edit'));
 
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import NotFoundPage from './components/NotFoundPage';
+const UserProfile = React.lazy(() => import('./components/UserProfile'));
+const Messages = React.lazy(() => import('./components/UserProfile/Messages/Messages'));
+const Discussion = React.lazy(() => import('./components/UserProfile/Messages/MessageCard/Discussion'));
 
-import Create from './components/Create';
-import Details from './components/Details';
-import Edit from './components/Edit';
-import IsOwner from './components/Guards/IsOwner';
+const AuthRoute = React.lazy(() => import('./components/Guards/AuthRoute'));
+const IsOwner = React.lazy(() => import('./components/Guards/IsOwner'));
 
+const NotFoundPage = React.lazy(() => import('./components/NotFoundPage'));
 
 function App() {
     return (
         <>
-            <AuthProvider>
-                <ArticleProvider>
-                    <Header />
-                    <section className="container">
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/catalog" element={<Catalog />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="details/:artId" element={<Details />} />
-                            <Route element={<AuthRoute />}>
-                                <Route path="/create" element={<Create />} />
-                                <Route path="/profile" element={<UserProfile />} />
-                                <Route path="/messages/:userId" element={<Messages />} />
-                                <Route path="/messages/:userId/:artId/:senderId" element={<Discussion />} />
-                                <Route element={<IsOwner />}>
-                                    <Route path="/edit/:artId" element={<Edit />} />
+            <Suspense fallback>
+                <AuthProvider>
+                    <ArticleProvider>
+                        <Header />
+                        <section className="container">
+                            <Routes>
+                                <Route path="/" element={<HomePage />} />
+                                <Route path="/catalog" element={<Catalog />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="details/:artId" element={<Details />} />
+                                <Route element={<AuthRoute />}>
+                                    <Route path="/create" element={<Create />} />
+                                    <Route path="/profile" element={<UserProfile />} />
+                                    <Route path="/messages/:userId" element={<Messages />} />
+                                    <Route path="/messages/:userId/:artId/:senderId" element={<Discussion />} />
+                                    <Route element={<IsOwner />}>
+                                        <Route path="/edit/:artId" element={<Edit />} />
+                                    </Route>
                                 </Route>
-                            </Route>
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
-                    </section>
-                    <Footer />
-                </ArticleProvider>
-            </AuthProvider>
+                                <Route path="*" element={<NotFoundPage />} />
+                            </Routes>
+                        </section>
+                        <Footer />
+                    </ArticleProvider>
+                </AuthProvider>
+            </Suspense>
         </>
 
     );
