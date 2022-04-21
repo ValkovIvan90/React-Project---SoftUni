@@ -66,7 +66,9 @@ export function uploadProfileImage(base64Enc) {
         },
         credentials: 'include',
         body: JSON.stringify({ data: base64Enc })
-    }).then(res => res.json());
+    }).then(res => res.json()).then(res =>
+        res.status === 200 ? window.location.reload() : ""
+    );
 }
 export function loadImages() {
     return fetch(`${REACT_APP_BASE_URL}/upload/loadImages`, {
@@ -81,5 +83,7 @@ export function deleteImageHandler(id) {
             'Content-Type': 'application/json',
         },
         credentials: 'include'
-    }).then(res => res.json());
+    }).then(res => res.json()).then(res =>
+        res.status === 200 ? window.location.reload() : ""
+    );
 }

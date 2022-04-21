@@ -10,6 +10,7 @@
 - Node.js
 - HTML & CSS
 - Font Awesome Icons
+- Cloudinary
 
 ## Functionality
 - Users and guests have access to the catalog with all uploaded items.

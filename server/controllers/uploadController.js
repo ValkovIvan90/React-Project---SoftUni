@@ -21,7 +21,7 @@ router.post('/uploadUserImg', async (req, res) => {
         user.image_id = uploadResponse.public_id;
         user.save();
         console.log(uploadResponse);
-        res.json({ msg: 'yaya' });
+        res.json({ msg: 'The image has ben succssefully added!', status: 200 });
     } catch (err) {
         console.error(err);
         res.status(500).json({ err: 'Something went wrong' });
@@ -52,7 +52,7 @@ router.post('/deleteImage/:id', preloadArt(), async (req, res) => {
 
         await cloudinary.uploader.destroy([imageId], (err, response) => {
             console.log(err, response);
-            if (response.result = 'ok') {
+            if (response.result == 'ok') {
                 user.image_id = "";
                 user.save();
 

@@ -25,9 +25,7 @@ export default function UserProfile() {
     const [selectedFile, setSelectedFile] = useState();
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isSended, setIsSended] = useState(false);
     const [imageId, setImageId] = useState('');
-
 
     useEffect(() => {
         loadImages().then(res => {
@@ -35,7 +33,8 @@ export default function UserProfile() {
         }).catch(err => {
             console.error(err);
         })
-    }, [isSended]);
+    }, []);
+
 
     useEffect(() => {
         setIsLoaded(false)
@@ -68,13 +67,12 @@ export default function UserProfile() {
         if (!selectedFile) return;
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
-        reader.onloadend = () => {
-            uploadProfileImage(reader.result);
+        reader.onloadend = async () => {
+            await uploadProfileImage(reader.result);
         };
         reader.onerror = () => {
             console.error('AHHHHHHHH!!');
         };
-        setIsSended(true);
     };
 
     return (
@@ -84,10 +82,10 @@ export default function UserProfile() {
                     <div className="profile-img-section">
                         {imageId ?
                             <Image
-                                cloudName='dkkvehvyx'
+                                cloudName={process.env.REACT_APP_CLOUDINARY_NAME}
                                 publicId={imageId}
                             />
-                            : <img src={"/images/avatar.jpg"} alt="" />
+                            : <img src={"/images/avatar.jpg"} alt="some error" />
                         }
                     </div>
                     {!imageId ?
@@ -101,11 +99,12 @@ export default function UserProfile() {
                                     value={fileInputState}
                                     className="form-input"
                                     style={{
-                                        width: "50%",
-                                        marginRight: "10px",
+                                        width: "100%",
+                                        color: "red",
+                                        margin: "auto",
                                     }}
                                 />
-                                <button className="btn" type="submit">
+                                <button className="uploadimage-btn" type="submit">
                                     Submit
                                 </button>
                             </form>

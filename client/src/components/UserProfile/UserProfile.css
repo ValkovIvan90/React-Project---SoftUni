@@ -48,15 +48,22 @@
   width: 50%;
   border-radius: 10px;
 }
-.uploadImg .submitbtn {
-  padding: 1 3px;
-  width: 95px;
-  margin: auto;
+.uploadimage-btn {
+  margin: 40px auto;
+  padding: 3px;
+  width: 50%;
+  border-radius: 5px;
+  background-color: #ceec08;
+  color: rgb(1, 23, 23);
+  font: italic small-caps bold 15px/15px Georgia, serif
 }
-.uploadImg .submitbtn:hover {
+.uploadimage-btn:hover {
   background-color: #a6f4ff;
 }
 
+form input ::-ms-value{
+  background-color:rebeccapurple;
+}
 .profile-info {
   width: 70%;
   background-color: floralwhite;
