@@ -29,36 +29,33 @@ const NotFoundPage = React.lazy(() => import('./components/NotFoundPage'));
 
 function App() {
     return (
-        <>
-            <Suspense fallback>
-                <AuthProvider>
-                    <ArticleProvider>
-                        <Header />
-                        <section className="container">
-                            <Routes>
-                                <Route path="/" element={<HomePage />} />
-                                <Route path="/catalog" element={<Catalog />} />
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<Register />} />
-                                <Route path="details/:artId" element={<Details />} />
-                                <Route element={<AuthRoute />}>
-                                    <Route path="/create" element={<Create />} />
-                                    <Route path="/profile" element={<UserProfile />} />
-                                    <Route path="/messages/:userId" element={<Messages />} />
-                                    <Route path="/messages/:userId/:artId/:senderId" element={<Discussion />} />
-                                    <Route element={<IsOwner />}>
-                                        <Route path="/edit/:artId" element={<Edit />} />
-                                    </Route>
+        <Suspense fallback>
+            <AuthProvider>
+                <ArticleProvider>
+                    <Header />
+                    <section className="container">
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/catalog" element={<Catalog />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="details/:artId" element={<Details />} />
+                            <Route element={<AuthRoute />}>
+                                <Route path="/create" element={<Create />} />
+                                <Route path="/profile" element={<UserProfile />} />
+                                <Route path="/messages/:userId" element={<Messages />} />
+                                <Route path="/messages/:userId/:artId/:senderId" element={<Discussion />} />
+                                <Route element={<IsOwner />}>
+                                    <Route path="/edit/:artId" element={<Edit />} />
                                 </Route>
-                                <Route path="*" element={<NotFoundPage />} />
-                            </Routes>
-                        </section>
-                        <Footer />
-                    </ArticleProvider>
-                </AuthProvider>
-            </Suspense>
-        </>
-
+                            </Route>
+                            <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                    </section>
+                    <Footer />
+                </ArticleProvider>
+            </AuthProvider>
+        </Suspense>
     );
 }
 
