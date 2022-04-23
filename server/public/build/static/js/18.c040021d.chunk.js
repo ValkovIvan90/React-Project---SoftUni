@@ -1,0 +1,2 @@
+(this.webpackJsonpclient=this.webpackJsonpclient||[]).push([[18],{317:function(n,e,t){},333:function(n,e,t){"use strict";t.r(e),t.d(e,"default",(function(){return s}));t(0),t(317);var c=t(1);function s(){return Object(c.jsx)(c.Fragment,{children:Object(c.jsxs)("div",{className:"wrong-page",children:[Object(c.jsx)("img",{className:"not-found-img",src:"images/notfound.png",alt:"not-found-page"}),Object(c.jsx)("h2",{className:"wrong-page-title",children:"Page not found"})]})})}}}]);
+//# sourceMappingURL=18.c040021d.chunk.js.map
