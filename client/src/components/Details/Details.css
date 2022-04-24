@@ -1,9 +1,9 @@
 .details {
-  max-width: 70%;
+  max-width: 80%;
   margin: 10px auto;
   background: #4a82cb;
   border-radius: 20px;
-  padding: 30px 50px;
+  padding: 30px 20px;
   line-height: 1.6;
 }
 .details-title {
