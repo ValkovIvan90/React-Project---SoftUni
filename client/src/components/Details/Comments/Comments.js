@@ -87,7 +87,7 @@ export default function Comments({ category }) {
                         id="comment-area"
                         name="comment"
                         placeholder="Comment ..."
-                        rows="4"
+                        rows="6"
                         cols="100"
                     />
                     <ErrorMessage name="comment" component={Notification} />

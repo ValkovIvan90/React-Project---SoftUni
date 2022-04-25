@@ -23,13 +23,16 @@
   margin-bottom: 10px;
   padding: 4px;
   border-radius: 5px;
+  font-weight: bold;
+  font-size: large;
 }
 #comment-area {
   max-width: 700px;
   border-radius: 5px;
   font-family: "Open Sans Condensed", sans-serif;
-  font-weight: bold;
+  font-weight: 600;
   padding-left: 7px;
+  font-size: large;
 }
 #cm-submit {
   max-width: 200px;

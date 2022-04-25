@@ -37,10 +37,7 @@
   height: 30px;
   border-radius: 20px;
   border: none;
-}
-input {
   padding-left: 20px;
-  max-width: calc(100% - 25px);
 }
 
 .register-form input:placeholder-shown {

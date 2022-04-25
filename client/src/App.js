@@ -9,10 +9,10 @@ const Header = React.lazy(() => import('./components/Header'));
 const Footer = React.lazy(() => import('./components/Footer'));
 
 const HomePage = React.lazy(() => import('./components/HomePage'));
-const Catalog = React.lazy(() => import('./components/catalog/Catalog'));
+const Catalog = React.lazy(() => import('./components/Catalog/Catalog'));
 
-const Login = React.lazy(() => import('./components/auth/Login'));
-const Register = React.lazy(() => import('./components/auth/Register'));
+const Login = React.lazy(() => import('./components/auth/login/Login'));
+const Register = React.lazy(() => import('./components/auth/register/Register'));
 
 const Create = React.lazy(() => import('./components/Create'));
 const Details = React.lazy(() => import('./components/Details'));

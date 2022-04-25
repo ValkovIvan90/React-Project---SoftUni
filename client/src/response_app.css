@@ -27,11 +27,11 @@
     min-width: 100%;
   }
   #comment-area {
-    width: 80%;
+    width: 95%;
     margin: auto;
   }
   #inp-name {
-    width: 50%;
+    width: 80%;
     margin: auto;
   }
   .comment-container {
@@ -258,4 +258,16 @@
     width: 6rem;
     margin-right: 20px;
   } 
+  .message-box .form{
+    min-width: 100%;
+  }
+  #text-msg,
+  #email-msg,
+  #message-area
+  {
+    min-width: 100%;
+    padding-left: 10px;
+    margin: 10px auto;
+    font-size: large;
+  }
 }
