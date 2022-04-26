@@ -67,7 +67,12 @@ export default function Login() {
                         />
                         <ErrorMessage name="password" component={Notification} />
 
-                        <input type="submit" className="loginBtn" value="Login" />
+                        <input
+                            type="submit"
+                            className="loginBtn"
+                            value="Login"
+                            data-testid="login-btn"
+                        />
                     </Form>
                 </Formik>
                 {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
