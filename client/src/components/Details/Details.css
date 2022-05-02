@@ -24,7 +24,7 @@
 }
 .details-info-img img {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   border-radius: 10px;
   box-shadow: -1px 1px 4px 2px #fdfefa;
 }

@@ -36,7 +36,6 @@ export default function Register() {
         } catch (err) {
             console.log(err);
         }
-
     }
 
 
@@ -61,6 +60,7 @@ export default function Register() {
                             type="text"
                             id="text"
                             name="username"
+                            data-testid="username"
                         />
                         <ErrorMessage name="username" component={Notification} />
 
@@ -70,6 +70,7 @@ export default function Register() {
                             type="email"
                             id="email"
                             name="email"
+                            data-testid="email"
                         />
                         <ErrorMessage name="email" component={Notification} />
 
@@ -78,6 +79,7 @@ export default function Register() {
                             type="password"
                             id="password"
                             name="password"
+                            data-testid="password"
                         />
                         <ErrorMessage name="password" component={Notification} />
 
@@ -86,6 +88,7 @@ export default function Register() {
                             type="password"
                             id="rePass"
                             name="rePass"
+                            data-testid="rePass"
                         />
                         <ErrorMessage name="rePass" component={Notification} />
 
