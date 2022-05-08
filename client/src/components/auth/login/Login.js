@@ -79,7 +79,7 @@ export default function Login() {
                 </Formik>
                 {serverErr.error !== undefined ? <ServerError serverError={serverErr.error} /> : ""}
                 <div className="signup">
-                    <p>Dont have an account? <Link data-testid="sign_up" to="/register">Sign up</Link>.</p>
+                    <p>Dont have an account? <Link to="/register">Sign up</Link>.</p>
                 </div>
             </div>
         </section>

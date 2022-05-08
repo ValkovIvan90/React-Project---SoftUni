@@ -35,7 +35,7 @@ export default function Create() {
                 </div>
                 <form>
                     <label htmlFor="category">Choose a category:</label>
-                    <select name="category" id="category" onChange={onChangeSelect}>
+                    <select data-testid="select-options" name="category" id="category" onChange={onChangeSelect}>
                         <option value=""></option>
                         <option value="cars">Cars</option>
                         <option value="animals">Animals</option>

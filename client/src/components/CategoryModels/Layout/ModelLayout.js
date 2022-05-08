@@ -40,7 +40,7 @@ export default function ModelLayout({ data }) {
             />
             <ErrorMessage name="description" component={Notification} />
             {data.price ? <input type="submit" className="createArtBtn" value="Edit Article" /> :
-                <input type="submit" className="createArtBtn" value="Create Article" />}
+                <input  type="submit" className="createArtBtn" value="Create Article" />}
         </>
     )
 }

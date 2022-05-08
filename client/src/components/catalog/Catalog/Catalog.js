@@ -53,10 +53,10 @@ export default function Catalog() {
         <section className="catalog">
             <h1 className="catalog-title">All added Articles</h1>
             <article className="cards">
-                {isLoaded ? 
-                 articles?.length > 0 ? articles.map(x => <ArtCard key={x._id} article={x} />) :
-                    <h1 className="sv-msg">No added articles</h1>
-                :<Spinner />}
+                {isLoaded ?
+                    articles?.length > 0 ? articles.map(x => <ArtCard key={x._id} article={x} />) :
+                        <h1 className="sv-msg">No added articles</h1>
+                    : <Spinner />}
             </article>
         </section >
     )

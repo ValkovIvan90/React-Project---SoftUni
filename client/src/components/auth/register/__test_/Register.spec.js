@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, waitFor, act, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { AuthProvider } from '../../../../context/UserDataContext';
@@ -6,17 +6,14 @@ import { BrowserRouter } from 'react-router-dom';
 import user from '@testing-library/user-event';
 
 import Register from '../Register';
-import { Formik } from 'formik'
+import { Form, Formik } from 'formik';
 describe(("Test Register component"), () => {
 
-    const handleSubmit = jest.fn();
     beforeEach(() => {
         render(
             <BrowserRouter>
                 <AuthProvider>
-                    <Register>
-                        <Formik onSubmit={handleSubmit} />
-                    </Register>
+                    <Register />
                 </AuthProvider>
             </BrowserRouter>
         );
@@ -141,30 +138,24 @@ describe(("Test Register component"), () => {
     });
 
     describe(("Click register button!"), () => {
-        it(("Should click register button!"), async () => {
+        it('should click register button!', async () => {
+            const handleSubmit = jest.fn();
+            render(
+                <Formik initialValues={{}}
+                    onSubmit={handleSubmit}>
+                    <Form>
+                        <input type="submit" className="registerbtn" value="Register" />
+                    </Form>
+                </Formik>
+            );
             await act(async () => {
-                await user.type(screen.getByTestId("username"), 'Johnny');
-                await user.type(screen.getByTestId("email"), 'john@someemail.com');
-                await user.type(screen.getByTestId("password"), '1234');
-                await user.type(screen.getByTestId("rePass"), '1234');
-            });
-
-            await act(async () => {
-                await user.click(screen.getByRole('button', {
+                await user.click(screen.getAllByRole('button', {
                     name: /register/i
-                }));
-            })
-
+                })[1])
+            });
             await waitFor(() => {
-                expect(handleSubmit).toHaveBeenCalledWith({
-                    username: 'Johnny',
-                    email: 'john@someemail.com',
-                    password: '1234',
-                    rePass: '1234'
-                })
-            })
-
-        })
-    })
-
+                expect(handleSubmit).toHaveBeenCalledTimes(1);
+            });
+        });
+    });
 });

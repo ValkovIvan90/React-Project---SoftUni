@@ -5,15 +5,15 @@ import user from '@testing-library/user-event';
 
 import { AuthProvider } from '../../../../context/UserDataContext';
 import { BrowserRouter } from 'react-router-dom';
+import { Form, Formik } from 'formik';
 
 import Login from '../Login';
 
-const handleSubmit = jest.fn();
 const MochFn = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Login onSubmit={handleSubmit} />
+                <Login />
             </AuthProvider>
         </BrowserRouter>
     );
@@ -99,8 +99,28 @@ describe(("Test Login component"), () => {
         it(("should show Login button!"), async () => {
             expect(screen.getByRole('button', { name: /login/i })).toHaveValue('Login');
         });
-        it(("title shiuld be false!"), async () => {
+        it(("title should be false!"), async () => {
             expect(screen.getByRole('button', { name: /login/i })).not.toHaveValue('Register');
+        });
+        it('should click login button!', async () => {
+            const handleSubmit = jest.fn();
+            render(
+                <Formik initialValues={{}}
+                    onSubmit={handleSubmit}>
+                    <Form>
+                        <input type="submit"
+                            className="loginBtn"
+                            value="Login"
+                            data-testid="login-btn" />
+                    </Form>
+                </Formik>
+            );
+            await act(async () => {
+                await user.click(screen.getAllByRole('button', { name: /login/i })[1])
+            });
+            await waitFor(() => {
+                expect(handleSubmit).toHaveBeenCalledTimes(1);
+            });
         });
     });
 
