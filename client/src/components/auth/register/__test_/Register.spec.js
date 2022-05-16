@@ -157,5 +157,8 @@ describe(("Test Register component"), () => {
                 expect(handleSubmit).toHaveBeenCalledTimes(1);
             });
         });
+        it(("expect url is correct"), async () => {
+            expect(screen.getByText(/Sign in/i).href).toContain('login');
+        })
     });
 });

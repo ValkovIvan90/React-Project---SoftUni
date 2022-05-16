@@ -122,6 +122,9 @@ describe(("Test Login component"), () => {
                 expect(handleSubmit).toHaveBeenCalledTimes(1);
             });
         });
+        it(("expect url is correct"), async () => {
+            expect(screen.getByText(/Sign up/i).href).toContain('register');
+        })
     });
 
 });
