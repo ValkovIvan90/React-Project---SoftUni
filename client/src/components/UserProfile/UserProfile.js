@@ -5,7 +5,7 @@ import UserContext from '../../context/UserDataContext';
 import { Image } from 'cloudinary-react';
 
 import './UserProfile.css';
-import ArtCard from '../Catalog/Card/ArtCard'
+import ArtCard from '../Dashboard/Card/ArtCard'; 
 import Spinner from '../Spinner';
 
 import { getUserLikedCreatedArticles } from '../../services/article';
