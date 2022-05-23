@@ -47,7 +47,7 @@ export default function Catalog() {
         return () => {
             setArticle([]);
         };
-    }, [name, userData._id])
+    }, [name, userData._id]);
 
     return (
         <section className="catalog">

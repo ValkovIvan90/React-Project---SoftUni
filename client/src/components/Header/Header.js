@@ -11,7 +11,11 @@ export default function Header() {
     return (
         <header>
             <article className="logo">
-                <li><Link to="/"><i className="fas fa-handshake"></i></Link ></li>
+                <li>
+                    <Link to="/">
+                        <i className="fas fa-handshake"></i>
+                    </Link >
+                </li>
                 <li className="userName"><Link to="/profile"> {userData.username ? `Welcome, ${userData.username}` : ""}</Link ></li>
 
                 {location.pathname !== "/" ?
