@@ -92,5 +92,26 @@ describe(("Test Header component"), () => {
                 })).toBeInTheDocument();
             });
         });
+        it(("show allow user to select category!"), async () => {
+
+            await user.click(screen.getAllByRole('link', {
+                name: /catalog/i
+            })[0]);
+
+            await user.click(screen.getAllByRole('button', {
+                name: /category/i
+            })[0])
+
+            expect(screen.getAllByRole('link', {
+                name: /cars/i
+            })[0]).toBeInTheDocument();
+            expect(screen.getAllByRole('link', {
+                name: /animals/i
+            })[0]).toBeInTheDocument();
+            expect(screen.getAllByRole('link', {
+                name: /clothing/i
+            })[0]).toBeInTheDocument();
+        })
+
     })
 })
