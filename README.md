@@ -13,5 +13,10 @@
 - Cloudinary
 
 ## Functionality
+
 - Users and guests have access to the catalog with all uploaded items.
 - Logged users have the functionality create/edit/delete their articles, send messages to other users and write comments.
+
+## Test
+
+ -To run client app test cd client and npm t
