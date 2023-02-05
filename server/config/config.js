@@ -33,6 +33,22 @@ const config = {
             origin: ["https://iwanttohave.herokuapp.com/"],
             credentials: true
         }
+    },
+    test: {
+        PORT: process.env.PORT || 80,
+        DB_CONNECTION: MONGO_URL,
+        TOKEN_SECRET: 'very secret token',
+        COOKIE_NAME: 'SESSION_DATA',
+        CLOUDINARY: {
+            cloud_name: process.env.CLOUDINARY_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        },
+        CORS: {
+            origin: ["https://iwanttohave.herokuapp.com/"],
+            credentials: true
+        }
     }
+
 }
 module.exports = config[env];

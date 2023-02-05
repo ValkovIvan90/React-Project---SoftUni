@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest --testEnvironment=node --coverage --verbose"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,8 @@
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "jest": "^28.1.0",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.2.3"
   }
 }
